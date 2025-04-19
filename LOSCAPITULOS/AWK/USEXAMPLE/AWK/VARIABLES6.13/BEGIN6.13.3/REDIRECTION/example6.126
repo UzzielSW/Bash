@@ -1,0 +1,11 @@
+ BEGIN{system("clear");
+        printf " %-22s%s\n","NAME", "DISTRICT"
+       }
+       /west/{count++}
+       { printf "%s %s\t\t%-15s\n", $3, $4, $1 | "sort -k 2"    }
+      END{
+          close("sort -k 2")
+          printf "The number of sales persons in the western "
+          print "region is " count "."
+         }   
+

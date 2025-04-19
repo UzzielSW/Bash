@@ -1,0 +1,1 @@
+ awk ' !($8 == 13) { print $8 } ' datafile

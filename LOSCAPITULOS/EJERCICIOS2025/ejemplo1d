@@ -1,0 +1,27 @@
+function error()
+{
+ echo "[ERROR] - $@"
+ exit 1
+}
+
+function showfile()
+{
+if [ ! -f $file ]
+     then
+   error  "El archivo $file no existe o no es un archivo regular"
+fi
+   
+	OLDIFS=$IFS
+	IFS=$'\n'
+	i=1
+	for linea in $(cat $file)
+	do
+  		echo "Linea $i: $linea"
+ 		 i=$(( i + 1 ))
+	done 
+IFS=$OLDIFS
+}
+for file in $@
+do
+  showfile
+done

@@ -1,0 +1,68 @@
+patron=$3
+ archivo=$4
+ contador=0
+ 
+   while getopts w: opcion
+   do
+   case "$opcion" in
+   w) veces=$OPTARG;;  
+   esac
+   done
+
+ if [ $OPTIND -gt $# ]
+ then
+      echo "Uso incorrecto del script  "   :   "  USO ADECUADO wgrep -w '#lineas' 'archivo'"
+ fi
+ 
+ if [ $OPTIND -lt $# ]
+ then
+
+ if [ -e "$archivo" ]
+ then
+ echo numero de veces $veces
+ cantidadL=$(cat "$archivo" | wc -l)
+ encontro=`cat "$archivo" | grep $patron`
+ Lencontradas=`echo "$encontro" | wc -l` 
+
+ echo CANTIDAD DE LINEAS DEL ARCHIVO: $cantidadL '#' LINEAS ENCONTRADAS: $Lencontradas
+ else
+ echo EL ARCHIVO $archivo NO EXISTE EN SU DIRECTORIO ACTUAL
+
+ fi
+      if [ $Lencontradas -gt 1 ]
+      then
+           echo EN EL ARCHIVO $archivo SE ENCONTRARON $Lencontradas OCURRENCIAS DEL PATRON $patron
+           while [ $cantidadL -ne 0 ]
+           do
+           contador=$((contador + 1))
+           linea=`sed -n ''"$contador"'p' $archivo`
+               if echo $linea | grep $patron > /dev/null
+               then
+               echo $linea  EN LA LINEA '#' $contador
+               sleep 3
+               fi
+           cantidadL=$((cantidadL - 1))
+           done
+           echo NO MAS OCURRENCIAS
+         
+           elif [ $Lencontradas -eq 1 ]
+           then
+                 linea=`cat "$archivo" | grep -n $patron | head -c1` 
+                 if [ $linea -eq 1 ]
+                 then
+                 echo EL PATRON SE ENCONTRO EN LA PRIMERA LINEA
+                 echo $encontro  
+                 fi 
+                
+                 if [ $linea -eq $cantidadL ]
+                 then
+                 echo EL PATRON SE ENCONTRO EN LA ULTIMA LINEA
+                 echo $encontro
+                  
+                 else
+                 echo EL PATRON SE ENCUENTRA EN LINEAS INTERMEDIAS, EXACTAMENTE EN LA LINEA '#' $linea
+                 echo $encontro
+
+                 fi
+         fi
+  fi

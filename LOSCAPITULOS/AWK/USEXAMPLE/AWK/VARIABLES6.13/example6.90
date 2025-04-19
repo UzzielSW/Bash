@@ -1,0 +1,1 @@
+awk -F: '$1 == "Mary Adams"{print NR, $1, $2, $NF}' employees2

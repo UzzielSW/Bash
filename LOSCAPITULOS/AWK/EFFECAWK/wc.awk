@@ -1,0 +1,72 @@
+BEGIN {
+     Optind=4
+     ARGC=4
+     while( Optind  > 1)
+     {
+      c=$1
+         if ( c = "-l")  
+            {
+              do_lines = 1
+            }
+         else if ( c = "-m")  
+              {
+              do_words = 1
+              }
+              else if ( c = "-c")  
+                   {               
+                    do_chars = 1
+                   }
+      Optind-- 
+    }
+
+  for ( i = 1; i < Optind; i++)
+      ARGV[i] = ""
+
+  if ( ! do_line && ! do_words && ! do_chars  )
+        do_lines = do_words = do_chars = 1
+   print_total = (ARGC - 1 > 2 )
+}
+
+function beginfile(file)
+{
+ chars = words = line = 0
+ fname = FILENAME
+}
+
+function endfile(file)
+{
+  tchars += chars
+  tlines += lines
+  twords += words
+
+  if ( do_lines)
+   printf "\t%d", lines
+   
+  if ( do_words)
+   printf "\t%d", words 
+
+  if ( do_chars)
+   printf "\t%d", chars 
+
+printf "\t%s\n", fname
+}
+
+{ chars += length($0) + 1
+  lines++
+  words +=NF
+}
+
+END{
+ if ( print_total)
+  {
+  if ( do_lines)
+   printf "\t%d", tlines
+   
+  if ( do_words)
+   printf "\t%d", twords 
+
+  if ( do_chars)
+   printf "\t%d", tchars 
+  }
+}
+    

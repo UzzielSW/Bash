@@ -1,0 +1,1 @@
+awk '/^[ns]/{print $1}' datafile

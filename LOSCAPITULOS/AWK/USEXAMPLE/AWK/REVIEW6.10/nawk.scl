@@ -1,0 +1,2 @@
+/^north/{print $1, $2, $3}
+/^south/{ print "The " $1 " district."}

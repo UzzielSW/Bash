@@ -1,0 +1,12 @@
+while IFS= read -r mac || [[ -n "$mac" ]]; do
+     if [[ $mac =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
+             echo "$mac es una dirección MAC valida"
+     fi
+done < "$1" 
+
+
+while IFS= read -r mac || [[ -n "$mac" ]]; do
+     if [[ $mac =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
+             echo "$mac es una dirección MAC valida"
+     fi
+done < "$1"

@@ -1,0 +1,23 @@
+
+file=$1
+if [ -z $file ]
+then
+   echo "ERROR"
+   echo "Se debe proporcionar una ruta del fichero como parametro"
+   exit 1
+elif [ ! -f $file ]
+     then
+   echo "ERROR"
+   echo "El archivo $file no existe o no es un archivo regular"
+   exit 2
+fi
+   
+OLDIFS=$IFS
+IFS=$'\n'
+i=1
+for linea in $(cat $file)
+do
+  echo "Linea $i: $linea"
+  i=$(( i + 1 ))
+done 
+IFS=$OLDIFS

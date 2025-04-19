@@ -1,0 +1,241 @@
+multiplica()
+{
+band=0
+if [ "$#" -ne 2 ]
+then
+    echo "USO: multiplica factor1 factor2"
+band=1
+#    exit 1
+fi
+
+factor1="$1"
+factor2="$2"
+producto=0
+signo1=1
+factor1N=` echo "$factor1" | grep  "^-[0-9][0-9]*$" ` 
+if [ -n "$factor1N" ]
+then 
+    signo1=-1
+    factor1=`echo "$factor1N" | sed "s/^-//"`
+fi
+
+signo2=1
+factor2n=`echo "$factor2" | grep  "^-[0-9][0-9]*$" ` 
+if [  -n "$factor2n" ]
+then 
+    signo2=-1
+    factor2=`echo "$factor2n" | sed "s/^-//"`
+fi
+
+
+factor1=`echo "$factor1" | grep  "^[0-9][0-9]*$"`
+factor2=`echo "$factor2" | grep "^[0-9][0-9]*$"`
+
+if [ \( -n "$factor1" -a  -n "$factor2" \)  ]
+then
+  if [ "$factor1" -ne 0  -a "$factor2" -ne 0 ]
+  then
+          cont=0
+           while [ "$factor1" -gt 0  ]
+           do
+             factor1=`expr  $factor1 - 1 `
+             cont=`expr  $cont + $factor2 `
+            done
+  else 
+
+       echo 0
+band=1
+#       exit 3
+   fi
+else 
+    echo "ingrese enteros"
+    band=1
+#    exit 2
+ fi  
+if [ "$band" -ne 1 ]
+then
+if [ \(  \(  "$signo1" -eq -1 \) -a \( "$signo2" -eq -1 \) \) -o \( \( "$signo1" -eq 1 \) -a \( "$signo2" -eq 1 \) \)   ]
+            then
+               :
+            else 
+             cont=` expr  -1 \* "$cont" `
+           fi
+if [ -n "$cont" ]
+then
+           echo "producto = $cont "
+  else
+           echo "producto = $producto "
+fi      
+fi
+#         exit 0
+}
+dividir()
+{
+band=0
+if [ "$#" -ne 2 ]
+then
+    echo "USO: dividir dividendo divisor"
+    band=1
+#    exit 1
+fi
+
+DIV="$1"
+divisor="$2"
+cociente=0
+signo1=1
+DIVN=` echo "$DIV" | grep  "^-[0-9][0-9]*$" ` 
+if [ -n "$DIVN" ]
+then 
+    signo1=-1
+    DIV=`echo "$DIVN" | sed "s/^-//"`
+fi
+
+signo2=1
+divin=`echo "$divisor" | grep  "^-[0-9][0-9]*$" ` 
+if [  -n "$divin" ]
+then 
+    signo2=-1
+    divisor=`echo "$divin" | sed "s/^-//"`
+fi
+
+
+DIV=`echo "$DIV" | grep  "^[0-9][0-9]*$"`
+divisor=`echo "$divisor" | grep "^[0-9][0-9]*$"`
+
+if [ \( -n "$DIV" -a  -n "$divisor" \)  ]
+then
+  if [ "$DIV" -ne 0 ]
+  then
+    if [ "$divisor" -ne 0 ]
+    then
+        divisible=`expr  "$DIV" % "$divisor" `
+        if [  "$divisible" -eq 0 ]
+        then
+            echo " $DIV es divisible exactamente entre $divisor"
+
+         else
+            echo " $DIV no es divisible exactamente entre $divisor"
+         fi
+          cont=0
+           while [ "$DIV" -ge "$divisor" ]
+           do
+             DIV=`expr  $DIV - $divisor `
+             cont=`expr  $cont + 1 `
+            done
+
+     else 
+         echo "No se puede dividir entre: $divisor"
+         band=1
+#         exit 1
+     fi
+else  if [ "$divisor" -eq 0 ]
+      then
+        echo "division no definida"
+         band=1
+#        exit 4
+      fi 
+fi
+else 
+    echo "ingrese enteros"
+    band=1
+#    exit 2
+ fi  
+if [ \(  \(  "$signo1" -eq -1 \) -a \( "$signo2" -eq -1 \) \) -o \( \( "$signo1" -eq 1 \) -a \( "$signo2" -eq 1 \) \)   ]
+then
+   :
+else 
+    cont=` expr  -1 \* "$cont" `
+fi
+if [ "$band" -ne 1 ]
+ then
+    if [ -n "$cont" ]
+    then
+           echo "cociente = $cont "
+           echo  "residuo =$DIV "
+    else
+           echo "cociente = $cociente "
+    fi      
+fi
+#         exit 0
+}
+#
+#
+#
+#  Version 2
+#
+# Si se suministra argumento entonces busca
+#
+
+validchoice=""
+
+#
+#  Bucle hasta que una sleccion valida se escoja
+#
+
+until [ !  -z  "$validchoice" ]
+do
+    #
+    # Despliega el Menu
+    #
+ clear
+#
+# Despliega el menu
+#
+#
+echo -n " 
+      Ud desea:
+
+               1. dividir
+               2. multiplicar
+               3. potencia
+               4. residuo
+               5. Salir
+      Seleccione (1-5):   "
+
+#
+#
+# Lee y procesa la seleccion
+#
+
+read choice
+echo
+
+ case  "$choice"
+  in
+      1) echo -n "Entre el dividendo:   "
+         read dividendo
+         echo -n "entre el divisor:     "
+         read divisor
+        dividir $dividendo $divisor;;
+#         validchoice=TRUE;;
+
+      2) echo -n "Entre el factor 1: "
+         read factor1
+         echo -n "entre el factor 2: "
+         read factor2
+         multiplica $factor1 $factor2;;
+#         validchoice=TRUE;;
+      3) echo -n "entre la  base : "
+         read base
+         echo -n "entre el exponente : "
+         read expo2
+         potencia $base $expo2;;
+#
+ 
+      4) echo -n "entre el dividendo : "
+         read Div
+         echo -n " entre el divisor : "
+         read divisor
+         residuo $Div $divisor;;
+     5) echo "Adios..."
+         validchoice="TRUE";;
+      
+      *) echo "Opcion Invalida";;
+
+  esac
+if [ $choice -ne 5 ]
+then
+    echo  -n "Teclee Enter para continuar "
+    read respuesta
+fi
+done

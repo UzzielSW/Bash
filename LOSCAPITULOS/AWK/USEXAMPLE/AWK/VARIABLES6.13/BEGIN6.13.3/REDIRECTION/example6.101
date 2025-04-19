@@ -1,0 +1,1 @@
+awk 'BEGIN{ while (getline < "/etc/passwd" > 0 )lc++; print lc}' File 

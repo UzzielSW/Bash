@@ -1,0 +1,1 @@
+ls -l | tr ' ' ' ' |awk 'BEGIN { total = 0 } { $6 == "May"; total= total+ $5} END { print total }'

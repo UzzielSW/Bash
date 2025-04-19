@@ -1,0 +1,3 @@
+#! /bin/awk -f
+# Un programa awk de ejemplo
+BEGIN {  print "Hola Mundo" }

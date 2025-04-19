@@ -1,0 +1,2 @@
+awk -F: '{IGNORECASE=1};\
+$1 == "mary adams"{print NR, $1, $2, $NF}' employees2

@@ -1,0 +1,5 @@
+clear
+text="Universidad de Panama I semestre 2022"
+echo $text 
+text=$(echo $text | sed 's/ //g' ) 
+echo  "sin  espacios:  $text"

@@ -1,0 +1,3 @@
+/Tom/{print "Tom's birthday is "$3}
+/Mary/{print NR, $0}
+/^Sally/{ print "Hi Sally. "  $1 " has a salary of $" $4 "."} 

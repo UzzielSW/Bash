@@ -1,0 +1,7 @@
+echo En el sistema hay  $(who | sed 's/ .*$//' | sort | uniq | wc -l)
+echo  "estudiantes"
+
+echo "Sus nombres son:"
+
+who  | sed 's/ .*$//' > pino 
+ cat pino  

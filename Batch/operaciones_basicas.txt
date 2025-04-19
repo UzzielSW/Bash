@@ -1,0 +1,31 @@
+@echo off
+:INICIO
+cls
+set n1=%1
+set n2=%2
+set n3=%3
+
+echo numeros A=%n1% y B=%n2% y C=%n3%
+
+set/a res1=n1*n1
+echo area de un cuadrado a*a =%res1%
+
+set/a res2=n1*n2/2
+echo area de un triangulo b*h/2 =%res2%
+
+set/a res3=n1+n2*n3/2
+echo area de un trapecio B+b*h/2 =%res3%
+
+set/a res4=n1*n2/2
+echo area de un rombo D*d/2 =%res4%
+
+set/a res5=n1*n2
+echo area de un rectangulo b*h =%res5%
+
+set/a res6=n1*n2
+echo area de un paralelogramo b*h =%res6%
+
+set/a res7=n1*n2
+echo area de un romboide b*h =%res7%
+
+exit

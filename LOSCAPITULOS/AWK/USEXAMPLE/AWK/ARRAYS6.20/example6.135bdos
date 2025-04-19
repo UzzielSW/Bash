@@ -1,0 +1,11 @@
+awk 'BEGIN{ 
+            x=0
+            i= 0
+          }
+    { 
+     id[NR]=$3  
+
+    }
+
+   END{ for( i=1; i<= NR; i++) print id[i] }' employees2b
+    

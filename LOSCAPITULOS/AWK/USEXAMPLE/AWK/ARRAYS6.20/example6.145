@@ -1,0 +1,6 @@
+ BEGIN{  
+       FS=":"; name=ARGV[2]
+       print "ARV[2] is " ARGV[2]
+      }
+  $1 ~ name { print $0 }
+

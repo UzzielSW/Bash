@@ -1,0 +1,3 @@
+awk ' BEGIN{system("clear"); print "\t\t----------EMPLOYEES----------\n"}\
+{ print  $0 }' datafile
+

@@ -1,0 +1,34 @@
+file=$1
+function error()
+{
+ echo "[ERROR] - $@"
+ exit 1
+}
+
+function checkConstrains()
+{
+if [ -z $file ]
+then
+   error "Se debe proporcionar una ruta del fichero como parametro"
+elif [ ! -f $file ]
+     then
+   error  "El archivo $file no existe o no es un archivo regular"
+fi
+
+echo "el contenido de $file es: "
+echo
+}
+function recorrefichero()
+{
+	IFS=$'\n'
+	i=1
+	for linea in $(cat $file)
+	do
+  		echo "Linea $i: $linea"
+ 		 i=$(( i + 1 ))
+	done 
+IFS=$OLDIFS
+}
+
+checkConstrains
+recorrefichero

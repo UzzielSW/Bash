@@ -1,0 +1,3 @@
+awk ' BEGIN{system("clear")}
+{ print NR,$0}' datafile
+

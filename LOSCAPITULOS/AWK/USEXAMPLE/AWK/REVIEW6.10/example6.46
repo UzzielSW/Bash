@@ -1,0 +1,1 @@
+awk '$4 ~/Chin$/{print "The price is $" $8 "."}' datafile

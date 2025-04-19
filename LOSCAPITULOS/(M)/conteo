@@ -1,0 +1,3 @@
+frase="universidad"
+length=$(echo $frase | grep -o '.' | wc -l)
+echo $length

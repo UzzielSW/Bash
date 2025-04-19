@@ -1,0 +1,2 @@
+awk ' BEGIN{system("clear"); FS=":";OFS="\t"};/^Sharon/ { print $1, $2,$7 }' datafile2
+

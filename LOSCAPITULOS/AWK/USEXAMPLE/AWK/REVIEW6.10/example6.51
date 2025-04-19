@@ -1,0 +1,1 @@
+awk -F: '{print "Number of fieds:"NF}' datafile2

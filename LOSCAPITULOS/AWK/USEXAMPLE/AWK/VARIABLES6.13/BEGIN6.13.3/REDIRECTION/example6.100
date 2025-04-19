@@ -1,0 +1,4 @@
+awk 'BEGIN{ printf "What is your name?:" ;\
+     getline name < "/dev/tty"}\
+     $1 ~name { print "Found  " name " on line ", NR "."} \
+     END { print "See ya, " name  "."}'employees 

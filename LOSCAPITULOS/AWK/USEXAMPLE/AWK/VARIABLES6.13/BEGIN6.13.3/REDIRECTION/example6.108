@@ -1,0 +1,3 @@
+awk ' BEGIN{system("clear")}
+/^north/{ print "The record number is "NR}' datafile
+

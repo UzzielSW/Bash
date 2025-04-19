@@ -1,0 +1,5 @@
+# name: nu
+# author: lole
+# fecha:
+# version
+echo Existen $(who | cut -c1-8 | sort -u | wc -l) usuarios en el sistema

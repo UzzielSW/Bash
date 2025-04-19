@@ -1,0 +1,2 @@
+ awk '$3 ~/^Susan/\
+ { print "Percentage: "$6 + .2 " Volume: " $8 } ' datafile

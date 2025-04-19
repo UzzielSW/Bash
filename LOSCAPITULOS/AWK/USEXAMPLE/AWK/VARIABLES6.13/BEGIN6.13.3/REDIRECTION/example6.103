@@ -1,0 +1,5 @@
+ BEGIN{system("clear")}
+{ print $1, $2  | "sort -r +1 -2 +0 -1 "}
+END{
+close("sort -r +1 -2 +0 -1")
+}

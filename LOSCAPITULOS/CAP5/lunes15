@@ -1,0 +1,8 @@
+#   este programa cuenta el de usuarios en el sistema
+#  program name:  cuantos
+#  version: 1
+# date: 15/04/2019
+# author: Alvaro Pino 
+#
+
+who | sed 's/  .*$//' | sort -u | wc -l

@@ -1,0 +1,4 @@
+awk -F: ' BEGIN{system("clear")}
+{OFMT="%.2f";}
+END{ print 1.2456789, 12E-2}' datafile2
+

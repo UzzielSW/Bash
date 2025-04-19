@@ -1,0 +1,2 @@
+awk '{if( $8 > 15) { print $3, "has a high rating"}
+      else print $3, "---NOT A COMPETITION---"}' datafile

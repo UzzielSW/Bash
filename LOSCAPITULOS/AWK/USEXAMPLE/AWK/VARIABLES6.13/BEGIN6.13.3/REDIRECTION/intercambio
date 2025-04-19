@@ -1,0 +1,5 @@
+awk '{print   $3, $4,$1,$2, $5,$6,$7,$8}' datafile >temp
+cat temp | tr -s ' ' ':' >temp2
+cat temp2 | sed 's/:/ /' > temp3
+mv temp3 datafile2
+rm temp temp2  

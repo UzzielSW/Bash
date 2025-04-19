@@ -1,0 +1,1 @@
+awk '/Mary/{count++}END {print "Mary was found " count " times."}' employees

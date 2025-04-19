@@ -1,0 +1,51 @@
+#
+#  Bucle hasta que una sleccion valida se escoja
+#
+
+until [ !  -z  "$validchoice" ]
+do
+    #
+    # Despliega el Menu
+    #
+ clear
+#
+# Despliega el menu
+#
+#
+echo -n " 
+      Ud desea:
+
+               1. buscar tipo cuenta
+               2. Salir
+      Seleccione (1-2):   "
+
+#
+#
+# Lee y procesa la seleccion
+#
+
+read choice
+validaentero=$( echo $choice | grep "^[0-9][0-9]*$" > /dev/null)
+
+if [ "$?" -ne 0 ]
+then
+   echo "Error"
+   choice=3
+fi
+ case  "$choice"
+  in
+      1) echo -n "Buscar Tipo Cuenta: "
+         example25.awk
+         ;;
+     2) echo "Adios..."
+         validchoice="TRUE";;
+      
+      *) echo "Opcion Invalida";;
+
+  esac
+if [ $choice -ne 2 ]
+then
+    echo  -n "Teclee Enter para continuar "
+    read respuesta
+fi
+done

@@ -1,0 +1,4 @@
+# This program prints a nice friendly
+# keep novice users from being afraid of the computer.
+! /bin/awk -f
+ BEGIN { print "Don't Panic !" } 

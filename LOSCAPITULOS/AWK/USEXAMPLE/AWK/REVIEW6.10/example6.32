@@ -1,0 +1,1 @@
+awk '/^(no|so)/' datafile

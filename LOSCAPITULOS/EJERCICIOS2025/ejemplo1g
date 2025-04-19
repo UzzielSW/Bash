@@ -1,0 +1,69 @@
+#!/bin/bash
+#
+# Recorre un fichero mostrando en pantalla el contenido línea a línea
+#
+# Autor: Javier Pedrero Martín - javier@educatica.es
+# Fecha: Marzo 2024
+#
+# Modificado para dar solución a que se puedan pasar más de un archivo
+# en la línea de comando. Al final lista loa nombres de los archivos que 
+# se pasaron y no existen.
+# Autor de la Modificación: Álvaro Pino Niño - alvaropino@cwpanama.net
+# Fecha: 4 de Marzo de 2025
+
+function error()
+{
+ echo "[ERROR] - $@"
+ exit 1
+}
+
+function checkConstrains()
+{
+if [ -z "$1" ]
+then
+   error "Se debe proporcionar una ruta del fichero como parametro"
+elif [ ! -f "$1" ]
+     then
+   error  "El archivo "$1" no existe o no es un archivo regular"
+fi
+
+echo "el contenido de ---"$1"--- es: "
+echo
+}
+function recorrefichero()
+{
+	IFS=$'\n'
+	i=1
+	for linea in $(cat "$1")
+	do
+  		echo "Linea $i: $linea"
+ 		 i=$(( i + 1 ))
+	done 
+IFS=$OLDIFS
+}
+filelist=
+filenoexist=
+#Procesa los argumentos pasados
+#
+while [ "$#" -gt 0 ]
+do
+   if [ -f "$1" ]
+   then
+    filelist="$filelist $1"
+   else  filenoexist="$filenoexist $1"
+        
+   fi
+   shift
+done
+for archivo in $filelist
+do
+checkConstrains $archivo
+recorrefichero  $archivo
+done
+if [ -n "$filenoexist" ]
+then
+    echo " Los siguientes archivos no existen: "
+    echo "$filenoexist"
+    echo " y no se listaron"
+fi
+

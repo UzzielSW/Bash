@@ -1,0 +1,8 @@
+awk 'BEGIN{ 
+            x=0
+            i= 0
+          }
+    { 
+     name[x++]=$2 ; printf " %d %s \n",i, name[i++]
+    }' employees2b
+    

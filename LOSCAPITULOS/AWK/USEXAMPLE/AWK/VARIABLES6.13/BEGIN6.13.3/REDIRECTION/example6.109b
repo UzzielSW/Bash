@@ -1,0 +1,3 @@
+awk ' BEGIN{system("clear")}
+{ printf "%d %30s\n",   NR,$0}' datafile
+

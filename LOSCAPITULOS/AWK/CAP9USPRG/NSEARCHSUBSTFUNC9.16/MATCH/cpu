@@ -1,0 +1,1 @@
+ps -aux | awk 'match($0, /cpu/) {print $0 " La longitud" RSTART" La longitud del parámetro es " RLENGTH}'

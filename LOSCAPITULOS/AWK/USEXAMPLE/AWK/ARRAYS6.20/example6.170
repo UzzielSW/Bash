@@ -1,0 +1,5 @@
+awk  'BEGIN{ RS=""; FS="\n";ORS="\n\n"}
+           { print NF}
+          { print NR, $1,$2,$3,$4} ' checkbook
+
+          

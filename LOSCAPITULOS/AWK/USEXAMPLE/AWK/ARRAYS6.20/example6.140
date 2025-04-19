@@ -1,0 +1,4 @@
+awk 'BEGIN{ 
+           split("3/15/2004",date,"/");\
+          print "The month is " date[1] " and the year is " date[3] }' filename
+    

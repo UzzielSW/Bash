@@ -1,0 +1,5 @@
+echo "buenas noches"
+date
+echo "Estan logueados" 
+who | wc -l 
+

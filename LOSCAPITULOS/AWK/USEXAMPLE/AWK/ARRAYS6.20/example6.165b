@@ -1,0 +1,10 @@
+awk 'BEGIN { OFS="\t" 
+              FS=":"
+              count = 0
+           }
+
+  /north/{ name[count++] = $2}
+END{ print "The number living in a northern district: " count;
+     print "Their names are: ";
+    for (i in name )  {print name[i]}
+   }' datafile2

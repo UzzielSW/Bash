@@ -1,0 +1,11 @@
+awk ' BEGIN{system("clear");
+        print " _______________________" > "district"
+        print "|                       |">> "district"
+       }
+       /north/{ print "|" $1, $3, $4"\t|"> "district" }
+
+      END{
+      #  print "|               |" 
+        print "|_______________________|" >>"district"
+         }  ' datafile
+

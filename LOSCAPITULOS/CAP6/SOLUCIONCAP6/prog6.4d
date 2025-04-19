@@ -1,0 +1,2 @@
+namesList=$(  tr -s '\12' ' '  < names)
+echo $namesList

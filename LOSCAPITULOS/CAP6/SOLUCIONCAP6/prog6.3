@@ -1,0 +1,12 @@
+clear
+text="Universidad de Panama I semestre 2022"
+echo $text 
+text2=$(echo $text | tr -d ' ' ) 
+echo  "sin  espacios:  $text2"
+cuantostext=$(echo $text2 | tr -d ' '  | wc -c) 
+echo  "cuantos caracteres sin espacio:  $cuantostext "
+textsinnum=$(echo $text2 | tr -d ' ' | tr -d '[0-9]'  ) 
+echo  " Texto sin numeros:  $textsinnum"
+
+numCartext=$(echo $textsinnum | tr -d ' ' |  wc -c) 
+echo "cantidad de caracteres de texto sin numeros:  $numCartext"

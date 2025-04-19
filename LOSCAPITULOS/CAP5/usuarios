@@ -1,0 +1,17 @@
+#
+# Program name: usuarios
+# Author: Prof. Alvaro Pino N.ç
+# date: 13/04/2010
+# version: 1
+# display current date and time, the number of users on the
+# system and the current working directory
+#
+clear
+echo The current date and time is:
+date
+echo
+echo the number of users on the  System is:
+who | cut -c1-8 | sort -u | wc -l
+echo
+echo Your current working directory is:
+pwd

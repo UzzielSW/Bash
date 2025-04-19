@@ -1,0 +1,1 @@
+ awk ' /northeast/ { print $8 / 3  } ' datafile

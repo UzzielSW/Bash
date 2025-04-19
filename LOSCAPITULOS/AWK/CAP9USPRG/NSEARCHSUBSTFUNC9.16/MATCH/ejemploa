@@ -1,0 +1,6 @@
+{
+  t =  match($0, /^.*,$/) 
+ 
+  if ( t  > 0 )
+    print NR, substr($0, RSTART, RLENGTH)
+}

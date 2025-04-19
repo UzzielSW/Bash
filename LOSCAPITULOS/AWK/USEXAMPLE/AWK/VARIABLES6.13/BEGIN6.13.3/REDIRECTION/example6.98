@@ -1,0 +1,1 @@
+awk 'BEGIN{ "date" | getline d;split(d,mon); print mon [2]}' filename

@@ -1,0 +1,45 @@
+#
+#
+# capitulo9
+#
+# monsyst2
+# Espera que un usuario entre al sistema
+#
+# version 2
+
+if [ "$1" = -m ]
+then 
+    mailopt=TRUE
+    shift
+else
+    mailopt=FALSE
+fi
+if [ "$#" -eq 0 -o "$#" -gt 1 ]
+then 
+   echo "USO: monsyst2 [-m]  usuario"
+   echo "     -m informar por correo"
+   exit 1
+fi
+user="$1"
+#
+# verifica cada minuto paraver si el
+# usuario entra al sistema
+
+until who | grep "^$user " > /dev/null
+do
+   sleep 60
+done
+#
+# cuando el usuario es encontrado
+
+# echo  "$user esta en el sistema"
+
+# El usuario ya entro al sistema
+#
+if [ "$mailopt" = FALSE ]
+then
+     echo "$user ingreso al sistema"
+else
+     runuser=`who am i | cut -c1-8`
+     echo "$user ingreso al sistema a las $(date)" | mail $runuser
+fi

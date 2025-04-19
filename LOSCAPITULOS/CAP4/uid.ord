@@ -1,0 +1,54 @@
+abrt:x:173:173::/etc/abrt:/sbin/nologin
+acordoba:x:1001:1001::/home/acordoba:/bin/bash
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+amorales:x:1034:1002:Morales Alexis:/home/amorales:/bin/bash
+apino:x:1002:1002::/home/apino:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+chrony:x:997:995::/var/lib/chrony:/sbin/nologin
+dacastillo:x:1015:1015::/home/dacastillo:/bin/bash
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+dbus:x:81:81:System message bus:/:/sbin/nologin
+faustino:x:1014:1014::/home/faustino:/bin/bash
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+gaitanr:x:1033:1002:Gaitan Reyes:/home/gaitanr:/bin/bash
+games:x:12:100:games:/usr/games:/sbin/nologin
+gerika1:x:1016:1002::/home/gerika1:/bin/bash
+gramon2:x:1017:1002::/home/gramon2:/bin/bash
+greyes:x:1030:1002::/home/greyes:/bin/bash
+halt:x:7:0:halt:/sbin:/sbin/halt
+hjonathan3:x:1018:1002::/home/hjonathan3:/bin/bash
+ivillareal:x:1029:1002::/home/ivillareal:/bin/bash
+labrego5:x:1020:1002::/home/labrego5:/bin/bash
+libstoragemgmt:x:998:997:daemon account for libstoragemgmt:/var/run/lsm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+lzaydeth4:x:1019:1002::/home/lzaydeth4:/bin/bash
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+malexis:x:1032:1002::/home/malexis:/bin/bash
+mgilberto7:x:1022:1002::/home/mgilberto7:/bin/bash
+mmanuel:x:1031:1002::/home/mmanuel:/bin/bash
+mmilagros6:x:1021:1002::/home/mmilagros6:/bin/bash
+nfsnobody:x:65534:65534:Anonymous NFS User:/var/lib/nfs:/sbin/nologin
+nobody:x:99:99:Nobody:/:/sbin/nologin
+ntp:x:38:38::/etc/ntp:/sbin/nologin
+ocarun:x:994:993:Oracle Cloud Agent Runcommand Service User:/var/lib/ocarun:/usr/sbin/nologin
+opc:x:1000:1000:Oracle Public Cloud User:/home/opc:/bin/bash
+operator:x:11:0:operator:/root:/sbin/nologin
+oracle-cloud-agent-updater:x:995:993:Oracle Cloud Agent Updater Service User:/var/lib/oracle-cloud-agent:/usr/sbin/nologin
+oracle-cloud-agent:x:996:993:System user for the Oracle cloud agent:/var/lib/oracle-cloud-agent:/usr/sbin/nologin
+pisaac8:x:1023:1002::/home/pisaac8:/bin/bash
+polkitd:x:999:998:User for polkitd:/:/sbin/nologin
+postfix:x:89:89::/var/spool/postfix:/sbin/nologin
+rjorge9:x:1024:1002::/home/rjorge9:/bin/bash
+root:x:0:0:root:/root:/bin/bash
+rpcuser:x:29:29:RPC Service User:/var/lib/nfs:/sbin/nologin
+rpc:x:32:32:Rpcbind Daemon:/var/lib/rpcbind:/sbin/nologin
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+sneftali10:x:1025:1002::/home/sneftali10:/bin/bash
+sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+sthalia11:x:1026:1002::/home/sthalia11:/bin/bash
+sync:x:5:0:sync:/sbin:/bin/sync
+systemd-network:x:192:192:systemd Network Management:/:/sbin/nologin
+tcpdump:x:72:72::/:/sbin/nologin
+tomcat:x:53:53:Apache Tomcat:/usr/share/tomcat:/sbin/nologin
+vana13:x:1028:1002::/home/vana13:/bin/bash
+vjone12:x:1027:1002::/home/vjone12:/bin/bash

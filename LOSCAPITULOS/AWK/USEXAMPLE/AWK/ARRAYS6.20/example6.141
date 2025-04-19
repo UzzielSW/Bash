@@ -1,0 +1,4 @@
+awk '
+
+{ line[x++]=$2 }; END{ for ( x in line )  delete(line[x]) } ' filename 
+    

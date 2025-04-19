@@ -1,0 +1,1 @@
+ awk '/Derek/{ $8 += 12; print $8} '  datafile

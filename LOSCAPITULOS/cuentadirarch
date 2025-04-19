@@ -1,0 +1,24 @@
+DI=0
+FI=0
+
+for I in $1/*
+do
+  if [ -f $I ]
+  then
+
+    echo $I >> archivos
+  else
+      if [ -d $I ]
+      then 
+       
+        echo $I >> directorios
+
+      fi
+ fi
+done
+
+wc -l archivos 
+wc -l directorios
+
+
+

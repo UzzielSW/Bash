@@ -1,0 +1,17 @@
+filelist=
+#Procesa los argumentos pasados
+#
+while [ "$#" -gt 0 ]
+do
+ #  if [ -f "$1" ]
+  # then
+   filelist="$filelist $1"
+  # else
+  #     echo " $1 no existe !"
+  # fi
+   shift
+done
+for archivo in $filelist
+do
+echo $archivo
+done

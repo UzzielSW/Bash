@@ -1,0 +1,1 @@
+awk -F: '/Tom Jones/{print $1, $2}' employees2

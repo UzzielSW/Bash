@@ -1,0 +1,9 @@
+file=$1
+oldIFS=$IFS
+IFS=$'\n'
+i=1
+for linea in $(cat $file)
+do
+  echo "Linea $i: $linea"
+  i=$(( i + 1 ))
+done 

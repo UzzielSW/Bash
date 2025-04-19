@@ -1,0 +1,2 @@
+namesList=$( cat names |  sort -u | tr -s '\12' ' ')
+echo $namesList

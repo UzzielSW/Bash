@@ -1,0 +1,4 @@
+awk '
+
+{ printf  substr($0,1,6)" "; printf substr($0,7,6)" ";\
+  print substr($0,13,length) } ' fixed

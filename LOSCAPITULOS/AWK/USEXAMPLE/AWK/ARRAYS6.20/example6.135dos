@@ -1,0 +1,4 @@
+awk ' 
+    { name[x++]=$2 } ;
+     END{for (i =0; i < NR; i++) print i, name[i] }' employees2b
+    

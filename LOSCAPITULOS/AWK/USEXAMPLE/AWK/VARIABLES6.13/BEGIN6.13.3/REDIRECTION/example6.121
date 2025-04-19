@@ -1,0 +1,14 @@
+awk ' BEGIN{system("clear");FS=":"
+        print  NAME"\t\tDISTRICT\tQUANTITY"
+        print "______________________________________\n"
+       }
+       { print  $1"\t    " $3"\t\t" $7 }
+       { total +=$7}
+       /north/{count++}
+
+      END{
+          print "_____________________________________\n"
+          print "The total quantity is " total
+          print "The number of northern sales persons is " count "."
+         }  ' datafile2
+

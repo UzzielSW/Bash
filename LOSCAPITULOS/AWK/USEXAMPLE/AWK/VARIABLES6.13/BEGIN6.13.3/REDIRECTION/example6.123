@@ -1,0 +1,11 @@
+awk ' BEGIN{system("clear");
+        print " _______________"
+        print "|               |"
+       }
+       { printf "|%-15s|\n",$4 }
+
+      END{
+      #  print "|               |"
+        print "|_______________|"
+         }  ' datafile
+

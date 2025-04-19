@@ -1,0 +1,4 @@
+frase="Universidad de Panama" 
+frase=$(echo "$frase" | tr -d ' ')
+echo $frase 
+

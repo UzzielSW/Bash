@@ -1,0 +1,1 @@
+awk '/northeast/{print $3, $2}' datafile

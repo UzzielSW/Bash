@@ -1,0 +1,9 @@
+awk 'BEGIN{ 
+            x=0
+            i= 0
+          }
+    { 
+     id[NR]=$3 ; printf " %d \n", id[NR]
+
+    }' employees2b
+    

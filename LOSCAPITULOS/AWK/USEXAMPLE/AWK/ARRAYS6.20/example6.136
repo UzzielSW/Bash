@@ -1,0 +1,4 @@
+awk ' 
+    /^Tom/{ name[NR]=$1 } ;
+     END{for (i =0; i < NR; i++) print i, name[i] }' db 
+    
