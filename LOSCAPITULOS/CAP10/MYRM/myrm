@@ -1,0 +1,109 @@
+# copia un archivo ,incluye copiarlo en directotio
+#
+numargs=$#
+filelist=
+rmlist=
+
+
+mailopt=FALSE
+interval=5
+
+# procesa las opciones
+
+while getopts it: option 
+do
+  case "$option"
+  in
+     i) iopt=TRUE;;
+     t) interval=$OPTARG;;
+    \?) echo " USO: myrm [-i] [ -R  ] files(s) or not empty  dir "
+        echo "USO: myrm file1(s)  "
+        echo "     myrm -R dir "
+        echo "     myrm  -i file(s) "
+       exit 1;;
+  esac
+done 
+#Procesa el argumento almacenando todos
+# 
+#
+if [ $iopt = TRUE ]
+then
+    shift
+fi
+
+while [ "$#" -gt 0 ]
+do
+   filelist="$filelist $1"
+   shift
+done
+# to="$1"
+#
+# Si hay menos de dos argumentos
+# o si  hay mas de dos argumentos
+# y el ultimo argumento no es un directorio,
+# se despliega un mensaje de error
+#
+ if [ "$numargs" -eq 0   ]
+ then
+        echo " USO: myrm [-i] [ -R  ] files(s) or not empty  dir "
+        echo "      myrm file1(s)  "
+        echo "      myrm -R dir "
+        echo "      myrm  -i file(s) "
+        exit 1
+
+ fi
+
+#
+# Secuencia a travez de cada archivo en filelist
+#
+
+for from in $filelist
+do
+  #
+  # verifica si el archivo es  un directorio
+  #
+  
+  if [ -d "$from" ]
+  then
+      tofile="$from/`basename $from`"
+  else
+      tofile="$from"
+  fi
+
+if [ "$iopt" = TRUE  ]
+then
+
+#
+# Agregar el archivo a rmlist si el archivo no existe
+# o si el usuario dice que  "yes" para  borrarlo
+
+if [ -f "$tofile" ]
+then
+    echo "$tofile existe, borrar ? "
+    read answer
+    if [ "$answer" = yes ]
+    then
+        rmlist="$rmlist $from"
+    fi
+else
+      echo " $tofile no existe "
+fi
+
+else
+     rmlist="$rmlist $from"
+fi
+done
+#
+# Ahora se hace la borrar,primero verifica
+# si hay algo que borrar
+#
+if [ -n "$rmlist"  -a $iopt = TRUE ]
+then
+    rm -i $rmlist > /dev/null 
+else
+    rm  $rmlist > /dev/null 
+  
+fi
+
+
+

@@ -1,0 +1,17 @@
+
+#Program to create a shell archive
+#from a set of files
+#
+
+echo "#"
+echo "# To restore, type sh archive"
+echo "#"
+
+for file 
+do
+  echo
+  echo "echo Extracting $file"
+  echo "cat >$file <<\THE-END-OF-DATA"
+  cat $file
+  echo "THE-END-OF-DATA"
+done

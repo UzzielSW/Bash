@@ -1,0 +1,92 @@
+if [ "$#" -ne 2 ]
+then
+    echo "USO: multiplica factor1 factor2"
+    exit 1
+fi
+
+factor1="$1"
+factor2="$2"
+producto=0
+signo1=1
+signo2=1
+
+
+    factor1=`echo "$factor1" | sed 's/[^-+0-9]//' | tr -d ' '`
+    factor2=`echo "$factor2" | sed 's/[^-+0-9]//' | tr -d ' '`
+   
+    echo " factor1 $factor1 "
+    echo " factor2 $factor2 "
+
+factor1N=` echo "$factor1" | grep  "^-[0-9][0-9]*$" ` 
+if [ -n "$factor1N" ]
+then 
+    signo1=-1
+    echo " signo1 = $signo1 "
+    factor1=`echo "$factor1N" | sed "s/^-//"`
+fi
+
+
+  factor1P=` echo "$factor1" | grep  "^+[0-9][0-9]*$" ` 
+
+    if [ -n "$factor1P" ]
+    then 
+       signo1=1
+       echo " signo1 = $signo1 "
+       factor1=`echo "$factor1P" | sed "s/^+//"`
+    fi
+
+
+
+factor2n=`echo "$factor2" | grep  "^-[0-9][0-9]*$" ` 
+if [  -n "$factor2n" ]
+then 
+    signo2=-1
+    echo " signo2 = $signo2 "
+    factor2=`echo "$factor2n" | sed "s/^-//"`
+fi
+
+
+   factor2P=`echo "$factor2" | grep  "^+[0-9][0-9]*$" ` 
+   if [  -n "$factor2P" ]
+   then 
+     signo2=1
+     echo " signo2 = $signo2 "
+    factor2=`echo "$factor2P" | sed "s/^+//"`
+   fi
+
+factor1=`echo "$factor1" | grep  "^[0-9][0-9]*$"`
+factor2=`echo "$factor2" | grep "^[0-9][0-9]*$"`
+
+if [ \( -n "$factor1" -a  -n "$factor2" \)  ]
+then
+  if [ "$factor1" -ne 0  -a "$factor2" -ne 0 ]
+  then
+          cont=0
+           while [ "$factor1" -gt 0  ]
+           do
+             factor1=`expr  $factor1 - 1 `
+             cont=`expr  $cont + $factor2 `
+            done
+  else 
+
+       echo 0
+       exit 3
+   fi
+else 
+    echo "ingrese enteros"
+    exit 2
+ fi  
+if [ \(  \(  "$signo1" -eq -1 \) -a \( "$signo2" -eq -1 \) \) -o \( \( "$signo1" -eq 1 \) -a \( "$signo2" -eq 1 \) \)   ]
+            then
+               :
+            else 
+             cont=` expr  -1 \* "$cont" `
+           fi
+
+if [ -n "$cont" ]
+then
+           echo "producto = $cont "
+  else
+           echo "producto = $producto "
+fi      
+         exit 0

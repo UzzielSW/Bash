@@ -1,0 +1,30 @@
+# proble3
+
+if [ "$#" -ne 1 ]
+then 
+   echo "Uso: proble3 directorio"
+   exit 1
+fi
+
+directorio=$1
+
+if [ -d "$1" ]
+then
+   echo "Directorio $directorio"
+
+   for i in $1/* 
+   do
+      if [ -d "$i" ]
+      then
+         direct=$((direct+1)) 
+      else
+         arch=$((arch+1))
+      fi 
+   done      
+   
+   echo $arch archivos
+   echo $direct directorios
+
+else
+   echo "$directorio no es un directorio" 
+fi

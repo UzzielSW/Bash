@@ -1,0 +1,25 @@
+if [ "$#" -eq "1" ]
+then
+
+
+
+#	home=$(cat /etc/passwd |grep -w "$1"| cut -d':'  -f6)	
+home=$(cat /etc/passwd | grep -w "$1")
+
+
+	
+	if [ -n "$home" ]
+	then
+		IFS=":"
+		set $home
+		echo $6 
+	else
+		echo "$1 no es un usuario del sistema"
+	fi	
+
+else
+
+echo "El # de parametros no es el correcto"
+echo "USO : myHome <user>"
+
+fi

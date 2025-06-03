@@ -1,0 +1,4 @@
+ x=$x
+ y=$y
+ echo x= $x
+ echo y= $y

@@ -1,0 +1,88 @@
+factorial()
+{
+ local i=$1
+ local f
+declare -i i
+declare -i f
+[ $i -le  2 ] && echo $i || { f=$(( i - 1 )); f=$(factorial $f); f=$(( f * i )); echo $f; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+isyes()
+{
+if [ "$#" -ne 1 ]
+  then
+  echo "ERROR"
+  echo "USO:  isyes2  yes/no"
+  exit 1
+fi
+
+case "$1"
+in 
+   [yY] | [yY][Ee][Ss] ) echo 0;;
+   [nN] | [nN][oO] )  echo 1;;
+              *    )  echo 2;;
+esac
+}
+validaentero()
+{
+n="$1"
+echo  "$n" | grep "^[0-9][0-9]*$" > /dev/null
+if [ "$?" -ne 0 ]
+then 
+    echo 1
+else 
+    echo 0
+fi
+ 
+}
+while :
+     do 
+       j=1
+
+       until [ "$j" -eq 0 ]
+       do
+       echo "Enter entero: "
+       read x
+       j=`validaentero "$x"` 
+      if [ "$j" -ne 0 ]
+      then 
+         echo "No introdujo  entero"
+         echo "Introdujo caracteres invalidos"
+         echo
+      fi
+       done
+
+           resultado=` factorial  $x `
+           echo "faltorial: $resultado"
+
+       while :
+       do
+          echo "Desea Continuar yes/no ? "
+          read resp
+
+          resp2=` isyes "$resp" `
+
+          if [ "$resp2" -eq 0 ]
+          then 
+              break
+          elif [ "$resp2"  -eq 1 ]
+          then
+              break 2
+          elif [ "$resp2" -eq 2 ]
+          then
+               echo "Opcion incorrecta" 
+          fi
+      done
+done

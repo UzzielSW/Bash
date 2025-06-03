@@ -1,0 +1,113 @@
+#
+#
+# capitulo9
+#
+# monsyst4
+# Espera que un usuario entre al sistema
+# Monitorea si se sale
+# version 3
+# instala los valores por defecto
+#
+
+writeopt=FALSE
+nopt=FALSE
+interval=10
+
+# procesa las opciones
+
+while getopts nwt: option 
+do
+  case "$option"
+  in
+     w) writeopt=TRUE;;
+     n) nopt=TRUE;;
+     t) interval=$OPTARG;;
+    \?) echo " USO: monsyst4 [-w] [-n] [ -t n ] user "
+        echo " -w informar por mensaje"
+        echo " -n avisa cuando el usuario sale del sistema"
+        echo " -t verificar cada  n segundos. "
+        exit 1;;
+  esac
+done 
+# codigo de prof. Alvaro Pino N derecho de autor reservado
+
+echo  "$interval" | grep "^[0-9][0-9]*$" > /dev/null
+if [ "$?" -ne 0 ]
+then 
+    echo "No introdujo los segundos"
+    echo "Introdujo caracteres invalidos"
+    exit 1
+ else 
+     if [ "$OPTIND" -gt "$#" ]
+     then 
+         echo "Omitio el nombre del usuario"
+         exit 2
+     fi
+fi
+
+Shiftcount=`expr $OPTIND - 1 `
+shift $Shiftcount
+user=$1
+
+# codigo de prof. Alvaro Pino N derecho de autor reservado
+
+# Verifica al usuario
+
+cut -d: -f1 /etc/passwd | grep -w "$user"  > /dev/null
+if [ "$?" -ne 0 ]
+then
+    echo "$user no es un usuario del sistema"
+    exit 1
+fi
+
+
+#
+# Verifica que el usuario ingreso al Sistema
+#
+
+if [ \( "$writeopt" = FALSE -a "$nopt" = FALSE \) -o \( "$writeopt" = TRUE -a "$nopt" = FALSE \) ]
+then
+   until who |  grep "^$user " > /dev/null
+   do
+     sleep $interval
+   done
+
+#
+# Cuando nosotros alcanzamos este punto
+# el usuario ingreso al sistema
+#
+if [ "$writeopt" = FALSE -a "$nopt" = FALSE ]
+then
+    echo "$user esta en el sistema"
+else
+    if [ "$writeopt" = TRUE -a "$nopt" = FALSE ]
+    then
+     runner=`who am i |  cut -c1-8`
+     echo "$user esta en el sistema " | write  $runner
+    fi
+fi
+else 
+#
+# Verifica que el usuario salio del Sistema
+#
+
+while who |  grep "^$user " > /dev/null
+do
+  sleep $interval
+done
+
+#
+# Cuando nosotros alcanzamos este punto
+# el usuario ingreso al sistema
+#
+ if [ "$writeopt" = FALSE -a "$nopt" = TRUE ]
+ then
+    echo "$user se salio del sistema"
+ else
+   if [ "$writeopt" = TRUE -a "$nopt" = TRUE ]
+   then
+     runner=`who am i |  cut -c1-8`
+     echo "$user se salio del sistema " | write  $runner
+   fi
+ fi
+fi

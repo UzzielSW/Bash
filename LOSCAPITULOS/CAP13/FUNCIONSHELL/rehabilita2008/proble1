@@ -1,0 +1,12 @@
+trap ' echo "EXITING on a TRAPPED SIGNAL Control-c"; echo "DELETINF FILE: listaetc"; rm listaetc; exit' 2 
+for archivo in /etc/*
+do
+ if [ -f  $archivo -a  -r $archivo ]
+then
+   echo $archivo >> listaetc
+ #  sleep 1
+fi
+done
+
+wc -l listaetc
+

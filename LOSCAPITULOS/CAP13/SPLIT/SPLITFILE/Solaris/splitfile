@@ -1,0 +1,33 @@
+# splitfile
+if [ $(($# % 2 )) -eq 0 ]
+then
+for var in "$@"
+ do
+   exec  < bookstore
+   echo " Creando el archivo $2.dat "
+   exec  > $2.dat
+
+   while read line
+   do
+     echo $line  |  grep $1
+   done
+
+ exec > /dev/tty
+
+ cat $2.dat
+
+   shift 2
+
+ if [ "$#" -gt 0 ]
+ then
+  :
+ else break  
+ fi
+
+ 
+ done
+
+
+else echo error
+fi 
+ echo fin

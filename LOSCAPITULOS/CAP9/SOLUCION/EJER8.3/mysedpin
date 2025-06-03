@@ -1,0 +1,24 @@
+if [ "$#" -ne 2 ]
+  then
+  echo "ERROR"
+  echo "USO: mysed patron archivo"
+  exit 1
+fi
+if  [ -f $2 ]
+then
+
+echo "My sed"
+cat $2 | sed $1 >> _Mysed_
+if [ $? -eq 0 ]
+then 
+    if [ -f _Mysed_ ]
+    then mv _Mysed_ $2
+    fi
+else
+    echo "Error de sintaxis en la expresion "
+    exit 1
+fi
+else
+    echo "El $2 no existe "
+    exit 1
+fi

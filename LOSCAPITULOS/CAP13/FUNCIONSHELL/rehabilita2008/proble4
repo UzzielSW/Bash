@@ -1,0 +1,11 @@
+if [ -d $1 ]
+then 
+    echo "$1 existe"
+    N=$(ls  -la| wc -l )
+    if [ $N -gt 0 ]
+    then
+       echo "No esta vacio"
+       echo "contiene $N archivos o directorios"
+       echo "incluyendo los ocultos"
+    fi
+fi

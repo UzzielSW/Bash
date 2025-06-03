@@ -1,0 +1,156 @@
+# copia un archivo ,incluye copiarlo en directotio
+#
+numargs=$#
+filelist=
+rmlist=
+
+iopt=FALSE
+Ropt=FALSE
+
+
+# procesa las opciones
+
+while getopts iR option 
+do
+  case "$option"
+  in
+     i) iopt=TRUE;;
+     R) Ropt=TRUE;;
+    \?) echo " USO: myrm [-i] [ -R  ] files(s) or not empty  dir "
+        echo "USO: myrm file1(s)  "
+        echo "     myrm -R dir "
+        echo "     myrm  -i file(s) "
+       exit 1;;
+  esac
+done 
+#Procesa el argumento almacenando todos
+# 
+#
+if [ "$iopt" = TRUE  -o "$Ropt"  = TRUE ]
+then
+    shift
+fi
+
+while [ "$#" -gt 0 ]
+do
+   filelist="$filelist $1"
+   shift
+done
+# to="$1"
+#
+# Si hay menos de dos argumentos
+# o si  hay mas de dos argumentos
+# y el ultimo argumento no es un directorio,
+# se despliega un mensaje de error
+#
+ if [ "$numargs" -eq 0   ]
+ then
+        echo " USO: myrm [-i] [ -R  ] files(s) or not empty  dir "
+        echo "      myrm file1(s)  "
+        echo "      myrm -R dir "
+        echo "      myrm  -i file(s) "
+        exit 1
+
+ fi
+
+#
+# Secuencia a travez de cada archivo en filelist
+#
+
+for from in $filelist
+do
+  #
+  # verifica si el archivo es  un directorio
+  #
+  
+  if [ -d "$from" -a "$Ropt" = FALSE ]
+  then
+      tofile="$from/`basename $from`"
+  else
+      tofile="$from"
+  fi
+
+
+
+   rmlist="$rmlist $from"
+
+done
+#
+# Ahora se hace la borrar,primero verifica
+# si hay algo que borrar
+#
+rmlist=$( echo "$rmlist" | sed 's/^ //')
+echo ":$rmlist:"
+if [ -n "$rmlist" -a "$Ropt" = FALSE ]
+then
+    echo " primer if "
+ if [ "$iopt" = TRUE ]
+    then
+     for var in $rmlist
+     do
+       if [ ! -d "$var"  ]
+       then
+           if [ -f "$var" ]
+             then
+                rm -i "$var" > /dev/null
+           else echo "El $var no existe "
+           continue
+           fi 
+       else if [ "$( ls $var )" ]
+           then
+                 echo "el $var existe y no esta vacio "
+                 echo -n "Desea borrarlo: yes or no ? "
+                  read resp
+                  if [ "$resp" = yes ]
+                  then
+                       rm -R  "$var" > /dev/null
+                       echo "el $var ha sido borrado"
+                  else
+                       echo " El directorio $var no ha sido borrado"
+                  fi
+           else
+                 echo -n "El directorio esta vacio 1"
+                 echo -n "Desea borrarlo: yes or no ? "
+                  read resp
+                  if [ "$resp" = yes ]
+                  then
+                      rmdir  $var > /dev/null 
+                       echo "el $var ha sido borrado"
+                  else
+                       echo " El directorio $var no ha sido borrado"
+                  fi
+           fi
+       fi
+     done
+   else echo " por aqui"
+    fi
+      exit 0
+else  echo " else "
+       if [ -n "$rmlist" -a "$Ropt" = TRUE ]
+     then
+         if [ -d "$rmlist" ]
+         then
+             if [  "$( ls $rmlist )" ]
+             then
+                 echo "el $rmlist existe y no esta vacio "
+                 rm -R $rmlist > /dev/null
+                 echo "el $rmlist ha sido borrado"
+             else echo "El directorio esta vacio "
+                  echo -n "Desea borrarlo: yes or no ? "
+                  read resp
+                  if [ "$resp" = yes ]
+                  then
+                       rmdir "$rmlist" > /dev/null
+                  else
+                       echo " El directorio $rmlist no ha sido borrado"
+                  fi
+              fi
+         
+        else
+             echo "El directorio $rmlist no existe "
+        fi
+      fi
+  fi
+
+
+

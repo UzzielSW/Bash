@@ -1,0 +1,3 @@
+temp=$( leftmatch $1 $2 )
+shift
+rightmatch $temp $2  

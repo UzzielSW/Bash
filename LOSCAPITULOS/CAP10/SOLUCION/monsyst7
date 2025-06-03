@@ -1,0 +1,137 @@
+#
+#
+# capitulo9
+#
+# monsyst7
+# Espera que un usuario entre al sistema
+#
+# version 7
+# instala los valores por defecto
+#
+
+mailopt=FALSE
+writeopt=FALSE
+archopt=FALSE
+interval=10
+
+# procesa las opciones
+
+while getopts mwt:f: option 
+do
+  case "$option"
+  in
+     m) mailopt=TRUE;;
+     w) writeopt=TRUE;;
+     t) interval=$OPTARG;;
+     f) archopt=TRUE
+        archivo=$OPTARG;;
+    \?) echo " USO: monsyst4 [-m]  [-w] [-f archivo] [-t n ] user "
+        echo " -m informar por correo"
+        echo " -w informar por mensaje instantaneo"
+        echo " -t verificar cada  n segundos. "
+        echo " -f verificar si se borra un archivo"
+        exit 1;;
+  esac
+done 
+# codigo de prof. Alvaro Pino N derecho de autor reservado
+
+echo  "$interval" | grep "^[0-9][0-9]*$" > /dev/null
+if [ "$?" -ne 0 ]
+then 
+    echo "No introdujo los segundos"
+    echo "Introdujo caracteres invalidos"
+    exit 1
+else
+    if [ "$OPTIND"  -gt "$#" ]
+    then
+        echo "Omitio el nombre del usuario"
+        exit 2
+    fi 
+fi
+
+Shiftcount=`expr $OPTIND - 1 `
+shift $Shiftcount
+user=$1
+
+# codigo de prof. Alvaro Pino N derecho de autor reservado
+
+# Verifica al usuario
+
+cut -d: -f1 /etc/passwd | grep -w "$user"  > /dev/null
+if [ "$?" -ne 0 ]
+then
+    echo "$user no es un usuario del sistema"
+    exit 1
+fi
+
+
+#
+# Verifica que el usuario ingreso al Sistema
+#
+
+until who |  grep "^$user " > /dev/null
+do
+  sleep $interval
+done
+
+#
+# Cuando nosotros alcanzamos este punto
+# el usuario ingreso al sistema
+#
+if [ "$mailopt" = FALSE  -a "$writeopt" = FALSE ]
+then
+    echo "$user esta en el sistema"
+else
+
+ if [ "$mailopt" = TRUE -a "$writeopt" = TRUE ]
+     then
+     runner=`who am i |  cut -c1-8`
+     echo "$user esta en el sistema " | mail  $runner
+     echo "$user esta en el sistema " | write  $runner
+     else
+         if [ "$writeopt" = TRUE -a "$mailopt" = FALSE ]
+          then
+             runner=`who am i |  cut -c1-8`
+             echo "$user esta en el sistema " | write  $runner
+          else
+             if [ "$mailopt" = TRUE -a "$writeopt" = FALSE ]
+             then
+               runner=`who am i |  cut -c1-8`
+               echo "$user esta en el sistema " | mail  $runner
+             fi
+         fi
+  fi
+fi
+if [ "$archopt"  = TRUE ]
+then
+    until [ ! \( -f $archivo  -o -d $archivo \) ]
+     do
+      echo durmiendo $interval segundos... por si borran a $archivo
+      sleep  $interval
+   #   { rm $archivo; }
+     done
+fi
+if [ "$mailopt" = FALSE  -a "$writeopt" = FALSE  -a "$archopt" = TRUE ]
+then
+     echo "$archivo fue borrado por $user 1" 
+else
+
+ if [ "$mailopt" = TRUE -a "$writeopt" = TRUE  -a "$archopt" = TRUE ]
+     then
+     runner=`who am i |  cut -c1-8`
+     echo "$archivo fue borrado " | mail  $runner
+     echo "$archivo fue borrado 2 " | write  $runner
+     else
+         if [ "$writeopt" = TRUE -a "$mailopt" = FALSE  -a "$archopt" = TRUE ]
+          then
+             runner=`who am i |  cut -c1-8`
+             echo "$archivo fue borrado  3" | write  $runner
+          else
+      if [ "$mailopt" = TRUE -a "$writeopt" = FALSE  -a "$archopt" = TRUE ]
+             then
+               runner=`who am i |  cut -c1-8`
+               echo "$archivo fue borrado 4" | mail  $runner
+             fi
+         fi
+  fi
+fi

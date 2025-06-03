@@ -1,0 +1,149 @@
+#!/bin/bash
+
+# Función para mostrar el menú
+mostrar_menu() {
+
+  echo "Seleccione una opción:"
+  echo "1. Capturar"
+  echo "2. Desplegar"
+  echo "3. Dueño (Permisos)"
+  echo "4. Grupo (Permisos)"
+  echo "5. Otros (Permisos)"
+  echo "6. Salir"
+}
+
+#-------------------------------------------------------------------------------------------
+#menu1 capturar
+capturar() {
+  echo "Listado de archivos en el directorio actual:"
+  ls
+  echo
+  echo "Presiona cualquier tecla para continuar..."
+  read -n 1
+}
+
+#------------------------------------------------------------------------------------------
+#menu2 desplegar
+desplegar() {
+  read -p "Ingrese el nombre del archivo: " archivo
+  if [ -e "$archivo" ]; then
+    permisos=$(ls -l "$archivo" | awk '{print $1}')
+    echo "Permisos del archivo $archivo: $permisos"
+  else
+    echo "El archivo $archivo no existe en el directorio actual."
+  fi
+}
+
+#------------------------------------------------------------------------------------------
+#menu3 parteA
+
+mostrar_submenu_dueno() {
+  echo "Seleccione una opción de permisos para el dueño del archivo:"
+  echo "1. Lectura"
+  echo "2. Escritura"
+  echo "3. Ejecución"
+}
+
+submenu_dueno() {
+  local opcion_dueno=0
+  while [ $opcion_dueno -ne 4 ]; do
+    mostrar_submenu_dueno
+    read -p "Ingrese su opción: " opcion_dueno
+
+    case $opcion_dueno in
+    1)
+      cambiar_permisos_lectura
+      ;;
+    2)
+      cambiar_permisos_escritura
+      ;;
+    3)
+      cambiar_permisos_ejecucion
+      ;;
+    4)
+      echo "Volviendo al menú principal..."
+      ;;
+    *)
+      echo "Opción no válida. Inténtelo de nuevo."
+      ;;
+    esac
+  done
+}
+
+cambiar_permisos_ejecucion() {
+  read -p "Ingrese el nombre del archivo para cambiar permisos de ejecución: " archivo
+  if [ -e "$archivo" ]; then
+    if [ -x "$archivo" ]; then
+      chmod u-x "$archivo"
+      echo "Se han quitado los permisos de ejecución para el usuario en el archivo $archivo."
+    else
+      chmod u+x "$archivo"
+      echo "Se han otorgado los permisos de ejecución para el usuario en el archivo $archivo."
+    fi
+  else
+    echo "El archivo $archivo no existe en el directorio actual."
+  fi
+}
+
+# Función para cambiar permisos de escritura de un archivo
+cambiar_permisos_escritura() {
+  read -p "Ingrese el nombre del archivo para cambiar permisos de escritura: " archivo
+  if [ -e "$archivo" ]; then
+    if [ -w "$archivo" ]; then
+      chmod u-w "$archivo"
+      echo "Se han quitado los permisos de escritura para el usuario en el archivo $archivo."
+    else
+      chmod u+w "$archivo"
+      echo "Se han otorgado los permisos de escritura para el usuario en el archivo $archivo."
+    fi
+  else
+    echo "El archivo $archivo no existe en el directorio actual."
+  fi
+}
+
+# Función para cambiar permisos de lectura de un archivo
+cambiar_permisos_lectura() {
+  read -p "Ingrese el nombre del archivo para cambiar permisos de lectura: " archivo
+  if [ -e "$archivo" ]; then
+    if [ -r "$archivo" ]; then
+      chmod u-r "$archivo"
+      echo "Se han quitado los permisos de lectura para el usuario en el archivo $archivo."
+    else
+      chmod u+r "$archivo"
+      echo "Se han otorgado los permisos de lectura para el usuario en el archivo $archivo."
+    fi
+  else
+    echo "El archivo $archivo no existe en el directorio actual."
+  fi
+}
+
+#-----------------------------------------------------------------------------------------------------
+# Variable para controlar el bucle del menú
+opcion=0
+
+# Bucle del menú
+while [ $opcion -ne 5 ]; do
+  mostrar_menu
+  read -p "Ingrese su opción: " opcion
+
+  case $opcion in
+  1)
+    capturar
+    ;;
+  2)
+    desplegar
+    ;;
+  3)
+    submenu_dueno
+    ;;
+  4)
+    echo "Opción 4 seleccionada: Grupo (función no implementada)"
+    ;;
+  5)
+    echo "Saliendo del programa..."
+    ;;
+  *)
+    echo "Opción no válida. Inténtelo de nuevo."
+    ;;
+  esac
+done

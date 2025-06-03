@@ -1,0 +1,10 @@
+trap 'echo "   No Ignoring Control-c"; echo "Hola se entendio ? ";  exit  1 ' 2
+echo "creando el archivo salida"
+for i in 1 2 3 4 5 6 7 8 9 10 11 12
+do
+ echo $i >> salida
+ sleep  1
+done
+echo "Program now terminated normally. . ."
+cat salida
+exit 0

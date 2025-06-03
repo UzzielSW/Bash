@@ -1,0 +1,9 @@
+IFS=':'
+
+j=1
+
+for i in $PATH
+  do 
+    echo $j:  $i
+    j=`expr $j + 1`
+  done

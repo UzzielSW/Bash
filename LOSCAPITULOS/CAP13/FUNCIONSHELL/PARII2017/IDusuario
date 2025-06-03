@@ -1,0 +1,17 @@
+if [ "$#" -ne 1 ]
+then
+    echo "ERROR"
+    echo "USO: proble3 nombre-usuario"
+    exit 1
+fi
+   
+usuario="$1"
+ linea=$(cat /etc/passwd | grep -w $usuario )
+if  [ "$?" -eq 0 ]
+then
+  IFS=:
+   set $linea  
+   echo "IDusurio=$3  $usuario"
+else
+  echo "$usuario no es sistema"
+fi

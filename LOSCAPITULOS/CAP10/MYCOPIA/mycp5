@@ -1,0 +1,100 @@
+# copia un archivo ,incluye copiarlo en directotio
+#
+
+
+nopt=FALSE
+
+# procesa las opciones
+
+while getopts n option 
+do
+  case "$option"
+  in
+     n) nopt=TRUE
+        shift;;
+    \?) echo " USO: mycp5 [-n]  archivo1 ...archivon dir "
+        echo " -n no verifica  la existencia del archivo destino"
+        exit 1;;
+  esac
+done 
+
+numargs=$#
+filelist=
+copylist=
+
+#Procesa el argumento almacenando todos
+# excepto el ultimo
+#
+while [ "$#" -gt 1 ]
+do
+   if [ -f "$1" ]
+   then
+   filelist="$filelist $1"
+   else
+       echo " $1 no existe !"
+   fi
+   shift
+done
+to="$1"
+#
+# Si hay menos de dos argumentos
+# o si  hay mas de dos argumentos
+# y el ultimo argumento no es un directorio,
+# se despliega un mensaje de error
+#
+if [ "$numargs" -lt 2 -o "$numargs" -gt 2 -a ! -d "$to" ]
+then
+    echo "USO: mycp5 file1 file2 "
+    echo "     mycp5 file(s) dir "
+    exit 1
+fi
+
+#
+# Secuencia a travez de cada archivo en filelist
+#
+
+for from in $filelist
+do
+  #
+  # verifica si el archivo destino es un directorio
+  #
+  
+  if [ -d "$to" ]
+  then
+      tofile="$to/`basename $from`"
+  else
+      tofile="$to"
+  fi
+
+#
+# Agregar el archivo s copylist si el archivo no existe
+# o si el usuario dice que  OK para rescribir 
+
+if [ "$nopt" = FALSE ]
+then
+ 
+   if [ -f "$tofile" ]
+   then
+       echo "$tofile ya existe, rescribir "
+       read answer
+       if [ "$answer" = yes ]
+       then
+          copylist="$copylist $from"
+       fi
+   else
+     copylist="$copylist $from"
+   fi
+else 
+    
+     copylist="$copylist $from"
+fi
+done
+#
+# Ahora se hace la copia ,primero verifica
+# si hay algo que copiar
+#
+if [ -n "$copylist" ]
+then
+    cp $copylist $to 
+fi
+

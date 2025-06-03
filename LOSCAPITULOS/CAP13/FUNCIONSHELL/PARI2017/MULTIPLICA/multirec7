@@ -1,0 +1,100 @@
+#Author: Prof. Alvaro Pino N.
+#date: 3/07/2017
+#
+multiplyrec7()
+{
+ local    factor1=$1
+ local    factor2=$2
+ local producto=0
+ declare -i factor1 
+ declare -i factor2
+ declare -i producto 
+
+[ $factor1  -le  0  ] && echo $producto ||  { factor1=$(( factor1 - 1 )); producto=$(eval multiplyrec7 "$factor1"  "$factor2"  ); producto=$((  producto +  factor2  )); echo $producto;  }
+}
+
+
+
+
+
+
+
+isyes()
+{
+if [ "$#" -ne 1 ]
+  then
+  echo "ERROR"
+  echo "USO:  isyes2  yes/no"
+  exit 1
+fi
+
+case "$1"
+in 
+   [yY] | [yY][Ee][Ss] ) echo 0;;
+   [nN] | [nN][oO] )  echo 1;;
+              *    )  echo 2;;
+esac
+}
+validaentero()
+{
+n="$1"
+echo  "$n" | grep "^[0-9][0-9]*$" > /dev/null
+if [ "$?" -ne 0 ]
+then 
+    echo 1
+else 
+    echo 0
+fi
+ 
+}
+while :
+     do 
+       j=1
+
+       until [ "$j" -eq 0 ]
+       do
+       echo "Enter el factor1: "
+       read x
+       j=`validaentero "$x"` 
+      if [ "$j" -ne 0 ]
+      then 
+         echo "No introdujo  entero"
+         echo "Introdujo caracteres invalidos"
+         echo
+      fi
+       done
+
+       j=1
+       until [ "$j" -eq 0 ]
+       do
+       echo "Entre el factor2: "
+       read y
+       j=` validaentero "$y" ` 
+      if [ "$j" -ne 0 ]
+      then 
+         echo "No introdujo  entero"
+         echo "Introdujo caracteres invalidos"
+         echo
+      fi
+       done
+          resultado=` multiplyrec7  $x  $y `
+           echo "producto: $resultado"
+       while :
+       do
+          echo "Desea Continuar yes/no ? "
+          read resp
+
+          resp2=` isyes "$resp" `
+
+          if [ "$resp2" -eq 0 ]
+          then 
+              break
+          elif [ "$resp2"  -eq 1 ]
+          then
+              break 2
+          elif [ "$resp2" -eq 2 ]
+          then
+               echo "Opcion incorrecta" 
+          fi
+      done
+done

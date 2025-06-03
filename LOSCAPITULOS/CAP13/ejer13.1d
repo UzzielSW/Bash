@@ -1,0 +1,13 @@
+ var=$#
+
+    while [ "$var" -ne 0 ]
+     do
+       if [ "$var" -le 9 ]
+       then
+       eval echo -n \"\$$var \"
+       else
+          eval echo -n \"\${$var} \" 
+       fi
+       var=$(( var - 1 ))
+     done
+echo

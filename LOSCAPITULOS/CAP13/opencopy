@@ -1,0 +1,8 @@
+exec 0<$1
+exec 1>$2
+while read line
+do
+ echo $line
+done
+exec 0<&-
+exec 1>&-

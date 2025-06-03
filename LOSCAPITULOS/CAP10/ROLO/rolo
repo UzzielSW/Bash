@@ -1,0 +1,46 @@
+#
+#
+# rolo - rododex programa que busca, agrega, y remueve
+# personas de un directorio telefonico
+#
+
+#
+# Despliega el menu
+#
+#
+clear
+echo -n ' 
+      Ud desea:
+
+               1. Buscar 
+               2. Agregar 
+               3. Remover
+      Seleccione (1-3):   '
+
+#
+#
+# Lee y procesa la seleccion
+#
+
+read choice
+echo
+
+case  "$choice"
+in
+      1) echo -n "Entre el nombre:  "
+         read nombre
+         lub "$nombre";;
+
+      2) echo -n "Entre el nombre que debe ser agregado:  "
+         read nombre
+         echo -n "entre el numero de telefono:  "
+         read numero
+         add2 "$nombre" "$numero";;
+      
+      3) echo -n "Entre el nombre que se debe remover:  "
+         read nombre
+         remb "$nombre";;
+      
+      *) echo "Opcion Invalida";;
+
+esac

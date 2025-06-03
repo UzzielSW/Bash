@@ -1,3 +1,0 @@
-frase="universidad"
-length=$(echo $frase | sed 's/\n//'| wc -L)
-echo $length

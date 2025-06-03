@@ -1,0 +1,25 @@
+# isyes 
+#
+# author: Alvaro Pino N.
+#
+
+var="$1"
+
+if [ "$#" -ne 1 ]
+then
+    echo " error "
+    echo " USO:  isyes [yY]|[YES]  "
+    exit 1
+fi
+
+if [ "$var" = "y" -o "$var" = "Y" -o  "$var" = "yes" ]
+then
+    exit 0
+elif [ "$var" = "n" -o "$var" = "N" -o  "$var" = "NO" ]
+ then
+       exit 1
+  else
+      echo "entrada invalida"
+      exit 2
+fi
+                      

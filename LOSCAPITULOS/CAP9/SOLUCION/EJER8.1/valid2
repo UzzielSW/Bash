@@ -1,0 +1,13 @@
+if [ "$#" -ne 1 ]
+  then
+  echo "ERROR"
+  echo "USO: valid2 variable"
+  exit 1
+fi
+
+if [ -n "$(echo $1 | grep  "^[_A-Za-z][_A-Za-z0-9]*$")" ]
+then 
+     echo yes 
+  else
+     echo No 
+fi

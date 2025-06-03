@@ -1,0 +1,73 @@
+#
+# mueve  archivo(s)  hacia un directotio
+# cambia el nombre de un archivo
+#
+numargs=$#
+filelist=
+mvlist=
+#Procesa el argumento almacenando todos
+# excepto el ultimo
+#
+while [ "$#" -gt 1 ]
+do
+   filelist="$filelist $1"
+   shift
+done
+to="$1"
+#
+# Si hay menos de dos argumentos
+# o si  hay mas de dos argumentos
+# y el ultimo argumento no es un directorio,
+# se despliega un mensaje de error
+#
+if [ "$numargs" -lt 2 -o "$numargs" -gt 2 -a ! -d "$to" ]
+then
+    echo "USO: mymv  file1 file2 "
+    echo "     mymv  file(s) dir "
+    exit 1
+fi
+
+#
+# Secuencia a travez de cada archivo en filelist
+#
+
+for from in $filelist
+do
+  #
+  # verifica si el archivo destino es un directorio
+  #
+  
+  if [ -d "$to" ]
+  then
+      tofile="$to/`basename $from`"
+  else
+      tofile="$to"
+  fi
+
+#
+# Agregar el archivo s copylist si el archivo no existe
+# o si el usuario dice que  OK para rescribir 
+
+if [ -f "$tofile" ]
+then
+    echo "$tofile ya existe, rescribir "
+    read answer
+    if [ "$answer" = yes ]
+    then
+        mvlist="$mvlist $from"
+    fi
+else
+     mvlist="$mvlist $from"
+fi
+
+done
+#
+# Ahora se mueven los archivos ,primero verifica
+# si hay algo que mover 
+#
+if [ -n "$mvlist" ]
+then
+    mv $mvlist $to 
+fi
+
+

@@ -1,0 +1,21 @@
+if [ "$#" -ne 1 ]
+then
+   echo "error"
+   echo "USO: conntime nombreusuario"
+   exit 1
+fi
+loginhour=$(who | grep $1 | cut -c34-35)
+loginmin=$(who | grep $1 | cut -c37-38)
+date=$(date)
+hour=$(echo "$date" | cut -c12-13)
+min=$(echo "$date" | cut -c15-16)
+
+#compute time logged on in minutes
+deltamins=$(((hour * 60 + min) - (loginhour * 60 + loginmin) ))
+#handle time wraparound
+if [ $deltamins -lt 0 ]
+then
+   deltamins=$(( deltamins + 24*60))
+fi
+
+echo $1 has been logged on for $((deltamins / 60 )) hours  $(( deltamins % 60)) minutes

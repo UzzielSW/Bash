@@ -1,0 +1,3 @@
+ temp=$(echo ${1%%$2*})
+ mv $1 $temp
+ echo $temp

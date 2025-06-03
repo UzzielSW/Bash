@@ -1,0 +1,6 @@
+x=100
+echo "x=$x"
+ptrx=x
+echo  "ptrx=$ptrx"
+echo -n "contenido de ptrx: "
+eval echo "\$$ptrx "

@@ -1,0 +1,31 @@
+#
+#
+# capitulo9
+#
+# factorial
+# Calcula el factorial de un entero     
+# author: Prof. APN
+# fecha: 04/04/2017
+# version 0.1
+#
+if [ "$#" -ne 1 ]
+then 
+   echo "USO: factorial  n "
+   echo n menor 10
+   exit 1
+fi
+n="$1"
+echo  "$n" | grep "^[0-9][0-9]*$" > /dev/null
+if [ "$?" -ne 0 ]
+then 
+    echo "No introdujo  entero"
+    echo "Introdujo caracteres invalidos"
+    exit 1
+fi
+fact=1
+while [ "$n" -ne 0 ]
+do
+  fact=$(( fact * n ))
+  n=`expr $n - 1`
+done
+echo $fact

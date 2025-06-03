@@ -1,0 +1,4 @@
+nuevo=` echo "$1" | sed "s/$2$//"`
+# echo $nuevo
+ mv $1 $nuevo
+ls $nuevo

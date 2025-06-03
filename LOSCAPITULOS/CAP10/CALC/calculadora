@@ -1,0 +1,121 @@
+#
+#
+# rolo - rododex programa que busca, agrega, y remueve
+# personas de un directorio telefonico
+#
+#  Version 2
+#
+# Si se suministra argumento entonces busca
+#
+
+validchoice=""
+operand1=""
+operand2=""
+
+#
+#  Bucle hasta que una sleccion valida se escoja
+#
+
+until [ !  -z  "$validchoice" ]
+do
+    #
+    # Despliega el Menu
+    #
+ clear
+#
+# Despliega el menu
+#
+#
+echo -n " 
+      Ud desea:
+               1. captura
+               2. sumar
+               3. restar
+               4. multiplicar
+               5. dividir
+               6. potencia
+               7. residuo
+               8. Salir
+      Seleccione (1-8):   "
+
+#
+#
+# Lee y procesa la seleccion
+#
+
+read choice
+echo
+
+ case  "$choice"
+  in
+      1) echo -n "Entre operando1:   "
+         read operand1
+         echo -n "entre el operando2:     "
+         read operand2
+#         validchoice=TRUE;;
+         ;;
+      2) 
+          if [ -n "$operand1"  -a   -n "$operand2" ]
+          then   
+              eval sumacal "$operand1" "$operand2"
+          else
+             echo " Capture los datos  opcion 1) "
+          fi
+          ;;
+#         validchoice=TRUE;;
+
+      3)  
+          if [ -n "$operand1" -a  -n "$operand2" ]
+          then   
+              eval  restacal "$operand1" "$operand2"
+          else
+             echo " Capture los datos  opcion 1) "
+          fi
+          ;;
+#         validchoice=TRUE;;
+
+      4)
+        if [ -n "$operand1" -a  -n "$operand2" ]
+          then   
+              eval  multiplica "$operand1" "$operand2"
+          else
+             echo " Capture los datos  opcion 1) "
+          fi
+          ;;
+#         validchoice=TRUE;;
+      
+      5 ) if [ -n "$operand1" -a  -n "$operand2" ]
+          then   
+              eval  dividir2epin  "$operand1" "$operand2"
+          else
+             echo " Capture los datos  opcion 1) "
+          fi
+          ;;
+#         validchoice=TRUE;;
+
+      6) echo -n "entre la  base : "
+         read base
+         echo -n "entre el exponente : "
+         read expo2
+         potencia $base $expo2;;
+#
+ 
+      7) echo -n "entre el dividendo : "
+         read Div
+         echo -n " entre el divisor : "
+         read divisor
+         residuo $Div $divisor;;
+     8) echo "Adios..."
+         validchoice="TRUE";;
+      
+      *) echo "Opcion Invalida"
+         error=;;
+
+  esac
+if [ -z "$error" -a -z "$validchoice"  ]
+then
+    echo
+    echo -n  "Teclee Enter para continuar "
+    read respuesta
+fi
+done

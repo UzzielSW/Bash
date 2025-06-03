@@ -1,0 +1,3 @@
+echo "cantidad de argumentos: $#"
+echo "ultimo argumento: \$$#"
+eval echo "contenido del ultimo: \$$#"

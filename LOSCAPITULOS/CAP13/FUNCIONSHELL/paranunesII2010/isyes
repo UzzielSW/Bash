@@ -1,0 +1,35 @@
+
+isyes(){
+
+args="$1"
+
+echo $args | egrep "^[Yy][Ee][Ss]$|^[Yy]$" > /dev/null
+
+
+   echo "$?"
+
+}
+
+
+  trap 'echo "ERROR"; echo "Desea Continuar"; ' 2
+while :
+  do
+  
+
+  printf "\nDesea Continuar.\n"
+
+  read answer
+  
+  val=$(echo $( isyes $answer))
+  echo $val
+  if [ $val -eq 0 ]
+     then
+     sleep 2
+
+    else
+    exit 0
+
+     
+ fi  
+
+  done 

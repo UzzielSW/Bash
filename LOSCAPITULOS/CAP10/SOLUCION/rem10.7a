@@ -1,0 +1,32 @@
+#
+#
+# Remove someone from the phone book
+#
+clear
+cat phonebook
+grep "$1" phonebook > salida 
+numero=`cat salida |wc -l | tr -s ' ' ' '  `
+if [ "$numero" -gt 1 ]
+ then
+     echo "Hay  $numero emparejamientos "
+        while [ "$numero" -gt 0 ] 
+          do 
+            valor=`head -1 salida` 
+            echo "$valor remover (yes/no): \c "
+            read resp
+            if [ "$resp" = yes ]
+            then
+             grep -v "$valor" phonebook > tmp/phonebook
+             mv tmp/phonebook phonebook
+             echo
+            fi
+          numero=`expr $numero - 1`
+          grep -v "$valor" salida  > tmp/salida
+          mv tmp/salida salida
+          done 
+else
+   grep -v  "$1" phonebook > tmp/phonebook
+   mv tmp/phonebook phonebook
+fi
+rm salida
+

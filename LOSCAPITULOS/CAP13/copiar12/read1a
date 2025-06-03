@@ -1,0 +1,16 @@
+if [ "$#" -eq 1 ]
+then 
+FILENAME="$1"
+ if [ -f $FILENAME ]
+then
+tr '[a-z]' '[A-Z]' < $FILENAME  | while read LINE
+ do
+  echo $LINE
+  :
+ done
+else
+echo "El archivo no existe"
+fi
+else
+ echo "Uso: read1 archivo"
+fi

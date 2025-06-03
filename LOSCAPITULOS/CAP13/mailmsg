@@ -1,0 +1,15 @@
+mail $* <<END-OF-DATA
+
+
+Attention:
+
+
+nuestro examen final es el 8 de julio de 2024
+no falten
+
+Pease try to attend.
+
+My best regards
+
+Prof.   Alvaro Pino N.
+END-OF-DATA

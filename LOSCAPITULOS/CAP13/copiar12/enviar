@@ -1,0 +1,5 @@
+
+who  | grep -v "dtlocal"  | grep May | tr -s ' ' ' ' |cut -c1-14 | sed 's/M$//' | tr -s ' ' ':' | cut -d: -f1,2 | tr ':' ' ' >temp
+
+set temp message
+read1d $1 $2 

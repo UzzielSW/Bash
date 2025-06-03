@@ -1,0 +1,36 @@
+name=$1
+horaentre=`who | grep "$name" | tr -s ' ' ' ' | cut -d ' ' -f4 `
+horaentre=`echo "$horaentre" | sed 's/)/'\012'/g' | cut -c1-5 | tr '\012' ' '` 
+diaentrada=`who | grep "$name"  | tr -s ' ' ' ' |cut -d ' ' -f4 `
+terminales=`who | grep "$name"  | tr -s ' ' ' ' |cut -d ' ' -f2`
+horactual=`date +%H`
+minutoactual=`date +%M`
+fechaactual=`date | cut -d ' ' -f3`
+i=1
+clear
+for valor1 in $terminales
+do
+      
+      echo "______________________________________________"
+      echo "Fecha: `date`"
+      terminale=`echo "$terminales" | cut -d ' ' -f2`
+      echo "$name esta en la terminal $terminale"
+      horae=`echo "$horaentre" | cut -d ' ' -f$i`
+      h=`echo "$horae" | cut -d ':' -f1`
+      m=`echo "$horae" | cut -d ':' -f2`
+      i=`expr $i + 1` 
+      if [ "$m" -lt "$minutoactual" ]
+      then
+        :
+       else
+          horactual=`expr $horactual - 1`
+          minutoactual=`expr $minutoactual + 60`
+       fi
+       min=`expr $minutoactual - $m`
+       hor=`expr $horactual - $h`
+       echo "$name ha estado en el sistema: $hor:$min"
+       echo
+       echo "_____________________________________________"
+       echo -n "Entre para continuar: "
+       read resp
+done

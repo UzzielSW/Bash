@@ -1,0 +1,25 @@
+if [ "$#" -eq 2 ]
+then 
+    factor1="$1"
+    factor2="$2"
+    resultado=0
+    echo  "$factor1" | grep "^[0-9][0-9]*$" > /dev/null
+    ok1="$?"
+    echo  "$factor2" | grep "^[0-9][0-9]*$" > /dev/null
+    ok2="$?"
+
+   if [ "$ok1" -eq 0 -a "$ok2" -eq 0 ]
+   then
+
+    while [ "$factor2" -gt 0 ]
+      do
+         resultado=` expr $resultado  +   $factor1 ` 
+         factor2=`  expr "$factor2" - 1  ` 
+     done
+    echo "$resultado"
+   else 
+       echo "Error ingrese valores enteros"
+   fi
+else
+     echo  1
+fi

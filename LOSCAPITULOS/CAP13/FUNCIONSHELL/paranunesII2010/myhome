@@ -1,0 +1,32 @@
+#PROGRAMA SOBRE EL IFS AND SET
+
+#POR: AGUSTIN N.
+
+if [ "$#" -ne 1 ]
+
+   then
+   printf "\n USO: "$0" Nombre_Usuario.\n"
+   exit 0
+fi 
+
+nombre_user="$1"
+
+users=$(cat /etc/passwd | grep -w "$nombre_user" )
+
+if [ "$users" ] 
+
+then
+
+IFS=:
+
+set $users
+
+echo "$6" 
+
+IFS=     #para fijar a IFS a su estado por defecto.
+
+else
+
+printf "\n$nombre_user : No es Un Usuario del Sistema.\n"
+
+fi    

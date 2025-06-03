@@ -1,0 +1,21 @@
+# proble 2
+
+echo "Archivos del directorio /etc que contiene la palabra hosts"
+echo "inicio..."
+
+if [ ! -f listarchetc ]
+then
+    proble1
+fi
+   while read LINE
+   do
+   if  grep "hosts" $LINE > /dev/null 2>&1 
+  then 
+         lectura=$((lectura+1))
+         echo "$lectura: $LINE"
+
+  fi 
+   done < listarchetc 
+echo "Con Hosts hay: $lectura "
+echo "fin del proceso ! "
+ 

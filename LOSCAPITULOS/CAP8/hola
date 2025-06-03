@@ -1,0 +1,25 @@
+#
+#  Programa: saludo
+#  Autor   : Sergio Garcia Navas
+#  Fecha   : 21/jul/2003
+#  Feacha Modificacion: 2/05/2007
+hora=`date +%H`
+if [ "$#" -ne 0 ]
+then
+     echo "El programa no requiere parametro"
+     exit 1
+else
+    if [ "$hora" -gt 0 -a "$hora" -lt 12 ]
+    then
+         echo "Buenos dias, "
+      else
+          if [ "$hora" -ge 12 -a "$hora" -lt 17 ] 
+          then
+               echo "Buenas tardes, " 
+          else
+               echo "Buenas noches,  " 
+          fi
+    fi
+fi
+echo $LOGNAME
+echo "La hora es:  `date +%H:%M:%S` "

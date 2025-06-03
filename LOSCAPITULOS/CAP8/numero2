@@ -1,0 +1,25 @@
+#!/bin/bash
+# traduce un digito a su equivalente en español
+
+if [ "$#" -ne 1 ]
+then
+    echo "USO: numero digito (0-9)"
+    exit 1
+fi
+
+case "$1"
+    in
+    0) echo cero;;
+    1) echo uno;;
+    2) echo dos;;
+    3) echo tres;;
+    4) echo cuatro;;
+    5) echo cinco;;
+    6) echo seis;;
+    7) echo siete;;
+    8) echo ocho;;
+    9) echo nueve;;
+    *) echo "Error en argumento;
+        por favor especifique un solo digito"
+    exit 2;;
+esac

@@ -1,0 +1,13 @@
+if [ "$#" -ne 1 ]
+  then
+  echo "ERROR"
+  echo "USO: valid variable"
+  exit 1
+fi
+
+if [ -n "$(echo $1 | sed -n "/^[_A-Za-z][_A-Za-z0-9]*$/p")" ]
+then 
+     echo yes 
+  else
+     echo No 
+fi

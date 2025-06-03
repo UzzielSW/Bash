@@ -1,0 +1,16 @@
+if [ "$#" -eq 1 ]
+then 
+FILENAME="$1"
+ if [ -f $FILENAME ]
+then
+ while line LINE
+ do
+  echo "$LINE"
+  :
+done  < $FILENAME 
+else
+echo "El archivo no existe"
+fi
+else
+ echo "Uso: read1 archivo"
+fi

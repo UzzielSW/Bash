@@ -1,0 +1,86 @@
+#
+#
+# rolo - rododex programa que busca, agrega, y remueve
+# personas de un directorio telefonico
+#
+#  Version 2
+#
+# Si se suministra argumento entonces busca
+#
+
+validchoice=""
+
+#
+#  Bucle hasta que una sleccion valida se escoja
+#
+
+until [ !  -z  "$validchoice" ]
+do
+    #
+    # Despliega el Menu
+    #
+ clear
+#
+# Despliega el menu
+#
+#
+echo -n " 
+      Ud desea:
+
+               1. dividir
+               2. multiplicar
+               3. potencia
+               4. residuo
+               5. Salir
+      Seleccione (1-5):   "
+
+#
+#
+# Lee y procesa la seleccion
+#
+
+read choice
+echo
+
+ case  "$choice"
+  in
+      1) echo -n "Entre el dividendo:   "
+         read dividendo
+         echo -n "entre el divisor:     "
+         read divisor
+        dividir2e $dividendo $divisor;;
+#         validchoice=TRUE;;
+
+      2) echo -n "Entre el factor 1: "
+         read factor1
+         echo -n "entre el factor 2: "
+         read factor2
+         multiplica $factor1 $factor2;;
+#         validchoice=TRUE;;
+      3) echo -n "entre la  base : "
+         read base
+         echo -n "entre el exponente : "
+         read expo2
+         potencia $base $expo2;;
+#
+ 
+      4) echo -n "entre el dividendo : "
+         read Div
+         echo -n " entre el divisor : "
+         read divisor
+         residuo $Div $divisor;;
+     5) echo "Adios..."
+         validchoice="TRUE";;
+      
+      *) echo "Opcion Invalida"
+         error=
+        ;;
+
+  esac
+if [ -z "$error"   -a -z "$validchoice" ] 
+then
+    echo  -n "Teclee Enter para continuar "
+    read respuesta
+fi
+
+done

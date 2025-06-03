@@ -1,0 +1,2 @@
+- Para mayor eficiencia mejor usar awk o sed. En ves de expr.
+- no usar comillas invertidas porque tienen limitaciones y pueden ocasionar problemas con caracteres especiales. La mejor manera actualmente es usando $(...)

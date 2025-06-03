@@ -1,0 +1,6 @@
+#
+# Add someone to the phonebook  file -- version 2
+#
+
+echo "$1	$2" >> phonebook
+sort -o phonebook phonebook

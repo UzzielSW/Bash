@@ -1,0 +1,8 @@
+
+echo " enviando correo a"
+
+who | cut -c1-8  | sort -u > lista
+
+cat lista
+
+mailmsg $(cat lista)

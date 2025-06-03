@@ -1,0 +1,13 @@
+if [ "$#" -ne 1 ]
+  then
+  echo "ERROR"
+  echo "USO:  isyes  yes/no"
+  exit 1
+fi
+
+if [ "$1" = yes -o "$1" = YES -o "$1" = y -o "$1" = Y ]
+then 
+      exit 0 
+  else
+       exit 1
+fi

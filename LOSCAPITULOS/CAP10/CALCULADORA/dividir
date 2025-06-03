@@ -1,0 +1,25 @@
+if [ "$#" -ne 2 ]
+then
+    echo "USO: dividir dividendo divisor"
+    exit 1
+fi
+DIV="$1"
+divisor="$2"
+if [ ` echo $DIV | grep  "^[0-9][0-9]*$" ` ]
+then 
+    if [  ` echo $divisor | grep  "^[0-9][0-9]*$" ` ]
+    then
+       cont=0
+       while [ "$DIV" -ge "$divisor" ]
+       do
+        DIV=`expr  $DIV - $divisor `
+       cont=`expr  $cont + 1 `
+       done
+	echo "$cont" 
+        exit 0
+
+    else  
+        echo "Ingrese $divisor digito"
+    fi
+ else       echo "Ingrese $DIV digito"
+fi

@@ -1,0 +1,35 @@
+#
+#
+# capitulo9
+#
+# factorial
+# Calcula el factorial de un entero     
+#
+if [ "$#" -ne 1 ]
+then 
+   echo "USO: factorial  n "
+   echo n menor 50
+   echo y mayor que 0
+   exit 1
+fi
+n="$1"
+echo  "$n" | grep   "^[0-9][0-9]*$" > /dev/null
+if [ "$?" -ne 0   ]
+then 
+    echo " o Introdujo caracteres invalidos"
+    echo " o negativos "
+    exit 1
+fi
+if [ "$n" -lt 50 ]
+then
+fact=1
+while [ "$n" -ne 0 ]
+do
+ # fact=$(( fact * n ))
+  fact=`expr  "$fact" \* "$n" `
+  n=`expr $n - 1`
+done
+echo $fact
+else 
+    echo "introducir entero menor que 49 "
+fi

@@ -1,0 +1,7 @@
+ exec < bookstore
+ exec > $2.data
+ while read LINE
+ do
+  echo "$LINE"
+  :
+done  

@@ -1,0 +1,8 @@
+${variable%patron}
+
+${variable%%patron}
+
+${variable#patron}
+
+${variable##patron}
+

@@ -1,0 +1,10 @@
+#
+# suma un par de numeros
+# enteros y los despliega
+# en la salida standar
+#
+
+while read n1 n2
+do
+   expr "$n1" + "$n2"
+done

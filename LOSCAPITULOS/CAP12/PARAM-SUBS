@@ -1,0 +1,133 @@
+${parametro}
+file=a
+mv $file ${file}x
+
+
+${parametro:-valor}
+
+Esta construcción dice que se sustituya
+el valor del parámetro si  es nulo y 
+que no se sustituya el valor en caso contrario. 
+Por ejemplo, en la línea de comando
+
+echo Usando editor ${EDITOR:-/usr/bin/vi}
+
+el shell no sustituye el valor de EDITOR si  es no nulo y
+en caso contrario, usa  el valor especificado. 
+Tiene el mismo efecto que escribir:
+
+if [ -n "$EDITOR" ]
+then 
+    echo using editor $EDITOR
+else
+    echo using editor /usr/bin/vi
+fi
+Ejemplo:
+
+$ EDITOR=
+$ echo Using editor ${EDITOR:-/usr/bin/vi}
+$ Using editor /usr/bin/vi
+
+Ejemplo:
+$ EDITOR=/usr/bin/ed
+$ echo Using editor ${EDITOR:-/usr/bin/vi}
+Using editor /usr/bin/ed
+
+
+${parametro:=valor}
+
+Esta versión es similar a la anterior,
+sólo que si el parámetro es nulo; no solo 
+se usa el valor, sino que también se asigna
+al parámetro (tenga en cuenta = en la construcción). 
+No puede asignar valores al parámetro posicional 
+de esta manera (el parámetro no puede ser un número).
+
+Un uso típico de esta construcción sería probar
+para ver si se ha configurado una variable exportada y,
+en caso contrario, establecerla en un valor predeterminado, 
+como en
+
+${PHONEBOOK:=$HOME/phonebook}
+
+Esto dice que si PHONEBOOK está configurado con algún valor, 
+déjelo así; de lo contrario, configúrelo en
+$HOME/phonebook.
+
+Tenga en cuenta que el ejemplo anterior no podía funcionar
+solo como comando porque después de realizar la sustitución,
+el shell intentaría ejecutar el resultado:
+
+$PHONEBOOK=
+$ ${PHONEBOOK:=$HOME/phonebook}
+/home/apino/phonebook: line 1: Alice: command not found
+/home/apino/phonebook: line 2: Barbara: command not found
+/home/apino/phonebook: line 3: Liz: command not found
+/home/apino/phonebook: line 4: Susan: command not found
+/home/apino/phonebook: line 5: Susan: command not found
+/home/apino/phonebook: line 6: Tony: command not found
+$
+
+Para utilizar esta construcción como un comando independiente,
+ a menudo se emplea el comando nulo. Si se  escribe
+
+$PHONEBOOK=
+$ : ${PHONEBOOK:=$HOME/phonebook}
+$ echo $PHONEBOOK 
+/home/apino/phonebook
+
+el shell todavía realiza la sustitución 
+(evalúa el resto de la línea de comando),
+pero no ejecuta nada (el comando nulo).
+
+$ :  ${PHONEBOOK:=foobar}
+$ echo $PHONEBOOK 
+/home/apino/phonebook
+
+
+${parametro:?valor}
+
+Si el parámetro no es nulo, el shell sustituye su valor;
+de lo contrario, el shell escribe el valor en el error estándar 
+y luego sale (no se preocupe, si lo hace desde su shell
+de inicio de sesión, no se cerrará su sesión). Si se omite el valor,
+el shell escribe el mensaje.
+
+$ PHONEBOOK=
+$ ${PHONEBOOK:? "No PHONEBOOK file! "}
+-bash: PHONEBOOK:  No PHONEBOOK file!
+
+ $ ${PHONEBOOK:?}
+-bash: PHONEBOOK: parameter null or not set
+$
+
+Con esta construcción, puede comprobar fácilmente
+si un conjunto de variables que necesita un programa 
+están todas configuradas y no son nulas, como en
+ 
+: ${TOOLS:?} ${EXPTOOLS:?} ${TOOLBIN:?}
+
+
+${parametro:+valor}
+
+Éste sustituye el valor si el parámetro no es nulo; y
+de lo contrario, no sustituye nada.
+
+$ traceopt=T
+$ echo options: ${traceopt:+"trace mode"}
+options: trace mode
+
+$traceopt=
+$ echo options: ${traceopt:+"trace mode"}
+options: 
+
+
+La parte de valor de cualquiera de las construcciones
+de esta sección puede ser una sustitución de comando;
+el shell lo ejecuta solo si se va a utilizar su valor. En
+
+WORKDIR=${DBDIR:-$(pwd)}
+
+A WORKDIR se le asigna el valor de DBDIR si no es nulo; 
+de lo contrario, se ejecuta el comando pwd y el resultado
+se asigna a WORKDIR. pwd se ejecuta sólo si DBDIR es nulo.

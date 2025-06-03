@@ -1,0 +1,21 @@
+#!/bin/bash
+
+echo
+echo "--------expr---------"
+frase="universidad"
+# grep -o '.' extrae cada caracter de la frase
+length=$(echo $frase | grep -o '.' | wc -l)
+echo $length
+
+echo
+echo "--------expr---------"
+frase="universidad"
+length=$(expr length "$frase")
+echo $length
+
+echo
+echo "--------sed---------"
+# sed elimina los saltos de linea
+frase="universidad"
+length=$(echo $frase | sed 's/\n//'| wc -L)
+echo $length

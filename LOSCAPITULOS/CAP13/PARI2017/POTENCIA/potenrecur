@@ -1,0 +1,106 @@
+# author: Prof. Alvaro Pino N.
+# date: 15/06/2017
+# potenrecur
+potenrecur()
+{
+ local    base=$1
+ local    expo=$2
+ local   p=1
+ declare -i base 
+ declare -i expo
+ declare -i p
+if [ "$expo" -le  0 ] 
+then
+ echo $p 
+else  
+   { 
+      expo=$(( expo -  1 ));
+   p=$( eval potenrecur "$base" "$expo" ) ;
+   p=$(( base * p )) ;
+   echo $p;
+   } 
+fi
+}
+
+
+
+isyes()
+{
+if [ "$#" -ne 1 ]
+  then
+  echo "ERROR"
+  echo "USO:  isyes2  yes/no"
+  exit 1
+fi
+
+case "$1"
+in 
+   [yY] | [yY][Ee][Ss] ) echo 0;;
+   [nN] | [nN][oO] )  echo 1;;
+              *    )  echo 2;;
+esac
+}
+validaentero()
+{
+n="$1"
+echo  "$n" | grep "^[0-9][0-9]*$" > /dev/null
+if [ "$?" -ne 0 ]
+then 
+    echo 1
+else 
+    echo 0
+fi
+ 
+}
+while :
+     do 
+       j=1
+
+       until [ "$j" -eq 0 ]
+       do
+       echo "Enter la base: "
+       read x
+       j=`validaentero "$x"` 
+      if [ "$j" -ne 0 ]
+      then 
+         echo "No introdujo  entero"
+         echo "Introdujo caracteres invalidos"
+         echo
+      fi
+       done
+
+       j=1
+       until [ "$j" -eq 0 ]
+       do
+       echo "Entre la potencia: "
+       read y
+       j=` validaentero "$y" ` 
+      if [ "$j" -ne 0 ]
+      then 
+         echo "No introdujo  entero"
+         echo "Introdujo caracteres invalidos"
+         echo
+      fi
+       done
+           po=` potenrecur  $x  $y `
+           echo "potencia: $po"
+
+       while :
+       do
+          echo "Desea Continuar yes/no ? "
+          read resp
+
+          resp2=` isyes "$resp" `
+
+          if [ "$resp2" -eq 0 ]
+          then 
+              break
+          elif [ "$resp2"  -eq 1 ]
+          then
+              break 2
+          elif [ "$resp2" -eq 2 ]
+          then
+               echo "Opcion incorrecta" 
+          fi
+      done
+done

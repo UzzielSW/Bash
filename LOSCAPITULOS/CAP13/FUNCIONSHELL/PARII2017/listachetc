@@ -1,0 +1,22 @@
+trap ' echo "EXITING on TRAPPED SIGNAL"; echo "DELETING FILE: listaetc";rm listaetc; exit  1 ' 2
+if [ -f listaetc ]
+then
+    echo " listaetc existe "
+    echo "Borrando el archivo actual listaetc "
+    rm listaetc
+fi
+ echo "inicio de la creacion de listaetc"
+for archivo in /etc/*
+do
+ if [ -f  $archivo -a  -r $archivo ]
+then
+   
+   ls -l  $archivo >> listaetc
+   sleep 1
+fi
+done
+echo "fin de la creacion de listaetc"
+echo "/etc tiene archivos con permisos de lectura: "
+
+wc -l listaetc
+

@@ -1,0 +1,1 @@
+who | sed 's/ .*//g' | grep  $1 

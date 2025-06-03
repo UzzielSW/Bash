@@ -1,0 +1,31 @@
+if [ "$#" -ne 1 ]
+then
+   echo "error"
+   echo "USO: conntime nombreusuario"
+   exit 1
+fi
+
+
+$( cat  /etc/passwd | cut -d':' -f1   |  grep -w $1 > /dev/null) 
+
+if [ "$?" -eq 0 ]
+then
+loginhour=`who | grep $1 | cut -c34-35`
+loginmin=`who | grep $1 | cut -c37-38` 
+date=`date`
+hour=`echo "$date" | cut -c12-13`
+min=`echo "$date" | cut -c15-16`
+
+#compute time logged on in minutes
+deltamins=`expr \( \( $hour \* 60 + $min \) - \( $loginhour \* 60 + $loginmin \)  \) `
+#handle time wraparound
+ echo " diferencia minutos: $deltamins "
+if [ $deltamins -lt 0 ]
+then
+   deltamins=` expr $deltamins + 24  \* 60 `
+fi
+
+echo  "$1 has been logged on for `  expr $deltamins / 60 `  hours   ` expr $deltamins % 60 ` minutes "
+else
+echo  "$1 is not a user of this system "
+fi 

@@ -1,0 +1,33 @@
+factiter()
+{
+  if [ "$1" -gt 1 ]
+then 
+    fact=1
+    i=1
+    while [ "$i" -le "$1" ]
+      do
+         fact=$( expr $fact  \*  $i )
+         i=$(  expr "$i" + 1  )
+     done
+    echo $fact
+else
+     echo  1
+fi
+}
+
+
+
+
+
+
+while :
+     do
+       echo "Enter a integer number: "
+       read x
+       if [ "$x" -ge 0 ]
+       then
+           echo $( factiter $x )
+       else
+           echo "ERROR"
+       fi
+done

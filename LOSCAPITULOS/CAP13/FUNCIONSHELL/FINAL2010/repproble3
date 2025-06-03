@@ -1,0 +1,13 @@
+/etc/auto_master
+/etc/mnttab
+/etc/netconfig
+/etc/nscd.conf
+/etc/nsswitch.conf
+/etc/nsswitch.conf.bk
+/etc/nsswitch.dns
+/etc/nsswitch.files
+/etc/nsswitch.ldap
+/etc/nsswitch.nis
+/etc/nsswitch.nisplus
+/etc/pam.conf
+Total: 12

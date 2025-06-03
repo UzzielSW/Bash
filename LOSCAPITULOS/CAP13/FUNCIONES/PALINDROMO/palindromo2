@@ -1,0 +1,86 @@
+# program name: inverso3
+# author Prof. Alvaro Pino N.
+# date: 22/05/2017
+#
+reverstring()
+{
+if [ "$#" -ne 1 ]
+then
+    echo "Error"
+    echo "USO: revestring palabra[s] "
+    exit 1
+fi
+back="$1"
+texto=$( echo "$1" | sed 's/ //g' | tr  '[A-Z]' '[a-z]')
+otxet=
+#numcaract=$(expr "$texto" : '.*') 
+numcaract=${#texto} 
+while [ $numcaract -ge 0 ]
+do
+lastchar=$(echo "$texto" | sed 's/.*\(.\)$/\1/')
+otxet=$otxet$lastchar
+texto=$(echo "$texto" | sed 's/.$//')
+numcaract=$(( numcaract - 1 ))
+done
+echo $otxet
+}
+
+isyes()
+{
+if [ "$#" -ne 1 ]
+  then
+  echo "ERROR"
+  echo "USO:  isyes2  yes/no"
+  exit 1
+fi
+
+case "$1"
+in 
+   [yY] | [yY][Ee][Ss] ) echo 0;;
+   [nN] | [nN][oO] )  echo 1;;
+              *    )  echo 2;;
+esac
+}
+ if [ "$#" -ne 0 ]
+  then
+      echo "ERROR!"
+      echo "USO: $0"
+      exit 1
+else
+
+while :
+     do
+       echo "Ingrezar una cadena "
+       read x
+       if [  -n "$x"  ]
+       then
+       texto1=$( echo "$x" | sed 's/ //g' | tr  '[A-Z]' '[a-z]')
+       rever=$( reverstring "$x" )
+       if [ "$texto1" = "$rever" ]
+       then 
+           echo "$x es un polindromo"
+           echo "reverstring: $rever  = $texto1"
+       else echo "$x no es un poliendromo"
+            echo "reverstring: $rever != $texto1"
+       fi
+       else
+           echo "ERROR"
+       fi
+ while :
+ do
+      echo "Desea Continuar yes/no ?"
+           read resp
+          resp2=$( isyes "$resp" )
+          if [ "$resp2" -eq 0 ]
+          then 
+              break
+          elif [ "$resp2"  -eq 1 ]
+              then
+                 break 2
+              elif [ "$resp2" -eq 2 ]
+                   then
+                      echo "Opcion incorrecta" 
+             fi
+ done
+done
+fi

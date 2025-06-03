@@ -1,0 +1,89 @@
+# capitulo9
+#
+# monsyst3
+# Espera que un usuario entre al sistema
+#
+# version 3
+# instala los valores por defecto
+
+mailopt=FALSE
+interval=5
+archopt=FALSE
+# procesa las opciones
+
+while getopts mt:f: option 
+do
+  case "$option"
+  in
+     m) mailopt=TRUE;;
+     t) interval=$OPTARG;;
+     f) archopt=TRUE
+        archivo=$OPTARG;;  
+    \?) echo " USO: monsyst3 [-m] [ -t n ] [ -f ] user "
+        echo " -m informar por correo"
+        echo " -t verificar cada  n segundos. "
+        echo " -f verificar la existencia de un archivo o directorio borrado. "
+        exit 1;;
+  esac
+done 
+# codigo de prof. Alvaro Pino N derecho de autor reservado
+
+echo  "$interval" | grep "^[0-9][0-9]*$" > /dev/null
+if [ "$?" -ne 0 ]
+then 
+    echo "No introdujo los segundos"
+    echo "Introdujo caracteres invalidos"
+    exit 1
+else
+    if [ "$OPTIND"  -gt "$#" ]
+    then
+        echo "Omitio el nombre del usuario"
+        exit 2
+    fi 
+fi
+
+Shiftcount=`expr $OPTIND - 1 `
+shift $Shiftcount
+user=$1
+
+# codigo de prof. Alvaro Pino N derecho de autor reservado
+
+# Verifica al usuario
+
+cut -d: -f1 /etc/passwd | grep -w "$user"  > /dev/null
+if [ "$?" -ne 0 ]
+then
+    echo "$user no es un usuario del sistema"
+    exit 1
+fi
+
+# Verifica que el usuario ingreso al Sistema
+
+until who |  grep "^$user " > /dev/null
+do
+  sleep $interval
+done
+
+#
+# Cuando nosotros alcanzamos este punto
+# el usuario ingreso al sistema
+#
+
+if [ "$archopt" = TRUE ]
+then
+until [ ! \( -f $archivo  -o -d $archivo \) ]
+ do
+   sleep 2
+ done
+echo "$archivo fue borrado por $user" 
+   exit 0
+else 
+    if [ "$mailopt" = FALSE ]
+    then
+        echo "$user esta en el sistema"
+    else
+      runner=`who am i |  cut -c1-8`
+       echo "$user esta en el sistema " | write  $runner
+     fi
+fi
+exit 0

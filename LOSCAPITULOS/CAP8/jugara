@@ -1,0 +1,14 @@
+#
+#
+# jugar
+# 
+# ejemplo del uso de test
+#
+# determina si name contiene a junio
+# para invitarlo a jugar
+#
+name="$1"
+if test $name = junio
+then
+    echo "$name deseas jugar"
+fi

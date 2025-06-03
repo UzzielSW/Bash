@@ -1,0 +1,23 @@
+#
+# Number lines from files given as argument or from
+# standart input if none supplied (final version)
+#
+
+# Modify the IFS to preserve leading whitespace on input
+
+IFS='
+'    # Just a newline appears between the quotes
+
+lineno=1
+
+cat  $* |
+
+while read -r line
+do
+  printf "%5d:%s\n"  $lineno "$line"
+  lineno=$((  lineno  +  1 ))
+done
+
+
+
+

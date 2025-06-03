@@ -1,0 +1,5 @@
+DATA=$HOME/usr2/data
+RPTS=$DATA/rpts
+BIN=$DATA/bin
+
+cd $DATA

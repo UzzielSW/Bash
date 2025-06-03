@@ -1,0 +1,6 @@
+for f in *.foo
+ do
+   base=`basename $f .foo`
+   mv  $f $base.bar
+done
+

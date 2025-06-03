@@ -1,16 +1,18 @@
 archivo=0
 director=0
 path=$1
+
 for  valor in $path/*
 do
-if [ -f $valor ]
-then 
-archivo=$(( archivo + 1 ))
-fi
-if [ -d $valor ]
-then
-director=$(( director + 1 ))
-fi
+    if [ -f $valor ]
+    then
+        archivo=$(( archivo + 1 ))
+    fi
+    if [ -d $valor ]
+    then
+        director=$(( director + 1 ))
+    fi
 done
+
 echo cantidad de archivo "$archivo"
 echo cantidad de directorios "$director"

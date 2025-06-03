@@ -1,0 +1,42 @@
+# nf
+# despiegue el numero de archivos del directorio actual
+echo "Cantidad de archivos: "
+ls -l | grep "^-" | wc -l
+# desplique una lista ordenada de las personas que estan logeadas actualmente con sus numeros de usuario.
+
+# copiar CAP6
+
+# diferencias de comillas simples y dobles
+x=10
+echo modo #1 $x
+echo 'modo #2: $X'
+echo "modo #3: $X"
+
+#ejecucion de comandos por asignacion
+#hoy=`date`
+hoy2=$(date)
+
+archivo='file.o'
+# lastchar="${$archivo: -1}"
+
+# echo 'ultima letra: $lastchar'
+#
+a=universidad
+# expr $a : .*
+echo expr $a : .*
+
+texto="Universidad de Panama"
+echo "Eliminando los espacios del texto: $texto"
+texto=`echo $texto | sed 's/ //g'`
+echo ">> $texto"
+
+# basename: elimina el prefijo de un nombre de archivo, ejemplo: /home/rafael/archivo.txt -> archivo.txt
+# dirname: elimina el sufijo de un nombre de archivo, ejemplo: /home/rafael/archivo.txt -> /home/rafael
+#
+
+# head -1 archivo.txt , muestra la primera linea de un archivo
+# tail -1 archivo.txt , muestra la ultima linea de un archivo
+#
+
+# phonbook2 es de apoyo, en caso se borre o funcione mal.
+# no se usa comando line (no es portable)

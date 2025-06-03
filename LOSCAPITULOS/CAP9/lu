@@ -1,0 +1,5 @@
+#
+#
+# Look someone up in the phone book
+#
+grep $1 phonebook

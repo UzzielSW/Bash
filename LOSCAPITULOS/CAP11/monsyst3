@@ -1,0 +1,82 @@
+#
+#
+# capitulo9
+#
+# monsyst3
+# Espera que un usuario entre al sistema
+#
+# version 3
+# instala los valores por defecto
+#
+
+mailopt=FALSE
+interval=60
+
+# procesa las opciones
+
+while getopts mt: option 
+do
+  case "$option"
+  in
+     m) mailopt=TRUE;;
+     t) interval=$OPTARG;;
+    \?) echo " USO: monsyst3 [-m] [ -t n ] user "
+        echo " -m informar por correo"
+        echo " -t verificar cada  n segundos. "
+        exit 1;;
+  esac
+done 
+# codigo de prof. Alvaro Pino N derecho de autor reservado
+
+echo  "$interval" | grep "^[0-9][0-9]*$" > /dev/null
+if [ "$?" -ne 0 ]
+then 
+    echo "No introdujo los segundos"
+    echo "Introdujo caracteres invalidos"
+    exit 1
+else
+    if [ "$OPTIND"  -gt "$#" ]
+    then
+        echo "Omitio el nombre del usuario"
+        exit 2
+    fi 
+fi
+
+Shiftcount=`expr $OPTIND - 1 `
+shift $Shiftcount
+user=$1
+
+# codigo de prof. Alvaro Pino N derecho de autor reservado
+
+# Verifica al usuario
+
+cut -d: -f1 /etc/passwd | grep -w "$user"  > /dev/null
+if [ "$?" -ne 0 ]
+then
+    echo "$user no es un usuario del sistema"
+    exit 1
+fi
+
+{
+
+#
+# Verifica que el usuario ingreso al Sistema
+#
+
+until who |  grep "^$user " > /dev/null
+do
+  sleep $interval
+done
+
+#
+# Cuando nosotros alcanzamos este punto
+# el usuario ingreso al sistema
+#
+if [ "$mailopt" = FALSE ]
+then
+    echo "$user esta en el sistema"
+else
+     runner=`who am i |  cut -c1-8`
+     echo "$user esta en el sistema " | write  $runner
+fi
+} &

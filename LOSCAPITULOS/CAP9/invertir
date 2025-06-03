@@ -1,0 +1,25 @@
+#
+# program: invertir
+#
+# date: 16/05/2016
+#
+# author: Prof. Alvaro Pino N.
+#
+#
+if [ "$#" -ne 1 ]
+then 
+   echo "USO: invertir cadena "
+   exit 1
+fi
+
+invertida=
+cadena="$1"
+
+while [ -n "$cadena" ]
+do
+  lastchar=` echo "$cadena" | sed "s/.*\(.\)$/\1/"`
+  invertida=$invertida$lastchar
+  cadena=` echo "$cadena" | sed "s/$lastchar$//"`
+done
+
+echo "$invertida"

@@ -1,0 +1,13 @@
+#
+# Numera las lineas de 
+# un archivo dado como
+# argumento o de la entrada
+# estandar.
+#
+lineno=1
+cat $* |
+while read line
+do
+    echo "$lineno: $line"
+    lineno=`expr $lineno + 1`
+done

@@ -1,0 +1,185 @@
+#
+#
+# rolo - rododex programa que busca, agrega, y remueve
+# personas de un directorio telefonico
+#
+#  Version 3
+#
+# Si se suministra argumento entonces busca
+#
+
+#
+# and export it so other progs know about it
+ 
+lub()
+{
+#
+#
+# Look someone up in the phone book
+#
+
+if [ "$#" -ne 1 ]
+then
+    echo "Incorrect number of arguments"
+    echo "Usage: lub name"
+    exit  1
+fi
+
+name=$1
+grep "$name" $PHONEBOOK 
+
+if [ $? -ne 0 ]
+then
+    echo "I couldn't find $name in the phonebok"
+fi
+
+}
+
+
+add2()
+{
+
+#
+# Add someone to the phonebook  file -- version 2
+#
+
+if [ "$#"  -ne  2 ]
+then
+   echo "Incorrect number of arguments"
+   echo "Uso: add name number"
+   exit
+fi
+
+
+echo "$1	$2" >> $PHONEBOOK
+sort -o $PHONEBOOK $PHONEBOOK
+}
+
+remb()
+{
+#
+#
+# Remove someone from the phone book
+#
+if [ "$#" -ne 1 ]
+then
+    echo "Incorrect number of arguments"
+    echo "Usage: remb name"
+    exit 1
+fi
+
+name=$1
+
+#
+#Find number of matching entries
+#
+
+matches=`grep "$name"  $PHONEBOOK | wc -l `
+
+#
+# If more than one match, issue message, else remove it
+#
+if [ "$matches" -gt 1 ]
+then
+   echo "More than one match; please qualify futher"
+elif [ "$matches" -eq 1 ]
+then 
+    grep -v "$name"  $PHONEBOOK > /tmp/phonebook$$
+    mv /tmp/phonebook$$ $PHONEBOOK
+else
+   echo "I couldn't find $name in phone book"
+fi   
+sed  "/$1/d" $PHONEBOOK > /tmp/phonebook$$
+mv /tmp/phonebook$$  $PHONEBOOK
+}
+
+DIRECT=$HOME/LOSCAPITULOS/CAP12/phonebook
+PHONEBOOK=$DIRECT
+export PHONEBOOK
+
+if [ ! -f "$PHONEBOOK" ]
+then
+    echo "No phonebook file in $DIRECT ! "
+    exit 1
+fi
+
+#
+# If the arguments are suplied, the do lookup
+#
+
+if [ "$#" -ne 0 ]
+then
+     lub "$@"
+     exit
+fi
+
+validchoice="" #set it null
+ 
+#
+#  Bucle hasta que una sleccion valida se escoja
+#
+
+until [  -n  "$validchoice" ]
+do
+    #
+    # Despliega el Menu
+    #
+
+#
+# Despliega el menu
+#
+#
+clear
+echo  -n " 
+      Ud desea:
+
+               1. Buscar 
+               2. Agragar 
+               3. Remover
+               4. Salir
+      Seleccione (1-4):   "
+
+#
+#
+# Lee y procesa la seleccion
+#
+
+read choice
+echo
+
+ case  "$choice"
+  in
+      1) echo -n "Entre el nombre:  "
+         read nombre
+         lub "$nombre"
+         echo -n "Enter para continuar: "
+         read resp;;
+
+      2) echo -n "Entre el nombre que debe ser agregado: "
+         read nombre
+         echo -n "entre el numero de telefono: "
+         read numero
+         add2 "$nombre" "$numero"
+         echo "$nombre   $numero se ha agregado a phonebook"
+         echo -n "Enter para continuar: "
+         read resp;;
+      
+      3) echo -n "Entre el nombre que se debe remover: "
+         read nombre
+         remb "$nombre"
+         echo "$nombre ha sido removido de phonebook"
+         echo -n "Enter para continuar: "
+         read resp;;
+      
+      4) echo "Adios ... "
+         sleep 2
+         clear
+         validchoice=TRUE;;
+      
+      *) echo "Opcion Invalida"
+         echo -n "Enter para continuar"
+         read resp;;
+  esac
+done
+
+

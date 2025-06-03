@@ -1,0 +1,23 @@
+# insuffix6b busca un patron al final
+# del nombre de un archivo y remueve
+# el patron si lo encuentra.
+
+if [ "$#" -ne 2 ]
+then
+     echo "El numero de argumentos es incorrecto"
+     echo "USO: unsuffix6b archivo patron   "
+     exit 1
+else
+   archivo=$1
+   if [ -f $archivo ]
+   then
+       nuevo=$( echo "$1" | sed "s/"$2"$//")
+       if [ $archivo != $nuevo ]
+       then
+           mv $archivo  $nuevo
+       else echo "El patron $2 no fue encontrado"
+       fi
+  else
+      echo "$archivo no existe"
+  fi
+fi

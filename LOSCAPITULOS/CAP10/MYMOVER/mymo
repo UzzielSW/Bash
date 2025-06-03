@@ -1,0 +1,33 @@
+#
+# Copia un Archivo
+#
+if [ "$#" -ne 2 ]
+then
+   echo "USO: mymo from to"
+   exit 1
+fi
+
+from="$1"
+to="$2"
+
+#
+# Verifica si el archivo destino existe
+#
+
+if [ -f "$to" ]
+then
+    echo "$to ya existe ; Cambiar nombre ( yes/no ) ? "
+    read answer
+
+    if [ "$answer" != yes ]
+    then
+        echo "Cambio de nombre no se efectuo "
+        exit 0
+    fi
+fi
+
+#
+# copia
+#
+mv $from $to
+

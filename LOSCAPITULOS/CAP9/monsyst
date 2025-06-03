@@ -1,0 +1,26 @@
+#
+#
+# capitulo9
+#
+# monsyst - monitoriar cuando alguien entra al sistema
+# Espera que un usuario entre al sistema
+#
+if [ "$#" -ne 1 ]
+then 
+   echo "USO: monsyst usuario"
+   exit 1
+fi
+user="$1"
+#
+# verifica cada minuto para ver si el
+# usuario entra al sistema
+
+until who | grep "^$user " > /dev/null
+do
+   sleep 10
+done
+#
+# cuando el usuario es encontrado
+
+ echo  "$user esta en el sistema"
+

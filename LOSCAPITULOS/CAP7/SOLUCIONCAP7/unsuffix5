@@ -1,0 +1,5 @@
+nuevo=$(ls | grep -w $1 |  tr -d "s/$2$//")
+#echo $nuevo
+mv $1 $nuevo
+ls $nuevo
+

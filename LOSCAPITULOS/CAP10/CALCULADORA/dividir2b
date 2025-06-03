@@ -1,0 +1,34 @@
+if [ "$#" -ne 2 ]
+then
+    echo "USO: dividir dividendo divisor"
+    exit 1
+fi
+DIV="$1"
+divisor="$2"
+DIV=`echo $DIV | grep  "^[0-9][0-9]*$"`
+divisor=`echo $divisor | grep "^[0-9][0-9]*$"`
+#echo "Dividendo = $DIV" 
+#echo "divisor = $divisor"
+if [ \( -n "$DIV" -a  -n "$divisor" \)  ]
+then
+if [ "$divisor" -ne 0 ]
+then
+
+divisible=`expr  $DIV % "$divisor" `
+#echo " divisible = $divisible "
+if [  "$divisible" -eq 0 ]
+then
+cont=0
+    while [ "$DIV" -ge "$divisor" ]
+    do
+     DIV=`expr  $DIV - $divisor `
+     cont=`expr  $cont + 1 `
+    done
+	echo "$cont" 
+        exit 0
+else echo " $DIV no es divisible exactamente entre $divisor"
+  fi
+else echo "No se puede dividir entre: $divisor"
+fi
+else echo "ingrese enteros"
+fi  

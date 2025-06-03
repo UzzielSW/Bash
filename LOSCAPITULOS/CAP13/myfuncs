@@ -1,0 +1,29 @@
+#
+#new cd function:
+#	mycd dir Switches dir
+#	mycd old new Substitute new for old in current directory's path
+#
+
+mycd()
+{
+ if [ $# -le 1 ]
+ then
+
+     # normal case -- 0 or 1 argument
+     cd $1
+
+ elif [ $# -eq 2 ]
+ then 
+
+     # special case --substitute $2 for $1
+
+     cd $(echo $PWD | sed "s|$1|$2|")
+
+ else
+     # cd can't have more than two arguments
+     echo mycd: bad argument count
+     exit 1
+ fi
+}
+
+

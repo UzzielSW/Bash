@@ -1,0 +1,96 @@
+#
+#  Shell   : permiso
+#  Autor   : Sergio Garcia Navas
+#  Fecha   : 29/7/03
+#  Funcion : Cambia el permiso (dueno, grupo y otro) a un archivo
+#
+yo=`basename $HOME`
+#
+# Despliega el menu
+#
+#
+clear
+echo ' 
+      Ud desea:
+
+               1. Cambiar permiso 
+               2. Salir 
+  
+      Seleccione (1-2): \c  '
+
+#
+#
+# Lee y procesa la seleccion
+#
+read choice
+echo
+
+case  "$choice"
+in
+      1) echo "Entre el nombre del Archivo: \c "
+         read nombre;;
+
+      2) echo Hasta luego $yo. 
+         exit 1;; 
+      
+      *) echo "Opcion Invalida"
+         exit 1;;
+
+esac
+#
+# verifica si el archivo existe
+# optiene el nombre del dueno del archivo
+ if [  -f $nombre ]
+    then
+      dueno=`ls -l permiso | tr -s ' ' ' ' | cut -d ' ' -f3`
+    else
+      echo $nombre 'No existe'
+      exit 1
+ fi
+#
+# verifica si el dueno del archivo NO es igual al usuario de entrada
+#
+ if [ "$dueno" -ne "$yo" ]
+    then
+       echo $yo " No es el dueno del archivo: " $nombre
+       echo "Hasta luego"
+       exit 1
+ fi
+#
+# definicion de variables
+#
+lectura="_"
+excritura="_"
+ejecucion="_"
+aquien="0"
+#
+# Identificar a quien se le cambiara el acceso al archivo
+#
+
+echo '
+      Cambiar permiso:
+
+                      1. Dueno 
+                      2. Grupo
+                      3. Otro  
+                      4. Salir
+ 
+      Seleccione (1-4): \c  '
+
+read choice
+ echo
+ case "$choice" 
+ in
+      1) aquien="1";; 
+
+      2) aquien="2";;
+
+      3) aquien="3";;
+
+      4) exit 1;;
+
+      *) echo "Opcion Invalida"
+         exit 1;;
+
+
+ esac

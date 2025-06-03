@@ -1,0 +1,25 @@
+# author: Prof. Alvaro Pino N.
+# date: 15/06/2017
+# poteninter
+#
+   base=$1
+   expo=$2
+    p=1
+    i=1
+
+echo  "$n" | grep "^[0-9][0-9]*$" > /dev/null
+
+if [ "$?" -ne 0 ]
+then 
+    echo 1
+else 
+    echo 0
+fi
+
+ while [ "$i" -le  "$expo" ]
+ do
+     p=$(( p *  base));
+     i=$(( i + 1 ));
+ done
+echo $p
+ 

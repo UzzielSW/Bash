@@ -1,0 +1,2 @@
+clear
+who | grep "^$1"  

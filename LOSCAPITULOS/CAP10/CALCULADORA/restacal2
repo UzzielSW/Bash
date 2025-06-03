@@ -1,0 +1,71 @@
+if [ "$#" -eq 2 ]
+then 
+    operador1=$1
+    operador2=$2
+    signo1=1
+    signo2=1
+    resultado=0
+
+
+    operador1=`echo "$operador1" | sed 's/[^-+0-9]//' | tr -d ' '`
+    operador2=`echo "$operador2" | sed 's/[^-+0-9]//' | tr -d ' '`
+   
+    echo " operador1 $operador1 "
+    echo " operador2 $operador2 "
+
+    operador1N=` echo "$operador1" | grep  "^-[0-9][0-9]*$" ` 
+    if [ -n "$operador1N" ]
+    then 
+       signo1=-1
+       echo " signo1 = $signo1 "
+       operador1=`echo "$operador1N" | sed "s/^-//"`
+    fi
+
+    operador1P=` echo "$operador1" | grep  "^+[0-9][0-9]*$" ` 
+
+    if [ -n "$operador1P" ]
+    then 
+       signo1=1
+       echo " signo1 = $signo1 "
+       operador1=`echo "$operador1P" | sed "s/^+//"`
+    fi
+
+   operador2n=`echo "$operador2" | grep  "^-[0-9][0-9]*$" ` 
+   if [  -n "$operador2n" ]
+   then 
+     signo2=-1
+     echo " signo2 = $signo1 "
+    operador2=`echo "$operador2n" | sed "s/^-//"`
+   fi
+
+   operador2P=`echo "$operador2" | grep  "^+[0-9][0-9]*$" ` 
+   if [  -n "$operador2P" ]
+   then 
+     signo2=1
+     echo " signo2 = $signo2 "
+    operador2=`echo "$operador2P" | sed "s/^+//"`
+   fi
+
+    echo  "$operador1" | grep "^[0-9][0-9]*$" > /dev/null
+    ok1="$?"
+    echo  "$operador2" | grep "^[0-9][0-9]*$" > /dev/null
+    ok2="$?"
+
+
+   if [ "$ok1" -eq 0 -a "$ok2" -eq 0 ]
+   then
+         operador1=$(( $signo1 * $operador1 ))
+         operador2=$(( $signo2 * $operador2 ))
+
+         echo -n " $operador1 - $operador2 = "
+         resultado=` expr "$operador1"  -   "$operador2" ` 
+
+         echo  -n  "$resultado"
+         echo 
+   else 
+       echo "Error ingrese valores enteros"
+   fi
+else
+     echo  1
+fi
+         exit 0

@@ -1,0 +1,20 @@
+if [ "$#" -eq 1 ]
+then 
+FILENAME="$1"
+ if [ -f $FILENAME ]
+then
+exec 3<&0
+exec 0< $FILENAME
+
+ while line LINE
+ do
+  echo "$LINE"
+:
+ done
+exec 0<&3
+else
+echo "El archivo no existe"
+fi
+else
+ echo "Uso: read12 archivo"
+fi

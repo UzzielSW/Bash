@@ -1,0 +1,2 @@
+# Programa que imprime el Home Directory del usuario deseado
+cat /etc/passwd | grep "^$1" | cut -d: -f6

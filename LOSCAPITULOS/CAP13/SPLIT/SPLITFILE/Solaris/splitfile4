@@ -1,0 +1,41 @@
+# splitfile3
+#if [ $(($# % 2 )) -eq 0 ]
+#then
+for var in "$@"
+ do
+   #exec  < bookstore
+   echo " Creando el archivo $2.dat "
+   exec  > $2.dat
+
+FILENAME=bookstore
+ if [ -f $FILENAME ]
+then
+ cat $FILENAME | while LINE=`line`
+ do
+ echo "$LINE" | grep "$1"  
+:
+done   
+else
+echo "El archivo no existe"
+exit 1
+fi
+
+ exec > /dev/tty
+
+ cat $2.dat
+
+   shift 2
+
+ if [ "$#" -gt 0 ]
+ then
+  :
+ else break  
+ fi
+
+ 
+ done
+
+
+#else echo error
+#fi 
+ echo fin

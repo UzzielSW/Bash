@@ -1,0 +1,31 @@
+
+trap "echo error;echo 'Desea continuar ?' "  2
+
+isYes()
+{
+yes=$(echo $1)
+echo $yes | egrep -i "y|yes" > /dev/null
+
+echo $?
+
+}
+
+
+continuar=0
+
+while [ $continuar -eq 0 ]
+do
+
+echo "Desea continuar ?"
+
+read resp
+
+continuar=$(echo $(isYes $resp))
+
+if [ $continuar -eq 0 ]
+then 
+	sleep 5
+fi
+
+done
+ 

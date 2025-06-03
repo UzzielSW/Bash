@@ -1,0 +1,23 @@
+# program name: inverso3
+# author Prof. Alvaro Pino N.
+# date: 22/05/2017
+#
+
+if [ "$#" -ne 1 ]
+then
+    echo "Error"
+    echo "USO: inverso3 \"palabra[s] \" "
+    exit 1
+fi
+
+texto="$1"
+otxet=
+numcaract=$(expr "$texto" : '.*') 
+while [ $numcaract -ge 0 ]
+do
+lastchar=$(echo "$texto" | sed 's/.*\(.\)$/\1/')
+otxet=$otxet$lastchar
+texto=$(echo "$texto" | sed 's/.$//')
+numcaract=$(( numcaract - 1 ))
+done
+echo $otxet

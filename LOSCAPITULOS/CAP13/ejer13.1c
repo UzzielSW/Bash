@@ -1,0 +1,8 @@
+ var=$#
+
+    while [ "$var" -ne 0 ]
+     do
+          eval echo -n \"\${$var} \" 
+       var=$(( var - 1 ))
+     done
+echo

@@ -1,3 +1,0 @@
-frase="universidad de panama"
-frase=`echo $frase | sed 's/ //g'`
-echo $frase

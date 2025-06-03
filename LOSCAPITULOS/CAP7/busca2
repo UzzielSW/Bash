@@ -1,0 +1,2 @@
+# Look someone up in the phone book
+grep -i "$1" phonebook

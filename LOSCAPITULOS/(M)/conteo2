@@ -1,3 +1,0 @@
-frase="universidad"
-length=$(expr length "$frase")
-echo $length

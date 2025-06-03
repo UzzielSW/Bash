@@ -1,3 +1,0 @@
-frase="universidad de panama"
-frase=$(echo $frase | tr -d ' ')
-echo $frase

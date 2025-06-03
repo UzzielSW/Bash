@@ -1,0 +1,3 @@
+ USO: monsyst3 [-m] [ -t n ] user 
+ -m informar por correo
+ -t verificar cada  n segundos. 

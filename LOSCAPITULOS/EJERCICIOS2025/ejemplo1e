@@ -1,38 +1,40 @@
-#El código es el mismo, tan solo hemos creado 
-#una función nueva con el cuerpo principal del script 
+#El código es el mismo, tan solo hemos creado
+#una función nueva con el cuerpo principal del script
 #y una invocación, pero esto no funcionará como esperamos
 # puesto que showAllFiles no recibe ningún parámetro al llamarla
 # y, por tanto, $@ estará vacío.
 
 function error()
 {
- echo "[ERROR] - $@"
- exit 1
+    echo "[ERROR] - $@"
+    exit 1
 }
 
 function showfile()
 {
-if [ ! -f $file ]
-     then
-   echo  "El archivo $file no existe o no es un archivo regular"
-   return 1
-fi
-   
-	OLDIFS=$IFS
-	IFS=$'\n'
-	i=1
-	for linea in $(cat $file)
-	do
-  		echo "Linea $i: $linea"
- 		 i=$(( i + 1 ))
-	done 
-IFS=$OLDIFS
+    if [ ! -f $file ]
+    then
+        echo  "El archivo $file no existe o no es un archivo regular"
+        return 1
+    fi
+    
+    OLDIFS=$IFS
+    IFS=$'\n'
+    i=1
+    for linea in $(cat $file)
+    do
+        echo "Linea $i: $linea"
+        i=$(( i + 1 ))
+    done
+    IFS=$OLDIFS
 }
+
 function showAllfile()
 {
-for file 
-do
-  showfile
-done
+    for file
+    do
+        showfile
+    done
 }
+
 showAllfile

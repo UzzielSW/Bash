@@ -1,0 +1,3 @@
+echo Se pasaron $# argumentos, estos son: $@
+echo Se pasaron $# argumentos, estos son: $*
+echo arg 1 = $1, arg 2 = $2, arg  3 = $3

@@ -1,0 +1,56 @@
+name="$1" 
+terminales=`who | grep "$name" | tr -s ' ' ' ' | cut -d ' ' -f2 |\
+ tr '\012' ' ' `
+echo $terminales
+horaentre=`who | grep "$name" | tr -s ' ' ' ' | cut -d ' ' -f4 `
+horaentre=`echo "$horaentre" | sed 's/)/'\012'/g' | cut -c1-5 | tr '\012' ' '` 
+echo $horaentre
+diaentrada=`who | grep "$name"  | tr -s ' ' ' ' |cut -d ' ' -f4 |\
+ tr '\012' ' ' `
+fechaactual=`date | cut -d ' ' -f3`
+echo "`who | grep $name | \
+      tr -s ' ' ' ' | cut -d' ' -f3,4,5 | \
+      sed 's/\([0-9]\{1,2\}\)/\1/' |\
+      cut -c1-11`" > salida
+i=1
+clear
+exec < salida
+
+for valor1 in $diaentrada
+do
+      
+      echo "______________________________________________"
+      read line
+      echo "$name ingreso $line"
+      terminale=`echo "$terminales" | cut -d ' ' -f$i`
+      echo "$name esta en la terminal $terminale"
+      horae=`echo "$horaentre" | cut -d ' ' -f$i`
+      h=`echo "$horae" | cut -d ':' -f1`
+      m=`echo "$horae" | cut -d ':' -f2`
+      i=`expr $i + 1`
+      horactual=`date +%H`
+      minutoactual=`date +%M`
+
+      if [ "$m" -lt "$minutoactual" ]
+      then
+        :
+       else
+          horactual=`expr $horactual - 1`
+          minutoactual=`expr $minutoactual + 60`
+       fi
+       min=`expr "$minutoactual" - $m`
+       hor=`expr "$horactual" - $h`
+       echo "$name ha estado en el sistema: $hor:$min"
+ip=`who | grep apino | tr -s ' ' ' ' | tr '\11' ' '| cut -d' ' -f5 | sed 's/(//'| sed 's/)//'`
+       echo "Conectado desde IP: $ip"
+
+       echo
+       echo "_____________________________________________"
+       exec < /dev/tty
+       echo -n "Entre para continuar: "
+       read resp
+       cat salida | grep -v "$horae" > salida2 
+       mv salida2 salida
+       exec < salida    
+done
+ rm salida

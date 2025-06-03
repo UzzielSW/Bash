@@ -1,0 +1,19 @@
+if [  "$#" -ne 1 -o ! -d "$1" ]
+then 
+    echo "USO: proble4 dir"
+    exit 1
+fi
+
+if [ -d "$1" ]
+then 
+    echo "$1 existe"
+    N=`ls  -la "$1" |  tr -s ' ' '' | grep -v total | wc -l` 
+    if [ $N -gt 0 ]
+    then
+       echo "No esta vacio"
+       echo "contiene $N archivos o directorios"
+       echo "incluyendo los ocultos"
+    else 
+       echo "No esta vacio"
+    fi
+fi

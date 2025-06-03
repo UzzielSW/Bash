@@ -1,0 +1,130 @@
+#
+#
+# rolo - rododex programa que busca, agrega, y remueve
+# personas de un directorio telefonico
+#
+#  Version 3
+#
+# Si se suministra argumento entonces busca
+#
+
+#
+# and export it so other progs know about it
+
+: {PHONEBOOK:=$HOME/LOSCAPITULOS/CAP14/phonebook}
+export PHONEBOOK
+
+if [ ! -e "$PHONEBOOK" ]
+then
+    echo " $PHONEBOOK no existe! "
+    echo -n "Should I Create it for you(y/n)? "
+    read answer
+    if [ "$answer" != yes ]
+    then
+        exit 1
+    fi
+    > $PHONEBOOK || exit 1  #sale si la creacion falla
+fi
+
+#
+# If the arguments are suplied, the do lookup
+#
+
+if [ "$#" -ne 0 ]
+then
+     lub "$@"
+     exit
+fi
+
+#
+# set trap to interrupt (DELETE key) to continue the loop
+#
+
+trap "continue" 2
+   
+validchoice="" #set it null
+ 
+#
+#  Bucle hasta que una sleccion valida se escoja
+#
+
+while true
+do
+    #
+    # Despliega el Menu
+    #
+
+#
+# Despliega el menu
+#
+#
+clear
+echo  -n " 
+      Ud desea:
+
+               1. Buscar 
+               2. Agregar 
+               3. Remover
+               4. Modificar
+               5. Listar
+               6. Salir
+      Seleccione (1-6):   "
+
+#
+#
+# Lee y procesa la seleccion
+#
+
+read choice
+echo
+
+ case  "$choice"
+  in
+      1) echo -n "Entre el nombre:  "
+         read nombre
+         if [ -z "$nombre" ]
+         then
+             echo "la busqueda ha sido ignorada "
+         else
+
+              lub "$nombre"
+         fi
+              echo -n "Enter para continuar: "
+              read resp;;
+      2) add 
+         echo -n "Enter para continuar: "
+         read resp;;
+      
+      3) echo -n "Entre el nombre que se debe remover: "
+         read nombre
+         if [ -z "$name" ]
+         then
+             echo -n "La remocion ha sido ignorada "
+         else
+             remb "$nombre"
+             echo "$nombre ha sido removido de phonebook"
+         fi
+             echo -n "Enter para continuar: "
+             read resp;;
+      4) echo -n "Igrese el nombre que desea cambiar"
+         read name
+         if [ -z "$name" ]
+         then
+             echo -n "La modificacion ha sido ignorada "
+         else
+             change "$name"
+         fi
+             echo -n "Enter para continuar: "
+             read resp;;
+      5) listall
+             echo -n "Enter para continuar: "
+             read resp;;
+      6) echo "Adios ... "
+         sleep 2
+         exit 0;;
+
+      *) echo "Opcion Invalida"
+         echo -n "Enter para continuar"
+         read resp;;
+  esac
+done

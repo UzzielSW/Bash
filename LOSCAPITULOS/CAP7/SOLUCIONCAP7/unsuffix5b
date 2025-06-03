@@ -1,0 +1,3 @@
+nuevo=$( ls  |  grep -w $1 | tr -d $2 )
+mv $1 $nuevo
+ls $nuevo

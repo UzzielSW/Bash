@@ -1,0 +1,3 @@
+{ temp=$(echo ${2##*$1}) ; }
+ mv $2 $temp
+echo $temp

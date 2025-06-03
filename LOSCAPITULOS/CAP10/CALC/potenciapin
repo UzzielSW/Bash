@@ -1,0 +1,103 @@
+if [ "$#" -ne 2 ]
+then
+    echo "USO: potencia base expon"
+    exit 1
+fi
+
+base="$1"
+expo2="$2"
+expon="$2"
+poten=1
+signo1=1
+signo2=1
+
+
+    base=`echo "$base" | sed 's/[^-+0-9]//' | tr -d ' '`
+    expon=`echo "$expon" | sed 's/[^-+0-9]//' | tr -d ' '`
+  
+expo2=expon 
+    echo " base  $base "
+    echo " exponente $expon "
+
+
+baseN=` echo "$base" | grep  "^-[0-9][0-9]*$" ` 
+if [ -n "$baseN" ]
+then 
+    signo1=-1
+    base=`echo "$baseN" | sed "s/^-//"`
+fi
+
+baseP=` echo "$base" | grep  "^+[0-9][0-9]*$" ` 
+if [ -n "$baseP" ]
+then 
+    signo1=1
+    base=`echo "$baseP" | sed "s/^+//"`
+fi
+
+exponn=`echo "$expon" | grep  "^-[0-9][0-9]*$" ` 
+if [  -n "$exponn" ]
+then 
+   echo "exponente negativo: $expon "
+   bandera=Error 
+  #  signo2=-1
+  #  expon=`echo "$exponn" | sed "s/^-//"`
+fi
+
+exponP=`echo "$expon" | grep  "^+[0-9][0-9]*$" ` 
+if [  -n "$exponP" ]
+then 
+   echo "exponente positivo: $expon "
+#   bandera=Error 
+    signo2=1
+    expon=`echo "$exponP" | sed "s/^+//"`
+fi
+
+base=`echo "$base" | grep  "^[0-9][0-9]*$"`
+expon=`echo "$expon" | grep "^[0-9][0-9]*$"`
+
+if [ \( -n "$base" -a  -n "$expon" \)  ]
+then
+  if [ "$base" -gt 0  -a  "$base" -ne 1 -a "$expon" -ne 0 ]
+  then
+           
+           poten=`mult2pin  $poten  $base `
+           while [ "$expon" -gt 1  ]
+           do
+             expon=`expr  $expon - 1 `
+             poten=`mult2pin  $poten $base`
+            done
+  else 
+      if [  "$base" -ne 0  -a "$expon" -eq 0 ]
+      then
+          poten=1     
+
+      else 
+          echo "Error"
+          bandera=Error
+          exit 5
+      fi
+   fi
+else 
+   # echo "ingrese enteros"
+    bandera=Error 
+ fi  
+if [  ! "$bandera"  = Error ]
+then
+    #negativo=`expr $expo2 % 2`
+    dos=2
+     negativo=`residuo "$expo2" "$dos" `
+    #letra=` expr "$negativo" : '.*'`
+    # echo $letra
+   if [  !  \(  \(  "$signo1" -eq -1 \) -a   \( "$negativo"  -ne 0 \) \)  ]
+     then
+        :
+    else 
+        poten=` expr  -1 \* "$poten" `
+    fi
+
+    if [ -n "$poten" ]
+    then
+           echo "$poten"
+    fi      
+else echo $bandera
+fi

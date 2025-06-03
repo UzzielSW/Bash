@@ -1,0 +1,50 @@
+#
+# Copia un Archivo
+#
+if [ "$#" -ne 2 ]
+then
+   echo "USO: mycp from to"
+   exit 1
+fi
+
+from="$1"
+to="$2"
+
+#
+
+# Verifica si el archivo origen existe
+#
+
+if [ -f "$from" ]
+
+then
+    echo "$to ya existe ; rescribir ( yes/no ) ? "
+    read answer
+
+    if [ "$answer" != yes ]
+    then
+        echo "La copia no se puede efectuar "
+        exit 0
+    fi
+fi
+
+# Verifica si el archivo destino existe
+#
+
+#if [ -f "$to" ]
+#then
+#    echo "$to ya existe ; rescribir ( yes/no ) ? "
+#    read answer
+
+#    if [ "$answer" != yes ]
+#    then
+#        echo "La copia no se efectuo "
+#        exit 0
+#    fi
+#fi
+
+#
+# copia
+#
+cp $from $to
+

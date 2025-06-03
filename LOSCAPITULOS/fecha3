@@ -1,6 +1,0 @@
-clear
-echo "La fecha de hoy es"
-
-date
-echo "En el sistema hay: "
-who | cut -c1-8 | sort -u | wc -l

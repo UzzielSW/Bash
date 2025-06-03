@@ -1,0 +1,20 @@
+# proble 2
+
+trap 'echo "EXITING on a TRAPPED SIGNAL, DELETING FILE: listaetc"; rm listaetc; exit' 2
+
+for i in /etc/* 
+do
+   if [ -r $i -a -f $i ]
+   then
+      lectura=$((lectura+1))
+      echo $i >> listarchetc
+   fi
+done
+
+echo Archivos de lectura en listaetc $lectura
+echo Archivos que del directorio /etc que contiene la palabra hosts
+
+variable=$(cat listarchetc )
+echo $variable | ls | grep -l "hosts" 
+
+cat listarchetc | grep "hosts" > /dev/null

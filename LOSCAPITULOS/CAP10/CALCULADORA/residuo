@@ -1,0 +1,79 @@
+if [ "$#" -ne 2 ]
+then
+    echo "USO: dividir dividendo divisor"
+    exit 1
+fi
+
+DIV="$1"
+divisor="$2"
+cociente=0
+signo1=1
+DIVN=` echo "$DIV" | grep  "^-[0-9][0-9]*$" ` 
+if [ -n "$DIVN" ]
+then 
+    signo1=-1
+    DIV=`echo "$DIVN" | sed "s/^-//"`
+fi
+
+signo2=1
+divin=`echo "$divisor" | grep  "^-[0-9][0-9]*$" ` 
+if [  -n "$divin" ]
+then 
+    signo2=-1
+    divisor=`echo "$divin" | sed "s/^-//"`
+fi
+
+
+DIV=`echo "$DIV" | grep  "^[0-9][0-9]*$"`
+divisor=`echo "$divisor" | grep "^[0-9][0-9]*$"`
+
+if [ \( -n "$DIV" -a  -n "$divisor" \)  ]
+then
+  if [ "$DIV" -ne 0 ]
+  then
+    if [ "$divisor" -ne 0 ]
+    then
+        divisible=`expr  "$DIV" % "$divisor" `
+#        if [  "$divisible" -eq 0 ]
+#        then
+#            echo " $DIV es divisible exactamente entre $divisor"
+#
+#         else
+#            echo " $DIV no es divisible exactamente entre $divisor"
+#         fi
+          cont=0
+           while [ "$DIV" -ge "$divisor" ]
+           do
+             DIV=`expr  $DIV - $divisor `
+             cont=`expr  $cont + 1 `
+            done
+
+     else 
+#         echo "No se puede dividir entre: $divisor"
+          echo 0
+         exit 1
+     fi
+else  if [ "$divisor" -eq 0 ]
+      then
+        echo "division no definida"
+        exit 4
+      fi 
+fi
+else 
+    echo "ingrese enteros"
+    exit 2
+ fi  
+if [ \(  \(  "$signo1" -eq -1 \) -a \( "$signo2" -eq -1 \) \) -o \( \( "$signo1" -eq 1 \) -a \( "$signo2" -eq 1 \) \)   ]
+            then
+               :
+            else 
+             cont=` expr  -1 \* "$cont" `
+           fi
+
+if [ -n "$cont" ]
+then
+           echo  "$DIV"
+  else
+           echo "$cociente"
+fi      
+         exit 0

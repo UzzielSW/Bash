@@ -1,0 +1,6 @@
+sé un experto en script bash.
+
+1. analiza el archivo valida_ip.
+2. analiza el archivo buscacell
+3. analiza y crea el script que valide el numero de celular utilizando el contexto del archivo buscacell. El script debe tener la estructura y las validaciones como el script del archivo valida_ip, solo que ahora aplicado a validar_cell. 
+4. En la estructura del archivo valida_ip estan los cometarios explicativos del script. aplica lo mismo ahora para valida_cell.

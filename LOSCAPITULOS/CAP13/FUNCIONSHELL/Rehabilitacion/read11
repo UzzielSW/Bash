@@ -1,0 +1,20 @@
+if [ "$#" -eq 1 ]
+then 
+FILENAME="$1"
+ if [ -f $FILENAME ]
+then
+exec 3<&0
+exec 0< $FILENAME
+
+ while LINE=$(line)
+ do
+  printf "\n$LINE"
+  :
+ done
+exec 0<&3
+else
+echo "El archivo no existe"
+fi
+else
+ echo "Uso: read1 archivo"
+fi

@@ -1,0 +1,17 @@
+if [ "$#" -eq 2 ]
+then 
+FILENAME="$1"
+MESSAGE="$2"
+ if [ -f $FILENAME  -a -f "$MESSAGE" ]
+then
+cat $FILENAME  | while read LINE
+ do
+eval     write "$LINE" < "$MESSAGE" 
+  :
+ done
+else
+echo " $FILENAME o $MESSAGE no existe"
+fi
+else
+ echo "Uso: read1d archivo archivo-menssage "
+fi

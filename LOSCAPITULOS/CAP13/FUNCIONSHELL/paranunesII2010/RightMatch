@@ -1,0 +1,26 @@
+#Programa sobre RightMatch
+
+RightMatch() {
+
+     new_cadena=$( echo ${cadena%$patron} )
+      if [ ! "$cadena" = "$new_cadena" ]
+      then
+      cadena=$new_cadena
+      echo $cadena 
+     else
+     echo "el $patron no ha sido encontrado"
+     fi
+
+}
+
+while :
+    do
+
+    printf "\nInserte La cadena.\n"
+    read cadena
+    printf "\nInserte El Patron.\n"
+    read patron
+    
+    echo $( RightMatch $cadena $patron )
+
+    done

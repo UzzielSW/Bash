@@ -1,0 +1,4 @@
+#Remueve a alguien de phonebook
+
+grep  -v "$1" phonebook > /tmp/phonebook
+mv /tmp/phonebook phonebook

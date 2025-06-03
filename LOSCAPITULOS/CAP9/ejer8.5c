@@ -1,0 +1,49 @@
+# determina si el numero de argumentos es correcto
+#
+# determina si alguien esta en el Sistema
+#
+if [ "$#" -ne 1 ]
+then
+     echo "El numero de argumentos es incorrecto"
+     echo "USO:  ejer8.5 nombre_usuario"
+     exit 1
+else
+cat /etc/passwd |  cut -d: -f1 | grep -w $1 > /dev/null
+if [ $? -eq 0 ]
+then
+who | cut -c1-8 | grep -w $1 > /dev/null
+if [ $? -eq 0 ]
+then
+horamin=$(who | grep -w $1 | tr -s ' ' ' ' | tr -s '\11 ' ' ' | cut -d' ' -f4)
+ echo  " horamin= $horamin "
+terminal=$(who | grep -w $1 | tr -s ' ' ' ' | tr -s '\11 ' ' ' | cut -d' ' -f2)
+terminal=$( echo $terminal  | tr  -s '\12' ' ')
+for var in $horamin
+do
+
+hora_entrada=$(echo $var | cut -d: -f1)
+echo "  hora_entrada = $hora_entrada"
+min_entrada=$(echo $var | cut -d: -f2)
+echo "  min_entrada = $min_entrada"
+hora_actual=$(date '+%H')
+
+min_actual=$(date '+%M')
+tactual_min=$((hora_actual*60 + min_actual))
+tentrada_min=$((hora_entrada*60 + min_entrada))
+delta=$((tactual_min - tentrada_min))
+thora=$((delta / 60))
+tmin=$((delta%60))
+date
+ term=$( echo "$terminal" | cut -d' ' -f1 ) 
+ term=$( echo "$term" )
+echo "Terminal = $term "
+ terminal=${terminal#"$term "}
+echo "$1 ha estado $thora  horas y $tmin  minutos en el sistema"
+echo -n "Enter para continuar: "
+read resp
+done
+else echo "$1 no esta logeado en el sistema"
+fi
+else echo "$1 no es usuario del sistema"
+fi 
+fi

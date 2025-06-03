@@ -1,0 +1,36 @@
+strcmp()
+{
+  if [ "$1" = "$2" ]
+then 
+    echo "0" 
+else 
+
+ echo "$1" > strings
+ echo "$2" >> strings
+
+ var=$( sort -u  strings | head -1 )
+
+ if [ "$var" = "$1" ]
+    then
+    echo "1"
+    
+    else
+    echo "2"
+
+ fi 
+
+rm strings 
+
+fi
+}
+
+while :
+
+   do
+       echo "Inserte Una Palabra: "
+       read x
+       echo "Inserte Otra Palabra: "
+       read y
+           echo $( strcmp "$x" "$y" )
+
+done

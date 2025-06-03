@@ -1,0 +1,6 @@
+exec < bookstore
+
+exec > $2.dat
+read line
+
+echo $line  | grep $1 

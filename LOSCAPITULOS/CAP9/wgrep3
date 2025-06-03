@@ -1,0 +1,64 @@
+contador=0
+ patron=$1
+
+ archivos=`ls -a`
+ printf "Espere un momento, por favor...\n"
+ for archivo in $archivos   
+ do
+
+ if [ -f $archivo ]
+ then
+ printf "\n"
+ echo ARCHIVO: $archivo
+ printf "\n"
+ cantidadL=$(cat "$archivo" | wc -l)
+ encontro=`cat "$archivo" | grep $patron`
+ Lencontradas=`echo "$encontro" | wc -l` 
+ echo CANTIDAD DE LINEAS DEL ARCHIVO: $cantidadL 
+
+      if [ $Lencontradas -gt 1 ] && [ -n "$encontro" ]
+      then
+           echo EN EL ARCHIVO $archivo SE ENCONTRO $Lencontradas OCURRENCIAS DEL PATRON $patron
+           while [ $cantidadL -ne 0 ]
+           do
+           contador=$((contador + 1))
+           linea=`sed -n ''"$contador"'p' $archivo`
+               if echo $linea | grep $patron > /dev/null
+               then
+               echo $linea  EN LA LINEA '#' $contador
+               sleep 3
+               fi
+           cantidadL=$((cantidadL - 1))
+           done
+           echo NO MAS OCURRENCIAS
+         
+           elif [ $Lencontradas -eq 1 ] && [ -n "$encontro" ]
+           then
+
+           echo EN EL ARCHIVO $archivo SE ENCONTRO $Lencontradas OCURRENCIAS DEL PATRON $patron
+
+                 linea=`cat "$archivo" | grep -n $patron | head -c1` 
+                 if [ $linea -eq 1 ]
+                 then
+                 echo EL PATRON SE ENCONTRO EN LA PRIMERA LINEA
+                 echo $encontro  
+                 fi 
+                
+                 if [ $linea -eq $cantidadL ]
+                 then
+                 echo EL PATRON SE ENCONTRO EN LA ULTIMA LINEA
+                 echo $encontro
+                  
+                 else
+                 echo EL PATRON SE ENCUENTRA EN LINEAS INTERMEDIAS, EXACTAMENTE EN LA LINEA '#' $linea
+                 echo $encontro
+
+                 fi
+            else
+            echo NO SE ENCONTRARON OCURRENCIAS DEL PATRON $patron
+        fi
+  fi
+  sleep 3 
+  done
+
+

@@ -1,5 +1,18 @@
+#!/bin/bash
+# El bucle 'while' lee el archivo línea por línea usando 'IFS= read -r number'.
+# - 'IFS=' asegura que se preserven los espacios en blanco al inicio/final de la línea.
+# - 'read -r' evita que las barras invertidas se interpreten como caracteres de escape.
+# - '|| [[ -n "$number" ]]' asegura que se procese la última línea incluso si no termina con un salto de línea.
+
+# Dentro del bucle:
+# - La condición 'if' utiliza una expresión regular para validar el formato del número de celular.
+# - La expresión regular verifica que el número:
+#   - Comience con '+507'.
+#   - Tenga un prefijo '6'.
+#   - Contenga 4 dígitos antes y después del guion.
+# - Los caracteres '^' y '$' aseguran que toda la línea coincida con el patrón.
 while IFS= read -r number || [[ -n "$number" ]]; do
     if [[ $number =~ ^\+507\ ([6][0-9]{3}-[0-9]{4})$ ]]; then
-             echo "$number es un numero de celular valido en Panamá"
+        echo "$number es un numero de celular valido en Panamá"
     fi
 done < "$1"

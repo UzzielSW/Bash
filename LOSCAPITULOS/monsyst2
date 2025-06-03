@@ -8,17 +8,17 @@
 # version 2
 
 if [ "$1" = -m ]
-then 
+then
     mailopt=TRUE
     shift
 else
     mailopt=FALSE
 fi
 if [ "$#" -eq 0 -o "$#" -gt 1 ]
-then 
-   echo "USO: monsyst2 [-m]  usuario"
-   echo "     -m informar por correo"
-   exit 1
+then
+    echo "USO: monsyst2 [-m]  usuario"
+    echo "     -m informar por correo"
+    exit 1
 fi
 user="$1"
 #
@@ -27,7 +27,7 @@ user="$1"
 
 until who | grep "^$user " > /dev/null
 do
-   sleep 60
+    sleep 60
 done
 #
 # cuando el usuario es encontrado
@@ -38,8 +38,8 @@ done
 #
 if [ "$mailopt" = FALSE ]
 then
-     echo "$user ingreso al sistema"
+    echo "$user ingreso al sistema"
 else
-     runuser=`who am i | cut -c1-8`
-     echo "$user ingreso al sistema a las $(date)" | mail $runuser
+    runuser=`who am i | cut -c1-8`
+    echo "$user ingreso al sistema a las $(date)" | mail $runuser
 fi

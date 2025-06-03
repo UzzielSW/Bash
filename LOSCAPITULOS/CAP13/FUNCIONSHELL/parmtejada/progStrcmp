@@ -1,0 +1,38 @@
+strcmp()
+{
+if [ "$1" = "$2" ]
+then
+	echo 0
+else
+
+	primera=$(echo "$1 $2" | tr ' ' '\n' | sort | head -1)
+
+	if [ $primera = "$1" ]
+	then
+		echo 1
+	else
+		echo 2
+	fi
+
+fi
+
+
+
+}
+
+
+while [ "1" = "1" ]
+do
+
+echo "Ingrese palabra #1"
+read pal1
+
+
+echo "Ingrese palabra #2"
+read pal2
+
+echo $( strcmp $pal1 $pal2)
+
+done
+
+ 

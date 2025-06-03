@@ -1,0 +1,14 @@
+#
+# Add someone to the phonebook  file -- version 2
+#
+
+if [ "$#"  -ne  2 ]
+then
+   echo "Incorrect number of arguments"
+   echo "Uso: add name number"
+   exit
+fi
+
+
+echo "$1	$2" >> $PHONEBOOK
+sort -o $PHONEBOOK $PHONEBOOK

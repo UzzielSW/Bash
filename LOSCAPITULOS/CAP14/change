@@ -1,0 +1,45 @@
+#
+# Change an entry in the phone book
+#
+name=$1
+
+#
+
+# Get matching entries and save in temp file
+#
+
+grep "$name" $PHONEBOOK > /tmp/matches$$
+
+if [ ! -s /tmp/matches$$ ]
+then
+    echo -n "I can't find $name in the phone boo"
+    exit 1
+fi
+
+#
+# Display matching entries one at a time and confirm change
+#
+
+while true
+do
+   display "$line"
+   read -n "Change this entry (y/n)?:  "
+   read answer < /dev/tty
+   if [ "$answer" = y ]
+   then
+      break
+   fi
+
+done < /tmp/matches$$
+
+rm /tmp/matches$$
+
+   if [ "$answer" = y ]
+   then
+      exit 
+   fi
+
+#
+# Start up editor on the confirmed entry
+#
+echo -n "$line" | tr 

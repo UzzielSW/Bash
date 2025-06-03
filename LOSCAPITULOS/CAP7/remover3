@@ -1,0 +1,6 @@
+#
+#Remueve a alguien de phonebook
+#
+
+sed  "/$1/d" phonebook > tmp/phonebook
+mv tmp/phonebook phonebook

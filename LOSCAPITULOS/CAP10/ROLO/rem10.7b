@@ -1,0 +1,36 @@
+clear
+cat phonebook
+grep "$1" phonebook > salida
+
+numero=`cat salida | wc -l | tr -s ' ' ' '`
+
+if [ "$numero" -gt 1 ]
+then 
+   echo "Hay $numero ocurrencias"
+   exec < salida
+   while  read line
+   do
+     echo -n "$line remover (yes/no): "
+     exec < /dev/tty
+     read resp
+     if [ "$resp" = yes ]
+     then 
+        grep -v "$line" phonebook > tmp/phonebook
+        mv tmp/phonebook  phonebook
+        echo "$line" ha sido removido
+     else echo "$line no ha sido removido"
+     fi
+    grep -v "$line" salida > tmp/salida
+    mv tmp/salida salida
+    exec < salida
+   done
+else
+   
+        grep -v "$1" phonebook > tmp/phonebook
+        mv tmp/phonebook  phonebook
+        echo "$1" ha sido removido
+fi
+
+
+rm salida
+

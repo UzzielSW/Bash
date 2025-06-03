@@ -1,0 +1,34 @@
+#
+#
+# Remove someone from the phone book
+#
+if [ "$#" -ne 1 ]
+then
+    echo "Incorrect number of arguments"
+    echo "Usage: remb name"
+    exit 1
+fi
+
+name=$1
+
+#
+#Find number of matching entries
+#
+
+matches=`grep "$name"  $PHONEBOOK | wc -l `
+
+#
+# If more than one match, issue message, else remove it
+#
+if [ "$matches" -gt 1 ]
+then
+   echo "More than one match; please qualify futher"
+elif [ "$matches" -eq 1 ]
+then 
+    grep -v "$name"  $PHONEBOOK > /tmp/phonebook$$
+    mv /tmp/phonebook$$ $PHONEBOOK
+else
+   echo "I couldn't find $name in phone book"
+fi   
+sed  "/$1/d" phonebook > tmp/phonebook
+mv tmp/phonebook phonebook

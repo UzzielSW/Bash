@@ -1,0 +1,18 @@
+if [ "$#" -ne 2 ]
+  then
+  echo "ERROR"
+  echo "USO: mysed patron archivo"
+  exit 1
+fi
+if  [ -f $2 ]
+then
+
+if sed $1 $2 > $2.tmp
+then 
+     mv $2.tmp $2 && cat $2
+ 
+else
+     rm $2.tmp 
+fi
+else echo "$2 no existe"
+fi

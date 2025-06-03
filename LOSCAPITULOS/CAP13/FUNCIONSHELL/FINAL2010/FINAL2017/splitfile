@@ -1,0 +1,29 @@
+# splitfile
+
+if [ $(($# % 2 )) -eq 0 ]
+then
+echo inicio ... espere ...
+for var in "$@"
+do
+   exec < bookstore
+   exec > $2.dat
+
+   while read line
+    do
+      echo $line | grep $1
+    done
+  shift 2
+
+ if [ "$#" -gt 0 ]
+ then
+  :
+ else break  
+ fi
+
+done
+
+else echo error
+fi 
+exec >/dev/tty
+echo fin
+more *.dat

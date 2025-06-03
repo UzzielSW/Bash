@@ -1,0 +1,24 @@
+# proble 1
+
+
+trap 'echo "EXITING on a TRAPPED SIGNAL, DELETING FILE: listarchetc"; rm listarchetc; exit' 2
+
+echo "Procesando ..."
+if [ -f listarchetc ]
+then
+   rm listarchetc
+fi
+
+for i in /etc/* 
+do
+   if [ -r $i -a -f $i ]
+   then
+      lectura=$((lectura+1))
+      echo $i >> listarchetc
+#     sleep 1
+   fi
+done
+
+echo Archivos de lectura en listarchetc $lectura
+
+echo "fin del proceso! "

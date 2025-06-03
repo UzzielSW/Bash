@@ -1,0 +1,6 @@
+#
+#
+# Remove someone from the phone book
+#
+sed  "/$1/d" phonebook > /tmp/phonebook
+mv /tmp/phonebook phonebook

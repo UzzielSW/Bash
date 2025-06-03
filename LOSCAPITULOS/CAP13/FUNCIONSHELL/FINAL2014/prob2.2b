@@ -1,0 +1,7 @@
+for  f in *.bar
+do
+  g=` echo $f | tr '[A-Z]' '[a-z]' `
+  
+  mv  "$f" "$g"
+
+done

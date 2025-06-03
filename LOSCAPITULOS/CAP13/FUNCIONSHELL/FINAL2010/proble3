@@ -1,0 +1,11 @@
+i=0
+while read linea
+do
+ if grep -w "hosts" $linea > /dev/null 2>&1
+ then
+   echo $linea
+   i=$( expr $i + 1 )
+ fi
+done < listarchetc
+echo "Total: "$i
+

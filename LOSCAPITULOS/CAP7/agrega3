@@ -1,0 +1,8 @@
+#
+# Agrega a alguien a phonebook version 2
+#
+#
+
+echo "$1	$2" >> phonebook
+sort  phonebook  > phonebook.tmp
+mv phonebook.tmp phonebook

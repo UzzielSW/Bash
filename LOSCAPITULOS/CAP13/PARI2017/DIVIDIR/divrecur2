@@ -1,0 +1,35 @@
+divrecur2()
+{
+  if [ $1 -ge $2 ]
+  then
+    div=`expr $1 - $2`
+    count=`expr $3 + 1`
+     echo $( divrecur2 $div $2 $count ) 
+  else
+    
+ echo $3
+  fi 
+  
+}
+
+if [ $# -ne 2 ]
+ then
+  echo "Error"
+  echo "Uso: divrecur2 dividendo  divisor"
+  exit 1
+fi
+echo $1 | grep '^[0-9][0-9]*$' > /dev/null
+
+if [ $? -ne 0 ]
+then
+ echo "Datos mal introducidos"
+ exit 1
+fi
+echo $2 | grep '^[1-9][0-9]*$' > /dev/null
+if [ $? -ne 0 ]
+ then
+ echo "Datos mal introducidos"
+ exit 1
+fi
+count=0 
+echo $( divrecur2 $1 $2 $count )

@@ -1,0 +1,12 @@
+for file in $*
+do
+# echo "argumento: $#"
+# echo "nombre: $*"
+ if [ $# -ne 0 ]
+ then
+    eval   resul=$( "$1" "$2" ) 
+      echo $resul
+      shift 2
+ else break 
+  fi
+done

@@ -1,0 +1,6 @@
+# args3 CAP9
+echo Numeros de argumentos pasados es: $#
+for arg  
+do
+  echo $arg
+done

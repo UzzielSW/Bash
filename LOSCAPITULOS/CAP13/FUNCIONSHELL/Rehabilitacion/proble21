@@ -1,0 +1,18 @@
+if [ "$#" -eq 1 ]
+then 
+FILENAME="$1"
+ if [ -f $FILENAME ]
+then
+cat $FILENAME | while read LINE
+ do
+  if grep "hosts" $LINE > /dev/null 2>&1
+  then
+  echo "$LINE"
+  fi
+ done
+else
+echo "El archivo no existe"
+fi
+else
+ echo "Uso: read1 archivo"
+fi

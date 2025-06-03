@@ -1,0 +1,8 @@
+file=$1
+
+if [ ${file%.o} != $file ]
+then
+  echo " $file termina en .o"
+else
+  echo "No termina con .o"
+fi

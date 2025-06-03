@@ -1,0 +1,13 @@
+ var=$#
+
+if [ "$var" -ge 1 -a "$var" -le 9 ]
+then
+    while [ "$var" -gt 0 ]
+     do
+       eval echo -n \"\$$var \"
+       var=$(( var - 1 ))
+     done
+     echo
+else
+     echo "Omitio los argumentos o ha excedido el maximo "
+fi

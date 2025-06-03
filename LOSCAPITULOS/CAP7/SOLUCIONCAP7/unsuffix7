@@ -1,0 +1,9 @@
+arch=$( echo "$1" | grep "$2$" )
+if [ -n "$arch" ]
+then
+nuevo=` echo "$1" | sed "s/$2$//"`
+ echo $nuevo
+ mv $1 $nuevo
+else
+    echo el patron "$2" no fue encontrado
+fi

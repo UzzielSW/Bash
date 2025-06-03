@@ -1,0 +1,15 @@
+#
+#
+# Remove someone from the phone book
+#
+# primero verifica el numero de argumentos
+
+if [ "$#" -ne 1 ]
+then
+    echo "Numero de argumentos"
+    echo "Incorrectos"
+    echo "USO: rem2 nombre"
+    exit 1
+fi
+grep -v "$1" phonebook > /tmp/phonebook
+mv /tmp/phonebook phonebook

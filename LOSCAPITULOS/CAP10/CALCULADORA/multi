@@ -1,0 +1,56 @@
+if [ "$#" -ne 2 ]
+then
+    echo "USO: multi factor1 factor2"
+    exit 1
+fi
+
+factor1="$1"
+factor2="$2"
+producto=0
+signo1=1
+factor1N=` echo "$factor1" | grep  "^-[0-9][0-9]*$" ` 
+if [ -n "$factor1N" ]
+then 
+    signo1=-1
+    factor1=`echo "$factor1N" | sed "s/^-//"`
+fi
+
+signo2=1
+factor2n=`echo "$factor2" | grep  "^-[0-9][0-9]*$" ` 
+if [  -n "$factor2n" ]
+then 
+    signo2=-1
+    factor2=`echo "$factor2n" | sed "s/^-//"`
+fi
+
+
+factor1=`echo "$factor1" | grep  "^[0-9][0-9]*$"`
+factor2=`echo "$factor2" | grep "^[0-9][0-9]*$"`
+
+if [ \( -n "$factor1" -a  -n "$factor2" \)  ]
+then
+          producto=0
+           while [ "$factor1" -gt 0 ]
+           do
+             factor1=`expr  $factor1 - 1 `
+             producto=`expr  $producto + $factor2 `
+            done
+
+else 
+    echo "ingrese enteros"
+    exit 2
+ fi  
+if [ \(  \(  "$signo1" -eq -1 \) -a \( "$signo2" -eq -1 \) \) -o \( \( "$signo1" -eq 1 \) -a \( "$signo2" -eq 1 \) \)   ]
+            then
+               :
+            else 
+             producto=` expr  -1 \* "$producto" `
+           fi
+
+if [ -n "$producto" ]
+then
+           echo "producto = $producto "
+  else
+           echo "producto = $producto "
+fi      
+         exit 0

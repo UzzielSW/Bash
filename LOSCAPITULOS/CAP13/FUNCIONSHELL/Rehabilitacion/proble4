@@ -1,0 +1,27 @@
+# proble4 
+
+if [ "$#" -ne  1 ]
+then
+   echo "Uso: proble4 directorio"
+   exit 1
+fi
+
+
+directorio=$1
+
+if [ -e "$directorio" ]
+then
+   echo "El directorio $directorio existe"
+   cantidad=`ls $directorio | wc -l`
+   if [ $cantidad -ne 0 ]
+   then
+      echo "No esta vacio"
+      echo "Total="$cantidad
+      exit 
+   else
+      echo "El directorio $directorio esta vacio"  
+   fi
+else
+   echo "El directorio $directorio no existe"
+fi
+

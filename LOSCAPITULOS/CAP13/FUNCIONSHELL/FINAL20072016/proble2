@@ -1,0 +1,14 @@
+if [ -f listaetc ]
+then
+    rm listaetc
+fi
+for archivo in /etc/*
+do
+ if [ -f  $archivo -a  -r $archivo ]
+then
+   echo $archivo >> listaetc
+fi
+done
+
+wc -l listaetc
+

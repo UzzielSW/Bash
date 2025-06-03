@@ -1,0 +1,20 @@
+
+# imprime el Home Directory del usuario deseado
+cat /etc/passwd | grep "^$1" | cut -d: -f6
+
+
+# ------------------------------------------------------------
+a=$1
+b=$2
+
+if [ "$a" == "$b" ]
+then
+    echo -n "$a es igual a $b"
+else
+    echo -n "$a no es igual a $b"
+fi
+echo
+
+# ------------------------------------------------------------
+
+

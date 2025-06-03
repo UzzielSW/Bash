@@ -1,0 +1,24 @@
+if [ "$#" -ne 2 ]
+then
+     echo "El numero de argumentos es incorrecto"
+     echo "USO: unsuffix6 archivo patron   "
+     exit 1
+else
+   archivo=$1
+   if [ -f $archivo ]
+   then
+       arch=$(echo $archivo | grep "$2$")
+       if [ -n  "$arch" ]
+       then
+             nuevo=$( ls $archivo   | tr -d  "/$2$/" )
+             if [ $archivo != "$nuevo" ]
+             then
+                mv $archivo  $nuevo
+                ls $nuevo
+             fi
+       else echo "El patron $2 no fue encontrado"
+       fi
+  else
+      echo "$archivo no existe"
+  fi
+fi

@@ -1,0 +1,4 @@
+#
+# Add someone to the phonebook book
+#
+echo "$1           $2" >> phonebook
