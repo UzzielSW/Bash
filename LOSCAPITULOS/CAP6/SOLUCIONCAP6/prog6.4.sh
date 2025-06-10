@@ -1,0 +1,3 @@
+#cat names
+namesList=$(cat names | tr -s '\12' ' ')
+echo $namesList

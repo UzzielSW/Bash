@@ -1,2 +1,6 @@
 - Para mayor eficiencia mejor usar awk o sed. En ves de expr.
 - no usar comillas invertidas porque tienen limitaciones y pueden ocasionar problemas con caracteres especiales. La mejor manera actualmente es usando $(...)
+- no uses CRLF y juega vivo cuando un archivo esta asi. ya que no funcionara bien al ejecutar los script
+- Siempre se recomienda usar "$@" cuando necesites referirte a la lista completa de argumentos, porque preserva los espacios y la identidad de cada argumento individual. Es ideal para pasar todos los argumentos que recibió tu script/función a otro comando.
+- "$\*" es útil en casos raros donde realmente necesitas concatenar todos los argumentos en una única cadena, quizás para mostrar un mensaje o escribir en un log.
+- El uso de $\* o $@ no se debe aplicar, ya que la expansión y división por $IFS puede ser impredecible si no controlas $IFS y los contenidos de los argumentos.
