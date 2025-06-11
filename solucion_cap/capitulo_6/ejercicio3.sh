@@ -1,9 +1,8 @@
 #!/bin/bash
 
 : '
- PROBLEMA:
- Escribir comandos para contar el número de caracteres almacenados en la 
- variable shell 'text'. Luego escribir comandos para contar todos los 
+ Escribir comandos para contar el número de caracteres almacenados
+ en la variable shell 'text'. Luego escribir comandos para contar todos los 
  caracteres alfabéticos. (Pista: Usar sed y wc.) ¿Qué sucede con las 
  secuencias de caracteres especiales como \n si están almacenadas dentro 
  de text?

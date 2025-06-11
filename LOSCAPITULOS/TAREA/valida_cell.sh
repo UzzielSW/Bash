@@ -23,7 +23,7 @@ Este script lee un archivo línea por línea y valida si cada línea es un núme
 if [ $# -ne 1 ]; then
     # Solicita al usuario que ingrese un número de celular
     read -p "Ingrese un número de celular para validar: " number_input
-    
+
     if [[ "$number_input" =~ ^\+507\ ([6][0-9]{3}-[0-9]{4})$ ]]; then
         echo -e "$number_input - [\e[32mOK\e[0m] Número válido"
     else
@@ -50,4 +50,4 @@ while IFS= read -r number || [[ -n "$number" ]]; do
     else
         echo -e "$number - [\e[31mX\e[0m] Número no válido"
     fi
-done < "$1"
+done <"$1"

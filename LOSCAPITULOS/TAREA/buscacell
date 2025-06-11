@@ -15,4 +15,12 @@ while IFS= read -r number || [[ -n "$number" ]]; do
     if [[ $number =~ ^\+507\ ([6][0-9]{3}-[0-9]{4})$ ]]; then
         echo "$number es un numero de celular valido en Panamá"
     fi
-done < "$1"
+done <"$1"
+
+#read -p "Ingrese un número de celular panameño: " numero
+
+#if [[ "$numero" =~ ^(\+507\s?)?[6][0-9]{3}(-)?[0-9]{4}$ ]]; then
+#    echo "✅ Número válido de celular panameño."
+#else
+#    echo "❌ Número inválido."
+#fi

@@ -1,80 +1,56 @@
-#
-#
 # capitulo9
-#
-# monsyst3
-# Espera que un usuario entre al sistema
-#
-# version 3
-# instala los valores por defecto
-#
-
+# monsyst3: Espera que un usuario entre al sistema
 mesgopt=FALSE
 interval=5
 
 # procesa las opciones
-
-while getopts wt: option 
-do
-  case "$option"
-  in
-     w) mesgopt=TRUE;;
-     t) interval=$OPTARG;;
-    \?) echo " USO: monsyst3 [-w ] [ -t n ] user "
-        echo " -w informar por mensaje"
-        echo " -t verificar cada  n segundos. "
-        exit 1;;
-  esac
-done 
-# codigo de prof. Alvaro Pino N derecho de autor reservado
-
-echo  "$interval" | grep "^[0-9][0-9]*$" > /dev/null
-if [ "$?" -ne 0 ]
-then 
-    echo "No introdujo los segundos"
-    echo "Introdujo caracteres invalidos"
+while getopts wt: option; do
+  case "$option" in
+  w) mesgopt=TRUE ;;
+  t) interval=$OPTARG ;;
+  \?)
+    echo " USO: monsyst3 [-w ] [ -t n ] user "
+    echo " -w informar por mensaje"
+    echo " -t verificar cada  n segundos. "
     exit 1
+    ;;
+  esac
+done
+
+echo "$interval" | grep "^[0-9][0-9]*$" >/dev/null
+if [ "$?" -ne 0 ]; then
+  echo "No introdujo los segundos"
+  echo "Introdujo caracteres invalidos"
+  exit 1
 else
-    if [ "$OPTIND"  -gt "$#" ]
-    then
-        echo "Omitio el nombre del usuario"
-        exit 2
-    fi 
+  if [ "$OPTIND" -gt "$#" ]; then
+    echo "Omitio el nombre del usuario"
+    exit 2
+  fi
 fi
 
-Shiftcount=`expr $OPTIND - 1 `
+Shiftcount=$(($OPTIND - 1))
 shift $Shiftcount
 user=$1
 
-# codigo de prof. Alvaro Pino N derecho de autor reservado
-
-# Verifica al usuario
-
-cut -d: -f1 /etc/passwd | grep -w "$user"  > /dev/null
-if [ "$?" -ne 0 ]
-then
-    echo "$user no es un usuario del sistema"
-    exit 1
+# Verifica que el usuario exista en el sistema
+cut -d: -f1 /etc/passwd | grep -w "$user" >/dev/null
+if [ "$?" -ne 0 ]; then
+  echo "$user no es un usuario del sistema"
+  exit 1
 fi
 
-
-#
 # Verifica que el usuario ingreso al Sistema
-#
-
-until who |  grep "^$user " > /dev/null
-do
+until who | grep "^$user " >/dev/null; do
   sleep $interval
 done
 
-#
-# Cuando nosotros alcanzamos este punto
-# el usuario ingreso al sistema
-#
-if [ "$mesgopt" = FALSE ]
-then
-    echo "$user esta en el sistema"
+# Cuando nosotros alcanzamos este punto el usuario ingreso al sistema
+if [ "$mesgopt" = FALSE ]; then
+  echo "$user esta en el sistema"
 else
-     runner=`who am i |  cut -c1-8`
-     echo "$user esta en el sistema $(date)" | write  $runner
+  # aqui hay que arreglar ese cut que puede cortar el nombre del usuario
+  runner=$(who am i | cut -c1-8)
+  echo "$user esta en el sistema $(date)" | write $runner
+  # echo "$user esta en el sistema $(date)" | mail $runner
 fi

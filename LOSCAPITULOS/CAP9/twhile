@@ -1,7 +1,8 @@
 i=1
-while [ "$i" -le 5 ]
-do
+
+while [ "$i" -le 5 ]; do
   echo $i
-  i=`expr $i + 1`
+  i=$(expr $i + 1)
 done
- echo "Sali del while"
+
+echo "Sali del while"

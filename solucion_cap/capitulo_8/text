@@ -1,0 +1,46 @@
+number=0
+
+echo "while"
+while [ $number -lt 2 ]; do
+    echo $number
+    number=$((number + 1))
+done
+
+echo "for con rangos"
+for i in {0..1}; do
+    echo $i
+done
+
+echo "for normal"
+for ((i = 0; i < 3; i++)); do
+    if [ $i -eq 2 ]; then
+        break
+    fi
+
+    echo $i
+done
+
+# para capturar los parametros que se ponen despues del nombre del programa al ejecutar el script.
+# se usan $n siendo n el parametro en la posicion que se puso. $0 es la ruta del archivo
+args=("$@0") #capturar todos los parametros, es una lista
+
+echo "primer: ${args[0]}"
+
+function crearFolder() {
+    for i in {0..2}; do
+        mkdir "car $i"
+    done
+}
+
+# crearFolder
+
+echo "lista de user: "
+list=("jant" "tfs")
+for i in ${list[@]}; do #el @ significa todos
+    echo "$i"
+done
+
+# escribir salidas de comandos en una archivo:
+
+# echo 'create y add info' > test.txt
+# echo 'append info' >> test.txt

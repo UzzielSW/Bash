@@ -1,2 +1,0 @@
-echo $# arguments passed
-echo they are :$*:

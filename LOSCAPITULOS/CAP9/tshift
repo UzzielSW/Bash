@@ -1,7 +1,4 @@
-#
 # Programa para verificar shift
-#
-#
 echo $# $*
 shift
 echo $# $*
@@ -13,4 +10,3 @@ shift
 echo $# $*
 shift
 echo $# $*
-

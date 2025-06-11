@@ -1,7 +1,7 @@
 #!/bin/bash
 
 : '
- Problema: Eliminar todos los caracteres de espacio almacenados en la variable 
+ Eliminar todos los caracteres de espacio almacenados en la variable 
  de shell 'text'. Asegurar que el resultado se asigne de vuelta a 'text'.
  Primero usar tr para hacerlo y luego hacer lo mismo con sed.
 '
@@ -12,7 +12,6 @@ text="Hola mundo con espacios"
 # tr -d ' ' elimina todos los caracteres de espacio
 text=$(echo "$text" | tr -d ' ')
 echo "Resultado con tr: $text"
-
 
 text="Hola mundo con espacios"
 
