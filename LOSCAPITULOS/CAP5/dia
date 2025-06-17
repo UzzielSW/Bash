@@ -1,7 +1,0 @@
-date
-hora=`date |  cut -d' ' -f4 | cut -d: -f1`
-min=`date |   cut -d' ' -f4 | cut -d: -f2`
-sec=`date |   cut -d' ' -f4 | cut -d: -f3`
-echo " horas=$hora "
-echo " minutos=$min "
-echo " segundos=$sec"

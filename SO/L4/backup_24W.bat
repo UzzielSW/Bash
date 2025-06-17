@@ -4,9 +4,9 @@ REM cmd.exe /c backup_24W.bat "C:\Users\USUARIO\Test" "C:\Users\USUARIO\Test\bac
 @echo off
 setlocal enabledelayedexpansion
 
-REM Backup de archivos modificados en las últimas 24 horas
+REM Backup de archivos modificados en las ultimas 24 horas
 
-REM Parámetros de entrada
+REM Parametros de entrada
 set SOURCE_DIR=%1
 set BACKUP_DIR=%2
 
@@ -18,7 +18,7 @@ REM Mostrar valores de las variables
 echo Directorio origen: %SOURCE_DIR%
 echo Directorio backup: %BACKUP_DIR%
 
-REM Validaciones básicas
+REM Validaciones basicas
 if "%1"=="" (
   echo Uso: %0 [directorio_origen] [directorio_backup]
   exit /b 1
@@ -43,8 +43,8 @@ REM Contador de archivos
 set /a archivos_copiados=0
 set /a archivos_omitidos=0
 
-REM Buscar y copiar archivos modificados en las últimas 24 horas
-echo Buscando archivos modificados en las últimas 24 horas...
+REM Buscar y copiar archivos modificados en las ultimas 24 horas
+echo Buscando archivos modificados en las ultimas 24 horas...
 for /f "delims=" %%F in ('dir /b /a-d /s "%SOURCE_DIR%\*.*" ^| findstr /v "\\$"') do (
   if exist "%%F" (
     for /f "tokens=1-3 delims= " %%a in ('dir /tc "%%F" ^| findstr /v "^$" ^| findstr /v "^[A-Z]"') do (
@@ -52,7 +52,7 @@ for /f "delims=" %%F in ('dir /b /a-d /s "%SOURCE_DIR%\*.*" ^| findstr /v "\\$"'
       set "hora=%%b"
       set "archivo=%%F"
       
-      REM Verificar si el archivo fue modificado en las últimas 24 horas
+      REM Verificar si el archivo fue modificado en las ultimas 24 horas
       for /f "tokens=1-3 delims=/" %%x in ("!fecha!") do (
         set "dia=%%x"
         set "mes=%%y"

@@ -1,0 +1,10 @@
+# Scripts utiles de Bash
+# Este archivo contiene scripts utiles para diferentes tareas
+
+# Script para contar usuarios unicos en el sistema
+# Autor: lole
+# Funcion: Cuenta cuantos usuarios unicos hay conectados al sistema
+# Uso: ./nu
+
+#!/bin/bash
+echo Existen $(who | cut -c1-8 | sort -u | wc -l) usuarios en el sistema

@@ -1,0 +1,14 @@
+#!/bin/bash
+# Script para eliminar espacios de una cadena de texto
+# Este script toma una cadena de texto y elimina todos los espacios en blanco
+# Autor: Desconocido
+# Fecha: Desconocida
+# Uso: ./eliminar_espacios
+
+# Ejemplo de uso
+frase="Universidad de Panama"
+frase=$(echo "$frase" | tr -d ' ')
+echo $frase
+
+# Nota: Este script es una version unificada de los archivos elimeblancos y elimeblancos2
+# Ambos archivos contenían exactamente el mismo codigo

@@ -9,280 +9,217 @@
 #
 clear
 
+isyes() {
+  if [ "$#" -ne 1 ]; then
+    echo "ERROR"
+    echo "USO:  isyes2  yes/no"
+    exit 1
+  fi
 
-
-
-
-isyes()
-{
-if [ "$#" -ne 1 ]
-  then
-  echo "ERROR"
-  echo "USO:  isyes2  yes/no"
-  exit 1
-fi
-
-case "$1"
-in
-   [yY] | [yY][Ee][Ss] ) echo 0;;
-   [nN] | [nN][oO] )  echo 1;;
-              *    )  echo 2;;
-esac
+  case "$1" in
+  [yY] | [yY][Ee][Ss]) echo 0 ;;
+  [nN] | [nN][oO]) echo 1 ;;
+  *) echo 2 ;;
+  esac
 }
 
-
-
-
-
-validaentero()
-{
-n="$1"
-echo  "$n" | grep "^[0-9][0-9]*$" > /dev/null
-if [ "$?" -ne 0 ]
-then
+validaentero() {
+  n="$1"
+  echo "$n" | grep "^[0-9][0-9]*$" >/dev/null
+  if [ "$?" -ne 0 ]; then
     echo 1
-else
+  else
     echo 0
-fi
+  fi
 
 }
 
+potencia() {
 
+  band=0
+  if [ $# -ne 2 ]; then
+    echo USO: Valida_potencia base exponente
+    band=1
+    return
+  #exit 1
+  fi
+  base=$1
+  exponente=$2
+  resultado=$base
 
-
-
-potencia()
-{
-
-band=0
-if [ $# -ne 2 ]
-then
-echo USO: Valida_potencia base exponente
-band=1
-return
-#exit 1
-fi
-base=$1
-exponente=$2
-resultado=$base
-
-fac1=$(echo "$exponente" | egrep  "^-[0-9][0-9]*$" )
-if [ "$?" -eq 0 ]
-then
+  fac1=$(echo "$exponente" | egrep "^-[0-9][0-9]*$")
+  if [ "$?" -eq 0 ]; then
     echo No se puede usar un exponente negativo
     return
-fi
-#echo $fac1
-fac2=$( echo "$base" | egrep  "^-[0-9][0-9]*$ || ^[0-9][0-9]*$") 
-fac1=$( echo "$exponente" | egrep  "^[0-9][0-9]*$" )
-if [ -z "$fac2" -o -z  "$fac1" ]
-then
-   echo Caracter no Admitido
-   return
-else
-    if [ "$exponente" -gt 0 ]
-    then
-        while [ "$exponente" -ge 2 ]
-        do
-          resultado=` mult2 $resultado $base ` > /dev/null
-          exponente=`expr $exponente - 1 `
-        done
-        echo $resultado
+  fi
+  #echo $fac1
+  fac2=$(echo "$base" | egrep "^-[0-9][0-9]*$ || ^[0-9][0-9]*$")
+  fac1=$(echo "$exponente" | egrep "^[0-9][0-9]*$")
+  if [ -z "$fac2" -o -z "$fac1" ]; then
+    echo Caracter no Admitido
+    return
+  else
+    if [ "$exponente" -gt 0 ]; then
+      while [ "$exponente" -ge 2 ]; do
+        resultado=$(mult2 $resultado $base) >/dev/null
+        exponente=$(expr $exponente - 1)
+      done
+      echo $resultado
     else
-        if [ "$exponente" -eq 0  -a "$base" -ne 0 ]
-        then 
-            resultado=1
-            echo $resultado
-         else 
-            echo " base=$base y exponente=$exponente indeterminado"
-      
-   fi
- fi
-fi
+      if [ "$exponente" -eq 0 -a "$base" -ne 0 ]; then
+        resultado=1
+        echo $resultado
+      else
+        echo " base=$base y exponente=$exponente indeterminado"
+
+      fi
+    fi
+  fi
 
 }
 
-
-
-
-
-multiplica()
-{
-band=0
-if [ "$#" -ne 2 ]
-then
+multiplica() {
+  band=0
+  if [ "$#" -ne 2 ]; then
     echo "USO: multiplica factor1 factor2"
-band=1
+    band=1
     #exit 1
-fi
+  fi
 
-factor1="$1"
-factor2="$2"
-producto=0
-signo1=1
-factor1N=` echo "$factor1" | grep  "^-[0-9][0-9]*$" `
-if [ -n "$factor1N" ]
-then
+  factor1="$1"
+  factor2="$2"
+  producto=0
+  signo1=1
+  factor1N=$(echo "$factor1" | grep "^-[0-9][0-9]*$")
+  if [ -n "$factor1N" ]; then
     signo1=-1
-    factor1=`echo "$factor1N" | sed "s/^-//"`
-fi
+    factor1=$(echo "$factor1N" | sed "s/^-//")
+  fi
 
-signo2=1
-factor2n=`echo "$factor2" | grep  "^-[0-9][0-9]*$" `
-if [  -n "$factor2n" ]
-then
+  signo2=1
+  factor2n=$(echo "$factor2" | grep "^-[0-9][0-9]*$")
+  if [ -n "$factor2n" ]; then
     signo2=-1
-    factor2=`echo "$factor2n" | sed "s/^-//"`
-fi
+    factor2=$(echo "$factor2n" | sed "s/^-//")
+  fi
 
+  factor1=$(echo "$factor1" | grep "^[0-9][0-9]*$")
+  factor2=$(echo "$factor2" | grep "^[0-9][0-9]*$")
 
-factor1=`echo "$factor1" | grep  "^[0-9][0-9]*$"`
-factor2=`echo "$factor2" | grep "^[0-9][0-9]*$"`
-
-if [ \( -n "$factor1" -a  -n "$factor2" \)  ]
-then
-  if [ "$factor1" -ne 0  -a "$factor2" -ne 0 ]
-  then
-          cont=0
-           while [ "$factor1" -gt 0  ]
-           do
-             factor1=`expr  $factor1 - 1 `
-             cont=`expr  $cont + $factor2 `
-            done
-  else
+  if [ \( -n "$factor1" -a -n "$factor2" \) ]; then
+    if [ "$factor1" -ne 0 -a "$factor2" -ne 0 ]; then
+      cont=0
+      while [ "$factor1" -gt 0 ]; do
+        factor1=$(expr $factor1 - 1)
+        cont=$(expr $cont + $factor2)
+      done
+    else
 
       band=1
-       echo 0
+      echo 0
       # exit 3
- fi
-else
-    echo "ingrese enteros"
-band=1
-    #exit 2
- fi
-if [ \(  \(  "$signo1" -eq -1 \) -a \( "$signo2" -eq -1 \) \) -o \( \( "$signo1"   -eq 1 \) -a \( "$signo2" -eq 1 \) \)   ]
-            then
-               :
-            else
-             cont=` expr  -1 \* "$cont" `
-           fi
-if [ "$band" -ne 1 ]
-   then
-if [ -n "$cont" ]
-then
-           echo "$cont "
+    fi
   else
-           echo "$producto "
-fi
-fi
-       band=1
-         #exit 0
+    echo "ingrese enteros"
+    band=1
+    #exit 2
+  fi
+  if [ \( \( "$signo1" -eq -1 \) -a \( "$signo2" -eq -1 \) \) -o \( \( "$signo1" -eq 1 \) -a \( "$signo2" -eq 1 \) \) ]; then
+    :
+  else
+    cont=$(expr -1 \* "$cont")
+  fi
+  if [ "$band" -ne 1 ]; then
+    if [ -n "$cont" ]; then
+      echo "$cont "
+    else
+      echo "$producto "
+    fi
+  fi
+  band=1
+  #exit 0
 
 }
 
+dividir() {
 
-
-
-
-
-
-
-dividir()
-{
-
-if [ "$#" -ne 2 ]
-then
+  if [ "$#" -ne 2 ]; then
     echo "USO: dividir dividendo divisor"
-band=1
+    band=1
     #exit 1
-fi
+  fi
 
-DIV="$1"
-divisor="$2"
-cociente=0
-signo1=1
-DIVN=` echo "$DIV" | grep  "^-[0-9][0-9]*$" `
-if [ -n "$DIVN" ]
-then
+  DIV="$1"
+  divisor="$2"
+  cociente=0
+  signo1=1
+  DIVN=$(echo "$DIV" | grep "^-[0-9][0-9]*$")
+  if [ -n "$DIVN" ]; then
     signo1=-1
-    DIV=`echo "$DIVN" | sed "s/^-//"`
-fi
+    DIV=$(echo "$DIVN" | sed "s/^-//")
+  fi
 
-signo2=1
-divin=`echo "$divisor" | grep  "^-[0-9][0-9]*$" `
-if [  -n "$divin" ]
-then
+  signo2=1
+  divin=$(echo "$divisor" | grep "^-[0-9][0-9]*$")
+  if [ -n "$divin" ]; then
     signo2=-1
-    divisor=`echo "$divin" | sed "s/^-//"`
-fi
+    divisor=$(echo "$divin" | sed "s/^-//")
+  fi
 
+  DIV=$(echo "$DIV" | grep "^[0-9][0-9]*$")
+  divisor=$(echo "$divisor" | grep "^[0-9][0-9]*$")
 
-DIV=`echo "$DIV" | grep  "^[0-9][0-9]*$"`
-divisor=`echo "$divisor" | grep "^[0-9][0-9]*$"`
+  if [ \( -n "$DIV" -a -n "$divisor" \) ]; then
+    if [ "$DIV" -ne 0 ]; then
+      if [ "$divisor" -ne 0 ]; then
+        divisible=$(expr "$DIV" % "$divisor")
+        if [ "$divisible" -eq 0 ]; then
+          echo " $DIV es divisible exactamente entre $divisor"
 
-if [ \( -n "$DIV" -a  -n "$divisor" \)  ]
-then
-  if [ "$DIV" -ne 0 ]
-  then
-    if [ "$divisor" -ne 0 ]
-    then
-        divisible=`expr  "$DIV" % "$divisor" `
-        if [  "$divisible" -eq 0 ]
-        then
-            echo " $DIV es divisible exactamente entre $divisor"
+        else
+          echo " $DIV no es divisible exactamente entre $divisor"
+        fi
+        cont=0
+        while [ "$DIV" -ge "$divisor" ]; do
+          DIV=$(expr $DIV - $divisor)
+          cont=$(expr $cont + 1)
+        done
 
-         else
-            echo " $DIV no es divisible exactamente entre $divisor"
-         fi
-               cont=0
-           while [ "$DIV" -ge "$divisor" ]
-           do
-             DIV=`expr  $DIV - $divisor `
-             cont=`expr  $cont + 1 `
-            done
-
-     else
-         echo "No se puede dividir entre: $divisor"
-         band=1
-         #exit 1
-     fi
-else  if [ "$divisor" -eq 0 ]
-      then
+      else
+        echo "No se puede dividir entre: $divisor"
+        band=1
+        #exit 1
+      fi
+    else
+      if [ "$divisor" -eq 0 ]; then
         echo "division no definida"
         band=1
         #exit 4
       fi
-fi
-else
+    fi
+  else
     echo "ingrese enteros"
     band=1
     #exit 2
- fi
-if [ \(  \(  "$signo1" -eq -1 \) -a \( "$signo2" -eq -1 \) \) -o \( \( "$signo1" -eq 1 \) -a \( "$signo2" -eq 1 \) \)   ]
-            then
-               :
-            else
-             cont=` expr  -1 \* "$cont" `
-           fi
-echo "band=:$band:"
-if [ "$band" -ne 1 ]
-then 
-if [ -n "$cont" ]
-then
-           echo "$cont"
-           echo  "$DIV"
+  fi
+  if [ \( \( "$signo1" -eq -1 \) -a \( "$signo2" -eq -1 \) \) -o \( \( "$signo1" -eq 1 \) -a \( "$signo2" -eq 1 \) \) ]; then
+    :
   else
-           echo "$cociente"
-fi
-fi
+    cont=$(expr -1 \* "$cont")
+  fi
+  echo "band=:$band:"
+  if [ "$band" -ne 1 ]; then
+    if [ -n "$cont" ]; then
+      echo "$cont"
+      echo "$DIV"
+    else
+      echo "$cociente"
+    fi
+  fi
   band=1
-         #exit 0
+  #exit 0
 
 }
-
-
-
-
 
 validchoice=""
 
@@ -290,19 +227,18 @@ validchoice=""
 #  Bucle hasta que una sleccion valida se escoja
 #
 
-until [ !  -z  "$validchoice" ]
-do
-    #
-    # Despliega el Menu
-    #
+until [ ! -z "$validchoice" ]; do
+  #
+  # Despliega el Menu
+  #
 
-#
-# Despliega el menu
-#
-#
-clear
-band=0
-echo -n  " 
+  #
+  # Despliega el menu
+  #
+  #
+  clear
+  band=0
+  echo -n " 
       Ud desea:
 
                1. Dividir 
@@ -311,61 +247,62 @@ echo -n  "
                4. Salir
       Seleccione (1-4):   "
 
-#
-#
-# Lee y procesa la seleccion
-#
+  #
+  #
+  # Lee y procesa la seleccion
+  #
 
-read choice
-echo
+  read choice
+  echo
 
- case  "$choice"
-  in
-      1) echo -n "Entre el Dividendo:   "
-         read dividendo
-         echo -n "Entre el Divisor:     "
-         read divisor
-         dividir "$dividendo" "$divisor" ;;
+  case "$choice" in
+  1)
+    echo -n "Entre el Dividendo:   "
+    read dividendo
+    echo -n "Entre el Divisor:     "
+    read divisor
+    dividir "$dividendo" "$divisor"
+    ;;
 
-      2) echo -n "Entre el factor1:  "
-         read factor1
-         echo -n "entre el factor2: "
-         read factor2
-         multiplica "$factor1" "$factor2";;
+  2)
+    echo -n "Entre el factor1:  "
+    read factor1
+    echo -n "entre el factor2: "
+    read factor2
+    multiplica "$factor1" "$factor2"
+    ;;
 
-      3) echo -n "Ingrese la base:"
-         read base
-         echo -n "Ingrese el exponente:"
-         read exponente
-         potencia "$base" "$exponente";;
-      
+  3)
+    echo -n "Ingrese la base:"
+    read base
+    echo -n "Ingrese el exponente:"
+    read exponente
+    potencia "$base" "$exponente"
+    ;;
 
-      4) echo "Adios..."
-         validchoice="TRUE";;
-      
-      *) echo "Opcion Invalida";;
+  4)
+    echo "Adios..."
+    validchoice="TRUE"
+    ;;
+
+  *) echo "Opcion Invalida" ;;
 
   esac
-if [ -z "$validchoice" ]
-then
-#echo -n "Teclee enter para continuar"
-#read resp
- while :
-       do
-          echo -n "Desea Continuar yes/no ? "
-          read resp
+  if [ -z "$validchoice" ]; then
+    #echo -n "Teclee enter para continuar"
+    #read resp
+    while :; do
+      echo -n "Desea Continuar yes/no ? "
+      read resp
 
-          resp2=` isyes "$resp" `
-  if [ "$resp2" -eq 0 ]
-          then
-              break
-          elif [ "$resp2"  -eq 1 ]
-          then
-              break 2
-          elif [ "$resp2" -eq 2 ]
-          then
-               echo "Opcion incorrecta"
-          fi
-      done
-fi 
+      resp2=$(isyes "$resp")
+      if [ "$resp2" -eq 0 ]; then
+        break
+      elif [ "$resp2" -eq 1 ]; then
+        break 2
+      elif [ "$resp2" -eq 2 ]; then
+        echo "Opcion incorrecta"
+      fi
+    done
+  fi
 done

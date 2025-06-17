@@ -1,0 +1,29 @@
+# Archivo de referencia de expresiones regulares
+# Este archivo combina ejemplos de rangos y metacaracteres en expresiones regulares
+
+# Rangos en expresiones regulares
+# {n,m} - Entre n y m ocurrencias
+# {n} - Exactamente n ocurrencias
+# {n,} - n o mas ocurrencias
+# (.) - Cualquier caracter
+
+{n,m}
+{n}
+{n,}
+(.)
+
+# Metacaracteres en expresiones regulares
+# * - Cero o mas ocurrencias
+# . - Cualquier caracter
+# ? - Cero o una ocurrencia
+# ^ - Inicio de linea
+# $ - Fin de linea
+
+X*
+XX*
+XXX*
+*
+.
+?
+^
+$ 

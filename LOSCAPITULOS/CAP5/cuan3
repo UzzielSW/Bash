@@ -1,8 +1,0 @@
-echo "En el sistema hay " 
-date
-who | sed 's/ .*$//' | sort | uniq | wc -l
-echo  "estudiantes"
-
-echo "Sus nombres son:"
-
-who  | sed 's/ .*$//' | sort -u  

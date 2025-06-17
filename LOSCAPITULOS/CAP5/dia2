@@ -1,1 +1,0 @@
-date | tr -s '\11' ' ' | cut -d' ' -f1 | sed 's/,//'

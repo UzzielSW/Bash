@@ -1,9 +1,0 @@
-#
-#
-# Count words on a line
-#
-
-read line
-set $line
-echo  $*
-echo $#

@@ -1,1 +1,0 @@
-who | sed 's/ .*$//' | sort -u

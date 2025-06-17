@@ -1,9 +1,0 @@
-#   este programa cuenta el de usuarios en el sistema
-#  program name:  cuantos
-#  version: 1
-# date: 05052011
-# author: Alvaro Pino 
-#
-
-
-who | cut -c1-8 | sort -u | wc -l

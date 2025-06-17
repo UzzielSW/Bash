@@ -2,15 +2,15 @@
 
 # Gestor de Copias de Seguridad Selectivas
 : '
-Este es un script que permite al usuario especificar un directorio de origen, un directorio de destino y un patrón de nombres de archivo (**.txt, documento_final.**).
+Este es un script que permite al usuario especificar un directorio de origen, un directorio de destino y un patron de nombres de archivo (**.txt, documento_final.**).
 
-El script buscaría archivos que coincidan con el patrón en el origen y sus subdirectorios (hasta cierta profundidad, configurable por parámetro), los comprimiría (en un archivo .zip o .tar.gz con fecha y hora) y los movería al directorio de destino. Registraría cada archivo procesado, el tamaño original, el tamaño comprimido y cualquier error en un archivo de log. Se podrían incluir validaciones para asegurar que los directorios existen y hay suficiente espacio en el destino.
-- **Parámetros**: Directorio origen, directorio destino, patrón de archivo, profundidad de búsqueda (opcional).
+El script buscaria archivos que coincidan con el patron en el origen y sus subdirectorios (hasta cierta profundidad, configurable por parametro), los comprimiria (en un archivo .zip o .tar.gz con fecha y hora) y los moveria al directorio de destino. Registraria cada archivo procesado, el tamaño original, el tamaño comprimido y cualquier error en un archivo de log. Se podrian incluir validaciones para asegurar que los directorios existen y hay suficiente espacio en el destino.
+- **Parametros**: Directorio origen, directorio destino, patron de archivo, profundidad de busqueda (opcional).
 - **E/S Archivos**: Leer estructura de directorios, leer archivos para comprimir, escribir archivo comprimido, escribir archivo de log.
-- **Condicionales/Bucles**: Iterar sobre archivos/directorios, verificar si el archivo coincide con el patrón, verificar existencia de directorios.
-- **Salida Personalizada**: Mensajes de progreso, resumen en el log, advertencias si no se encuentran archivos o si hay errores de compresión/copia.
+- **Condicionales/Bucles**: Iterar sobre archivos/directorios, verificar si el archivo coincide con el patron, verificar existencia de directorios.
+- **Salida Personalizada**: Mensajes de progreso, resumen en el log, advertencias si no se encuentran archivos o si hay errores de compresion/copia.
 '
-# --- Configuración de Salida y Log ---
+# --- Configuracion de Salida y Log ---
 LOG_FILE="backup_manager_ubuntu.log"
 exec > >(tee -a "${LOG_FILE}") 2>&1 # Redirige stdout y stderr al log y a la consola
 
@@ -29,9 +29,9 @@ show_usage() {
   exit 1
 }
 
-# --- Validación de Parámetros ---
+# --- Validacion de Parametros ---
 if [ "$#" -lt 3 ] || [ "$#" -gt 4 ]; then
-  log_message "Error: Número incorrecto de parámetros."
+  log_message "Error: Numero incorrecto de parametros."
   show_usage
 fi
 
@@ -42,8 +42,8 @@ MAX_DEPTH_PARAM=${4:-999} # Profundidad por defecto grande si no se especifica
 
 log_message "Directorio Origen: ${SOURCE_DIR}"
 log_message "Directorio Destino: ${DEST_DIR}"
-log_message "Patrón de Archivo: ${FILE_PATTERN}"
-log_message "Profundidad Máxima de Búsqueda: ${MAX_DEPTH_PARAM}"
+log_message "Patron de Archivo: ${FILE_PATTERN}"
+log_message "Profundidad Maxima de Busqueda: ${MAX_DEPTH_PARAM}"
 
 # --- Validaciones de Directorios ---
 if [ ! -d "$SOURCE_DIR" ]; then
@@ -62,8 +62,8 @@ if [ ! -d "$DEST_DIR" ]; then
   fi
 fi
 
-# Validación de espacio (simplificada - verifica si el destino está montado y es escribible)
-# Una verificación de espacio real requeriría calcular el tamaño total de los archivos a copiar
+# Validacion de espacio (simplificada - verifica si el destino esta montado y es escribible)
+# Una verificacion de espacio real requeriria calcular el tamaño total de los archivos a copiar
 # y compararlo con el espacio disponible (usando 'df').
 if [ ! -w "$DEST_DIR" ]; then
   log_message "Error: No se tienen permisos de escritura en el directorio de destino '$DEST_DIR'."
@@ -71,10 +71,11 @@ if [ ! -w "$DEST_DIR" ]; then
 fi
 log_message "Validaciones de directorios completadas."
 
-# --- Lógica Principal de Backup ---
+# --- Logica Principal de Backup ---
 TIMESTAMP=$(date +'%Y%m%d_%H%M%S')
 ARCHIVE_BASE_NAME="backup_${TIMESTAMP}"
-# Creamos un subdirectorio en el destino para esta ejecución de backup
+
+# Creamos un subdirectorio en el destino para esta ejecucion de backup
 TARGET_BACKUP_DIR="${DEST_DIR}/${ARCHIVE_BASE_NAME}"
 mkdir -p "${TARGET_BACKUP_DIR}"
 if [ $? -ne 0 ]; then
@@ -88,7 +89,7 @@ total_original_size=0
 total_compressed_size=0
 errors_count=0
 
-log_message "Iniciando búsqueda de archivos..."
+log_message "Iniciando busqueda de archivos..."
 
 # Usamos find para buscar archivos
 # -print0 y read -d $'\0' manejan nombres de archivo con espacios o caracteres especiales
@@ -100,9 +101,9 @@ find "$SOURCE_DIR" -maxdepth "$MAX_DEPTH_PARAM" -type f -name "$FILE_PATTERN" -p
   log_message "Procesando archivo: '$file_path' (Tamaño: $original_size_human)"
 
   # Nombre del archivo comprimido
-  # Usaremos tar.gz para este ejemplo en Linux. Se podría usar zip también.
+  # Usaremos tar.gz para este ejemplo en Linux. Se podria usar zip tambien.
   # Para simplicidad, cada archivo coincidente se comprime individualmente.
-  # Una alternativa sería comprimirlos todos en un solo gran archivo.
+  # Una alternativa seria comprimirlos todos en un solo gran archivo.
   COMPRESSED_FILE_NAME="${filename}.tar.gz"
   DEST_ARCHIVE_PATH="${TARGET_BACKUP_DIR}/${COMPRESSED_FILE_NAME}"
 
@@ -114,30 +115,30 @@ find "$SOURCE_DIR" -maxdepth "$MAX_DEPTH_PARAM" -type f -name "$FILE_PATTERN" -p
   if [ $? -eq 0 ]; then
     compressed_size_bytes=$(stat -c%s "$DEST_ARCHIVE_PATH")
     compressed_size_human=$(du -h "$DEST_ARCHIVE_PATH" | cut -f1)
-    log_message "  Éxito: Comprimido a '$DEST_ARCHIVE_PATH' (Tamaño: $compressed_size_human)"
+    log_message "  Exito: Comprimido a '$DEST_ARCHIVE_PATH' (Tamaño: $compressed_size_human)"
 
     processed_files_count=$((processed_files_count + 1))
     total_original_size=$((total_original_size + original_size_bytes))
     total_compressed_size=$((total_compressed_size + compressed_size_bytes))
   else
-    log_message "  Error: Falló la compresión del archivo '$file_path'."
+    log_message "  Error: Fallo la compresion del archivo '$file_path'."
     errors_count=$((errors_count + 1))
-    # Opcional: eliminar archivo parcialmente comprimido si falló
+    # Opcional: eliminar archivo parcialmente comprimido si fallo
     rm -f "$DEST_ARCHIVE_PATH"
   fi
 done
 
-log_message "Búsqueda y procesamiento de archivos completados."
+log_message "Busqueda y procesamiento de archivos completados."
 
 # --- Resumen ---
-log_message "--- RESUMEN DE LA OPERACIÓN ---"
+log_message "--- RESUMEN DE LA OPERACION ---"
 if [ "$processed_files_count" -eq 0 ] && [ "$errors_count" -eq 0 ]; then
-  log_message "No se encontraron archivos que coincidan con el patrón '$FILE_PATTERN' en '$SOURCE_DIR' hasta la profundidad $MAX_DEPTH_PARAM."
-  # Si no se procesó nada, eliminar el directorio de backup de esta ejecución
+  log_message "No se encontraron archivos que coincidan con el patron '$FILE_PATTERN' en '$SOURCE_DIR' hasta la profundidad $MAX_DEPTH_PARAM."
+  # Si no se proceso nada, eliminar el directorio de backup de esta ejecucion
   if [ -d "${TARGET_BACKUP_DIR}" ]; then
-    if [ ! "$(ls -A ${TARGET_BACKUP_DIR})" ]; then # si está vacío
+    if [ ! "$(ls -A ${TARGET_BACKUP_DIR})" ]; then # si esta vacio
       rmdir "${TARGET_BACKUP_DIR}"
-      log_message "Directorio de backup vacío ${TARGET_BACKUP_DIR} eliminado."
+      log_message "Directorio de backup vacio ${TARGET_BACKUP_DIR} eliminado."
     fi
   fi
 else

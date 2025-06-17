@@ -1,5 +1,0 @@
-
-horaentrada=`who am i | tr -s ' ' ' ' | tr -s '\11' ' ' | cut -d' ' -f4 | cut -d: -f1`
-minentrada=`who am i | tr -s ' ' ' ' | tr -s '\11' ' ' | cut -d' ' -f4 | cut -d: -f2`
-echo $horaentrada
-echo $minentrada

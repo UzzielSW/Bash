@@ -1,0 +1,18 @@
+# Archivo unificado de contactos
+# Este archivo combina la informacion de varios archivos de contactos
+# Incluye nombres, direcciones y telefonos
+
+# Contactos con direccion y telefono
+Charlie	55-23 Vine Street, Miami	(307) 555-5356
+Tony	39 University Place, New York	(212) 555-3456
+Emanuel	17 E. 25th Street, New York	(212) 555-9959
+Lucy	38 Chauncey St. , Bensonhurst	(212) 555-7741
+Ralph	17 E. 25th Street, New York	(212) 555-0040
+
+# Contactos solo con telefono
+Alice Chebba	973-555-2015
+Barbara Swingle	201-555-9257
+Liz Stachiw	212-555-2298
+Susan Goldberg	201-555-7776
+Susan Topple	212-555-4932
+Tony Iannino	973-555-1295 

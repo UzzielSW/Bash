@@ -1,1 +1,0 @@
-who | cut -c1-8 | sort -u | wc -l
