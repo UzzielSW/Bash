@@ -1,44 +1,37 @@
-#
-# Copia un Archivo
-#
-if [ "$#" -ne 2 ]
-then
-   echo "USO: mycp from to"
-   exit 1
+#!/bin/bash
+
+to=${@: -1}              # ultimo argumento: destino
+filelist=("${@:1:$#-1}") # todos menos el ultimo
+
+# Si hay menos de dos argumentos, o si hay mas de dos argumentos y el ultimo argumento
+# no es un directorio, entonces muestra un mensaje de error
+if [[ $# -lt 2 || ($# -gt 2 && ! -d $to) ]]; then
+  echo "Usage: mycp file1 file2"
+  echo "       mycp file(s) dir"
+  exit 1
 fi
 
-from="$1"
-to="$2"
+# ------------------------------------
+for from in $filelist; do
+  if [ -d "$to" ]; then
+    tofile="$to/$(basename $from)"
+  else
+    tofile="$to"
+  fi
 
-#
-# Verifica si el archivo destino existe
-#
+  # Agrega el archivo a copylist si el archivo no existe o si el usuario dice que esta bien sobrescribir
+  if [ -e "$tofile" ]; then
+    echo "$tofile already exists; overwrite (yes/no)? \c"
+    read -r answer
+    [[ $answer =~ ^(y|yes)$ ]] && copylist="$copylist $from"
+  else
+    copylist="$copylist $from"
+  fi
+done
 
-if [ -f "$to" ]
-then
-    echo "$to ya existe ; rescribir ( yes/no ) ? "
-    read answer
-
-    if [ "$answer" != yes ]
-    then
-        echo "La copia no se ha efectuado "
-        exit 2
-    fi
+if [ -n "$copylist" ]; then
+  cp $copylist $to
 fi
-
-#
-# copia
-#
-echo "Copiando $from en $to . . ."
-cp $from $to
-
-if [ "$?" -eq 0 ]
-then
-  echo "copia de $from en $to satisfactoria "
-  exit 0
-else
-   echo "La copia  ha fallado "
-   exit 3
-fi  
-
- 
+# ------------------------------------
+# Alternativa:
+# cp -i -- "${filelist[@]}" "$to"

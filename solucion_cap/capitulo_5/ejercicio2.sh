@@ -1,7 +1,7 @@
 #!/bin/bash
 : <<'EOF'
 PROBLEMA:
-Suponga que su directorio HOME es /users/steve y que tiene subdirectorios como se muestra en la figura. 
+Suponga que su directorio HOME es /users/steve y que tiene subdirectorios como se muestra en la figura.
 
 /users
 ├── pat
@@ -45,6 +45,10 @@ d. cp $let/no.JSK $progs
 e. cd $prop
   Cambia al directorio $prop (proposals)
 EOF
+
+docs=/users/steve/documents
+let=$docs/letters
+prop=$docs/proposals
 
 # a. Listar contenido del directorio documents
 ls "$docs"

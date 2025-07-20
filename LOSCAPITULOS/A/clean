@@ -1,16 +1,23 @@
-contexto: esto es un registro de archivos de un libro de modulo de bash. hay archivos basura, archivos con informacion repetida, archivos que hacen lo mismo o que son ampliacion, a mi solo me interesa la informacion util.
+contexto: esto es un registro de archivos de un libro de modulo de bash. En el encontraras el siguientes casos:
 
-- los archivos utiles contendran script bash o informacion de prueba que tengan que ver con los script bash (por eso debes analizar los archivos)
+- archivos basura
+- archivos con informacion repetida
+- archivos que hacen lo mismo o que son variaciones del mismo script, osea el programa hace lo mismo pero de diferente manera. (para este caso solo me interesa mantener el que sea mas eficiente y optima).
+
+a mi solo me interesa la informacion util.
+
+- los archivos utiles contendran script bash o informacion de test (prueba) que se utilizan para ver el funcinamiento de los script(un ejemplo de este tipo de archivo son los archivos llamados: phonebook), para identificar estos archivos se analizar los archivos y verificar que no tenga informacion util.
 
 tarea:
 
-- analiza la informacion de los archivos en este directorio
-- identifica los archivos basura y eliminalos. (basate en si informacion)
-- los archivos que sean diferente paresiones del mismo script (usualmente se llaman igual). quiero que los unifiques en un archivo con un nombre que describa lo que hace y Ademas tambien documenta el archivo definiendo (que hace) y las diferencias entre las diferentes versiones. y obvio elimines los archivos que usaste para crear el nuevo archivo.
+- analiza la informacion de los archivos en este directorio.
+- si un archivo tiene la misma informacion que otro, eliminalo para evitar redundancia de informacion. (desaste de estos primero)
+- identifica los archivos basura y eliminalos. (basate en si informacion y no en su tamaño)
+- los archivos que sean variaciones del mismo script (usualmente tienen nombres similares) y que veas que el script sea corto. quiero que los unifiques en un archivo con un nombre que describa lo que hace y ademas tambien documenta el archivo y menciona principalmente las diferencias entre las diferentes versiones del mismo script. Una ves hecho la documentacion, procede a eliminar los archivos que usaste para hacer la documentacion (evitar redundancia).
+- El caso que mencione anterior mente es para los script cortos. ahora para los script largos. como mencione anteriormente, para este caso solo me interesa mantener el archivo con la version que sea mas eficiente y optima. Para ello deberas analizar las diferentes versiones del mismo script y dejar unicamente el que sea mejor.
 - realiza todas las acciones, te doy mi permiso.
 
-Nota: si un archivo tiene la misma informacion que otro, eliminalo para evitar redundancia de informacion.
-
 formato:
-
-- no uses acentos en ningun momento (tildes)
+- no uses acentos en ningun momento (tildes).
+- todos los comentarios deben ser en español.
+- siempre has todo manteniendo y utilizando las mejores practicas actualmente.

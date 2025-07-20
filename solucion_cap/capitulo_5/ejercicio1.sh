@@ -30,6 +30,7 @@ nombres=(
 # Verificar cada nombre contra el patron de variable valida en Bash
 # - Debe comenzar con letra o guion bajo
 # - Solo puede contener letras, numeros y guiones bajos
+echo -e "Nombres de variables validos:"
 for nombre in "${nombres[@]}"; do
   if [[ "$nombre" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
     echo "$nombre"

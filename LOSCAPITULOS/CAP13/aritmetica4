@@ -288,21 +288,17 @@ until [ ! -z "$validchoice" ]; do
   *) echo "Opcion Invalida" ;;
 
   esac
-  if [ -z "$validchoice" ]; then
-    #echo -n "Teclee enter para continuar"
-    #read resp
-    while :; do
-      echo -n "Desea Continuar yes/no ? "
-      read resp
 
-      resp2=$(isyes "$resp")
-      if [ "$resp2" -eq 0 ]; then
-        break
-      elif [ "$resp2" -eq 1 ]; then
-        break 2
-      elif [ "$resp2" -eq 2 ]; then
-        echo "Opcion incorrecta"
-      fi
-    done
-  fi
+  while :; do
+    read -p "Desea Continuar yes/no ? " resp
+    resp2=$(isyes "$resp")
+
+    if [ "$resp2" -eq 0 ]; then
+      break
+    elif [ "$resp2" -eq 1 ]; then
+      break 2
+    elif [ "$resp2" -eq 2 ]; then
+      echo "Opcion incorrecta"
+    fi
+  done
 done

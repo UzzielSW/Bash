@@ -5,7 +5,7 @@
  a. Encontrar todos los usuarios conectados con nombres de usuario de al menos cuatro caracteres.
  b. Encontrar todos los usuarios en el sistema cuyos IDs de usuario sean mayores que 99.
  c. Encontrar el numero de usuarios en el sistema cuyos IDs de usuario sean mayores que 99.
- d. Listar todos los archivos en tu directorio en orden decreciente de tamano.
+ d. Listar todos los archivos en tu directorio en orden decreciente de tamaño.
 '
 
 # a. Usuarios conectados con nombres de al menos 4 caracteres

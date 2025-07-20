@@ -1,0 +1,30 @@
+
+#
+# Add someone to the phonebook  file -- version CAP14 
+#
+
+first=
+entry=
+
+while true
+do
+
+echo -n ">> "
+read line
+
+if [ -n "$line" ]
+then
+    entry="$entry$line^"
+    if [ -z "$first" ]
+    then
+        first=$line
+    fi
+else
+    break
+fi
+done
+
+echo "$entry" >> $PHONEBOOK
+sort -o $PHONEBOOK $PHONEBOOK
+echo
+echo "$first ha sido  agregado a phonebook "

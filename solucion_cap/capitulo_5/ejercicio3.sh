@@ -18,8 +18,9 @@ for elemento in * .*; do
 done
 
 # Mostramos el contador final
-echo $contador
+echo "Forma 1: $contador"
 
 # ----------------------------------------------------
 # forma simple
+echo -n "Forma 2: "
 ls -A | wc -l

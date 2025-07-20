@@ -52,7 +52,7 @@ class Process:
         )
 
 
-def get_process_data():
+def get_process_data(N):
     """Solicita al usuario los datos de 4 procesos y realiza validaciones."""
     console = Console()
     processes = []
@@ -60,11 +60,12 @@ def get_process_data():
     while True:
         processes.clear()
         console.print(
-            "[bold cyan]Por favor, introduce los datos de 4 procesos.[/bold cyan]"
+            f"[bold cyan]Por favor, introduce los datos de {N} procesos.[/bold cyan]"
         )
+
         console.print("Nota: Prioridad '1' es la más alta.")
 
-        for i in range(4):
+        for i in range(N):
             console.print(f"\n--- Proceso {i+1} ---")
             name = f"P{i+1}"
 
@@ -257,13 +258,13 @@ def display_results(completed_processes, gantt_chart_data, is_preemptive):
         else "NON-PREEMPTIVE (No Apropiativo)"
     )
 
-    console.print("\n" + "=" * 120, style="bold green")
+    console.print("\n" + "=" * 80, style="bold green")
     console.print(
         f"SIMULACIÓN DE PLANIFICACIÓN POR PRIORIDAD - MODO {mode}",
         justify="center",
         style="bold green",
     )
-    console.print("=" * 120, style="bold green")
+    console.print("=" * 80, style="bold green")
     console.print()
 
     # Tabla de Resultados de la Planificación
@@ -329,18 +330,21 @@ def main():
     parser = argparse.ArgumentParser(
         description="Simulador de Planificación por Prioridad."
     )
+
     parser.add_argument(
         "--non-preemptive",
         action="store_true",
         help="Ejecuta la simulación en modo no apropiativo. Por defecto es apropiativo.",
     )
+
     args = parser.parse_args()
+    N = 5
 
     # El modo es preemptivo a menos que se especifique la bandera --non-preemptive
     is_preemptive = not args.non_preemptive
 
     # 1. Obtener datos de los procesos
-    initial_processes = get_process_data()
+    initial_processes = get_process_data(N)
 
     # 2. Ejecutar el algoritmo de planificación
     completed_processes, gantt_chart_data = run_priority_simulation(

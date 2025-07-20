@@ -8,37 +8,32 @@ name=$1
 #
 #Find number of matching entries
 # and save in temp file
-grep "$name"  $PHONEBOOK  > temp/matches$$
+grep "$name" $PHONEBOOK >temp/matches$$
 
-if [ ! -s temp/matches$$ ]
-then
-   echo " I can't find $name in the phone book"
-   exit 1
+if [ ! -s temp/matches$$ ]; then
+  echo " I can't find $name in the phone book"
+  exit 1
 fi
 #
 # Display mayching entries one at a time and confirm removal
 #
-while read line
-do
-    display "$line"
-    echo -n "Remove this entry (y/n)? "
-    read answer < /dev/tty
+while read line; do
+  display "$line"
+  echo -n "Remove this entry (y/n)? "
+  read answer </dev/tty
 
-    if [ "$answer" = y ]
-    then
-        break
-    fi
-done < temp/matches$$
+  if [ "$answer" = y ]; then
+    break
+  fi
+done <temp/matches$$
 
 rm temp/matches$$
 
-if [ "$answer" = y ]
-then
-     if grep -v "^$line$"  $PHONEBOOK > temp/phonebook$$
-     then
-        mv temp/phonebook$$ $PHONEBOOK
-        echo -n "Selected entry has been removed"
-     else
-         echo "I couldn't find $name in phone book"
-     fi   
+if [ "$answer" = y ]; then
+  if grep -v "^$line$" $PHONEBOOK >temp/phonebook$$; then
+    mv temp/phonebook$$ $PHONEBOOK
+    echo -n "Selected entry has been removed"
+  else
+    echo "I couldn't find $name in phone book"
+  fi
 fi

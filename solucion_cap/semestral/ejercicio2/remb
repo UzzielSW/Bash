@@ -1,0 +1,27 @@
+#!/bin/bash
+#
+# Remove someone from the phone book
+#
+grep "$1" phonebook >salida
+numero=$(cat salida | wc -l | tr -s ' ' ' ')
+if [ "$numero" -gt 1 ]; then
+  echo "Hay mas de un emparejamiento "
+  exec <salida
+  while read line; do
+    echo "$line remover (yes/no): \c "
+    exec </dev/tty
+    read resp
+    echo "$resp"
+    if [ "$resp" = yes ]; then
+      grep -v "$line" phonebook >tmp/phonebook
+      mv tmp/phonebook phonebook
+    fi
+    grep -v "$line" salida >tmp/salida
+    mv tmp/salida salida
+    exec <salida
+  done
+else
+  grep -v "$1" phonebook >tmp/phonebook
+  mv tmp/phonebook phonebook
+fi
+rm salida

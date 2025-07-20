@@ -11,3 +11,5 @@
 - buscar exactamnte aun patron usando grep:
   - grep -w apino
   - grep "\<apino\>"
+
+set -euo pipefail # Mejores practicas: manejo robusto de errores

@@ -1,9 +1,9 @@
 BEGIN { 
 	#type="term fixed"
-	#type="[Cc]urrent"
+	type="[Cc]urrent"
 	#type="saving"
-	printf "Enter the account type: "
-	getline type < "/dev/tty"
+	#printf "Enter the account type: "
+	#getline type < "/dev/tty"
 	c=0
         }
 {

@@ -21,6 +21,7 @@
 
 # Imprimir explicaciones para cada expresion regular
 cat <<'EOF'
+ ¿Que coincidira con las siguientes expresiones regulares?
 1. x*: Cero o mas caracteres 'x'
 2. xx*: Uno o mas caracteres 'x' (una 'x' seguida de cero o mas 'x')
 3. x\{1,5\}: Entre 1 y 5 caracteres 'x'

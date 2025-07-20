@@ -1,8 +1,8 @@
 clear
-cat data.lst
 echo
 awk 'BEGIN {
       i=0
+       print NR, $0 
       printf "Enter the range1: "
       getline a1 < "/dev/tty"
       printf "Enter the range2: "

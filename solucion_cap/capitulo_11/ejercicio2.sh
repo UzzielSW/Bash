@@ -40,11 +40,5 @@ echo
 e2=20
 export e2
 
-# Ejecutar prog1 con e4=40 como variable de entorno local
-# Resultado esperado: 100 20 300 40
-# - e1=100 (exportada desde prog1)
-# - e2=20 (exportada desde el shell padre, no sobrescrita por prog1)
-# - e3=300 (definida al ejecutar prog2)
-# - e4=40 (definida al ejecutar prog1)
 echo "Salida esperada:"
 e4=40 prog1
